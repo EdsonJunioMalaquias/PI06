@@ -97,15 +97,28 @@ namespace PI06.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var entity = contexto.Funcionario.First(u => u.Id == id);
-            if(entity == null)
+            var funcionario = contexto.Funcionario.FirstOrDefault(x => x.Id == id);
+            if (funcionario == null)
+            {
+                return NotFound();
+            }
+            contexto.Pessoa.FirstOrDefault(x => x.Id == id);
+            contexto.Cargo.FirstOrDefault(x => x.Id == funcionario.IdCargo);
+            contexto.Usuario.FirstOrDefault(x => x.Id == id);
+            contexto.Conselho.FirstOrDefault(x => x.Id == id);
+            if (funcionario == null)
             {
                 return BadRequest();
             }
             
             try
             {
-                contexto.Funcionario.Remove(entity);
+                
+                contexto.Remove(funcionario.Usuario);
+                contexto.Remove(funcionario.Conselho);
+                contexto.Remove(funcionario);
+                contexto.Remove(funcionario.Cargo);
+                contexto.Remove(funcionario.Pessoa);
                 contexto.SaveChanges();
                 return new NoContentResult();
             }
