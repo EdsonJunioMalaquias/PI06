@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using PI06.IRepositories;
 using Newtonsoft.Json;
 
 namespace PI06.Api.Controllers
@@ -60,7 +59,17 @@ namespace PI06.Api.Controllers
             }
             funcionario.DtInclusao = DateTime.Now;
             contexto.Set<Funcionario>().Add(funcionario);
-        
+            try
+            {
+                contexto.SaveChanges();
+                return Post(funcionario);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
+
         }
 
 
