@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PI06.Data", "PI06.Data\PI06.Data.csproj", "{92652F89-49D9-4EE6-805B-38B1C38F7C00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PI06.Api", "PI06.Api\PI06.Api.csproj", "{AFE5B2E7-30AC-4BC3-8375-9AD1782FA8EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92652F89-49D9-4EE6-805B-38B1C38F7C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92652F89-49D9-4EE6-805B-38B1C38F7C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92652F89-49D9-4EE6-805B-38B1C38F7C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92652F89-49D9-4EE6-805B-38B1C38F7C00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFE5B2E7-30AC-4BC3-8375-9AD1782FA8EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFE5B2E7-30AC-4BC3-8375-9AD1782FA8EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFE5B2E7-30AC-4BC3-8375-9AD1782FA8EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFE5B2E7-30AC-4BC3-8375-9AD1782FA8EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D89DDC69-A7E7-42CD-98DE-6B797100E332}
+	EndGlobalSection
+EndGlobal
