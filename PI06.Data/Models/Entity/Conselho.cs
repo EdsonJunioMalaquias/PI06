@@ -18,7 +18,6 @@ namespace PI06.Models.Entity {
         public Conselho (int? numeroConselho, string descricaoConselho) {
             SetNumeroConselho (numeroConselho);
             SetDescricaoConselho (descricaoConselho);
-            DtInclusao = DateTime.Now;
         }
 
         public void SetNumeroConselho (int? numeroConselho) {

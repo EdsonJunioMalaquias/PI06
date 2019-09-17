@@ -10,7 +10,7 @@ namespace PI06.Api.Controllers
 {
 
     [Route("api/[controller]")]
-    public class FuncionarioController:Controller
+    public class FuncionarioController : Controller
     {
         private readonly Contexto contexto;
 
@@ -18,12 +18,12 @@ namespace PI06.Api.Controllers
         {
             this.contexto = contexto;
         }
-        [HttpGet("{id}",Name = "GetFuncionario")]
+        [HttpGet("{id}", Name = "GetFuncionario")]
         [ProducesResponseType(typeof(Funcionario), 200)]
         public IActionResult Get(int id)
         {
             var funcionario = contexto.Funcionario.FirstOrDefault(x => x.Id == id);
-            if(funcionario == null ){
+            if (funcionario == null) {
                 return NotFound();
             }
             contexto.Pessoa.FirstOrDefault(x => x.Id == id);
@@ -33,12 +33,17 @@ namespace PI06.Api.Controllers
 
             return Json(funcionario);
         }
+
         [HttpGet]
         [ProducesResponseType(typeof(Funcionario), 200)]
-        public IEnumerable<Funcionario> Get()
+        public IActionResult Get()
         {
 
             var funcionario = contexto.Funcionario.ToList();
+            if (funcionario == null)
+            {
+                return NotFound();
+            }
             foreach (var item in funcionario)
             {
                 item.Cargo = contexto.Cargo.FirstOrDefault(x => x.Id == item.IdCargo);
@@ -46,18 +51,19 @@ namespace PI06.Api.Controllers
                 item.Usuario = contexto.Usuario.FirstOrDefault(x => x.Id == item.Id);
                 item.Pessoa = contexto.Pessoa.FirstOrDefault(x => x.Id == item.Id);
             }
-            return funcionario;
+            return Json(funcionario);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Funcionario funcionario){
+        public IActionResult Post([FromBody] Funcionario funcionario) {
 
-            if(funcionario == null){
+            if (funcionario == null) {
                 return BadRequest();
             }
             funcionario.DtInclusao = DateTime.Now;
             contexto.Set<Funcionario>().Add(funcionario);
             try
             {
+
                 contexto.Funcionario.Add(funcionario);
                 contexto.SaveChanges();
                 return CreatedAtRoute("GetFuncionario", new { id = funcionario.Id }, funcionario);
@@ -69,19 +75,22 @@ namespace PI06.Api.Controllers
             }
 
         }
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult Update(int id,[FromBody] Funcionario funcionario)
         {
             if (funcionario == null|| funcionario.Id != id) {
                 return BadRequest();
             }
-            var _funcionario = contexto.Funcionario.FirstOrDefault(x => x.Id == id);
-            if (_funcionario == null)
-            {
-                return NotFound();
-            }
             funcionario.DtAlteracao = DateTime.Now;
             contexto.Entry(funcionario).State = EntityState.Modified;
+
+            contexto.Entry(funcionario.Pessoa).State = EntityState.Modified;
+
+            contexto.Entry(funcionario.Cargo).State = EntityState.Modified;
+
+            contexto.Entry(funcionario.Conselho).State = EntityState.Modified;
+
+            contexto.Entry(funcionario.Usuario).State = EntityState.Modified;
             contexto.SaveChanges();
             return new NoContentResult();
         }

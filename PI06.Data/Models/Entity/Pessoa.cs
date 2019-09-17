@@ -55,7 +55,7 @@ namespace PI06.Models.Entity {
         }
         public Pessoa (string cpf, DateTime dataNascimento, string enderecoemail, string sus, string rg,
             string logradouro, string complemento, string numeroEndereco, string bairro, string cidade, Uf uf, string cep,
-            string numeroTelefone, string ddd) {
+            string numeroTelefone, string ddd,string nome) {
             SetSUS (sus);
             SetRG (rg);
             SetCpf (cpf);
@@ -70,7 +70,7 @@ namespace PI06.Models.Entity {
             SetTelefone (numeroTelefone);
             SetDDD (ddd);
             SetCep (cep);
-            DtInclusao = DateTime.Now;
+            this.Nome = nome;
         }
 
         private void SetRG (string rg) {

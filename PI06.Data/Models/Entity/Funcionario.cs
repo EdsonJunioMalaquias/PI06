@@ -20,7 +20,6 @@ namespace PI06.Models.Entity {
         public Funcionario (Usuario usuario,
             DateTime dataContratacao, DateTime? dataDemissao, Cargo cargo, Conselho  conselho,Pessoa pessoa) {
             Usuario = usuario;
-            DtInclusao = DateTime.Now;
             SetDataContratacao (dataContratacao);
             SetDataDemissao (dataDemissao);
             if (cargo.IsHealthProfession) {
