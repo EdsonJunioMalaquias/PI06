@@ -20,6 +20,8 @@ namespace PI06.Models.Entity {
         private const int SUSMaxLength = 10;
         [JsonIgnore]
         public Funcionario Funcionario{get;set;}
+        [JsonIgnore]
+        public Paciente Paciente{get;set;}
         [Required (ErrorMessage = "O nome é obrigatório!")]
         public string Nome { get; private set; }
         [Required()]

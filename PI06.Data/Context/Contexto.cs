@@ -15,6 +15,7 @@ namespace PI06.Data.Context {
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Conselho> Conselho { get; set; }
         public DbSet<Cargo> Cargo { get; set; }
+        public DbSet<Paciente> Paciente { get; set; }
 
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
@@ -58,6 +59,16 @@ namespace PI06.Data.Context {
                     .HasConstraintName("FK_Cargo").OnDelete(DeleteBehavior.Restrict);
                   
 
+            });
+            
+            modelBuilder.Entity<Paciente> (mb => {
+                mb.ToTable ("Paciente");
+                mb.HasKey (c => c.Id).HasName ("IdPaciente");
+                mb.Property (c => c.Id).HasColumnName ("IdPaciente").IsRequired();
+                mb.HasOne(d => d.Pessoa)
+                    .WithOne(p => p.Paciente)
+                    .HasForeignKey<Paciente>(d => d.Id)
+                    .HasConstraintName("PFK_PessoaPaciente");
             });
 
             modelBuilder.Entity<Usuario> (mb => {
