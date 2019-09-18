@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PI06.Data.Migrations
 {
-    public partial class initialmigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -90,6 +90,27 @@ namespace PI06.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Paciente",
+                schema: "dbo",
+                columns: table => new
+                {
+                    IdPaciente = table.Column<int>(nullable: false),
+                    DtInclusao = table.Column<DateTime>(nullable: false),
+                    DtAlteracao = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("IdPaciente", x => x.IdPaciente);
+                    table.ForeignKey(
+                        name: "PFK_PessoaPaciente",
+                        column: x => x.IdPaciente,
+                        principalSchema: "dbo",
+                        principalTable: "Pessoa",
+                        principalColumn: "IdPessoa",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Conselho",
                 schema: "dbo",
                 columns: table => new
@@ -102,6 +123,7 @@ namespace PI06.Data.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("IdConselho", x => x.IdConselho);
                     table.ForeignKey(
                         name: "PFK_PessoaFuncionarioConselho",
                         column: x => x.IdConselho,
@@ -109,7 +131,6 @@ namespace PI06.Data.Migrations
                         principalTable: "Funcionario",
                         principalColumn: "IdFuncionario",
                         onDelete: ReferentialAction.Cascade);
-                    table.PrimaryKey("IdConselho", x => x.IdConselho);
                 });
 
             migrationBuilder.CreateTable(
@@ -147,6 +168,10 @@ namespace PI06.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Conselho",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "Paciente",
                 schema: "dbo");
 
             migrationBuilder.DropTable(

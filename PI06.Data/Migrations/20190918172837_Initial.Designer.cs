@@ -10,8 +10,8 @@ using PI06.Data.Context;
 namespace PI06.Data.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20190917125045_initialmigration")]
-    partial class initialmigration
+    [Migration("20190918172837_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -88,6 +88,21 @@ namespace PI06.Data.Migrations
                     b.HasIndex("IdCargo");
 
                     b.ToTable("Funcionario");
+                });
+
+            modelBuilder.Entity("PI06.Models.Entity.Paciente", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnName("IdPaciente");
+
+                    b.Property<DateTime?>("DtAlteracao");
+
+                    b.Property<DateTime>("DtInclusao");
+
+                    b.HasKey("Id")
+                        .HasName("IdPaciente");
+
+                    b.ToTable("Paciente");
                 });
 
             modelBuilder.Entity("PI06.Models.Entity.Pessoa", b =>
@@ -191,6 +206,15 @@ namespace PI06.Data.Migrations
                         .HasForeignKey("IdCargo")
                         .HasConstraintName("FK_Cargo")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("PI06.Models.Entity.Paciente", b =>
+                {
+                    b.HasOne("PI06.Models.Entity.Pessoa", "Pessoa")
+                        .WithOne("Paciente")
+                        .HasForeignKey("PI06.Models.Entity.Paciente", "Id")
+                        .HasConstraintName("PFK_PessoaPaciente")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PI06.Models.Entity.Usuario", b =>

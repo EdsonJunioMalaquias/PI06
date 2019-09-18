@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
 using PI06.Models.Entity;
 
-namespace PI06.Data.Context {
+namespace PI06.Data.Context
+{
     public class Contexto : DbContext {
         
         public Contexto (DbContextOptions<Contexto> options) : base (options) { }

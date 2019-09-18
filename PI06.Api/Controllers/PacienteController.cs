@@ -1,8 +1,17 @@
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
+using PI06.Data.Context;
+using PI06.Models.Entity;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+
 namespace PI06.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class PacienteController
+    public class PacienteController : Controller
     {
+       
         private readonly Contexto contexto;
 
         public PacienteController(Contexto contexto)
@@ -14,7 +23,8 @@ namespace PI06.Api.Controllers
         public IActionResult Get(int id)
         {
             var paciente = contexto.Paciente.FirstOrDefault(x => x.Id == id);
-            if (paciente == null) {
+            if (paciente == null)
+            {
                 return NotFound();
             }
             contexto.Pessoa.FirstOrDefault(x => x.Id == id);
@@ -39,9 +49,11 @@ namespace PI06.Api.Controllers
             return Json(paciente);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Paciente paciente) {
+        public IActionResult Post([FromBody] Paciente paciente)
+        {
 
-            if (paciente == null) {
+            if (paciente == null)
+            {
                 return BadRequest();
             }
             paciente.DtInclusao = DateTime.Now;
@@ -60,9 +72,10 @@ namespace PI06.Api.Controllers
 
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id,[FromBody] Paciente paciente)
+        public IActionResult Update(int id, [FromBody] Paciente paciente)
         {
-            if (paciente == null|| paciente.Id != id) {
+            if (paciente == null || paciente.Id != id)
+            {
                 return BadRequest();
             }
             paciente.DtAlteracao = DateTime.Now;
@@ -87,10 +100,10 @@ namespace PI06.Api.Controllers
             {
                 return BadRequest();
             }
-            
+
             try
             {
-                
+
                 contexto.Remove(paciente);
                 contexto.Remove(paciente.Pessoa);
                 contexto.SaveChanges();
@@ -103,6 +116,8 @@ namespace PI06.Api.Controllers
             }
         }
 
-    
+
     }
+    
+
 }

@@ -20,6 +20,7 @@
     <Compile Remove="Migrations\20190917021745_AGORAVAIIIII111.Designer.cs" />
     <Compile Remove="Migrations\20190917120818_initialmigration.cs" />
     <Compile Remove="Migrations\20190917120818_initialmigration.Designer.cs" />
+    <Compile Remove="Migrations\20190917125045_initialmigration.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
