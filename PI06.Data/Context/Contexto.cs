@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PI06.Models.Entity;
 
 namespace PI06.Data.Context
 {
-    public class Contexto : DbContext {
+    public class Contexto : IdentityDbContext {
         
         public Contexto (DbContextOptions<Contexto> options) : base (options) { }
         public DbSet<Pessoa> Pessoa { get; set; }

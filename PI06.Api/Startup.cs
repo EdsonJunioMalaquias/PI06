@@ -6,7 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
-using PI06.Models.Entity;
+using PI06.Api.IServiceRepository;
+using PI06.Api.IServiceRepository.ServiceRepositories;
+using PI06.IRepository;
+using PI06.IRepository.Repository;
 
 namespace PI06.Api
 {
@@ -26,7 +29,9 @@ namespace PI06.Api
             services.AddDbContext<Contexto>(options =>
             options.UseSqlServer(Configuration
             .GetConnectionString("PI06")));
-
+            services.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
+            services.AddTransient<IFuncionarioService, FuncionarioService>();
+            services.AddTransient<IFuncionarioRepository, FuncionarioRepository>();
             services.AddMvc();
             services.AddSwaggerGen(c =>
             {
