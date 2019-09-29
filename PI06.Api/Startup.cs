@@ -10,6 +10,8 @@ using PI06.Api.IServiceRepository;
 using PI06.Api.IServiceRepository.ServiceRepositories;
 using PI06.IRepository;
 using PI06.IRepository.Repository;
+using Microsoft.AspNetCore.Identity;
+using PI06.Models.Entity;
 
 namespace PI06.Api
 {

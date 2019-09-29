@@ -12,5 +12,7 @@ namespace PI06.IRepository
         void Salvar(Funcionario usuario);
         IEnumerable<Funcionario> GetAllIncludingProperties();
         Funcionario GetByIdIncludingProperties(int id);
+
+        Funcionario GetByCPFIncludingProperties(string cpf);
     }
 }

@@ -4,7 +4,7 @@ using PI06.Models.Entity;
 
 namespace PI06.Data.Context
 {
-    public class Contexto : IdentityDbContext {
+    public class Contexto : DbContext {
         
         public Contexto (DbContextOptions<Contexto> options) : base (options) { }
         public DbSet<Pessoa> Pessoa { get; set; }
@@ -101,15 +101,6 @@ namespace PI06.Data.Context
                 mb.Property (f => f.DescricaoCargo).IsRequired ();
                 mb.Property (f => f.IsHealthProfession).IsRequired ();
             });
-            /*e.hasone (d=>d.pessoa).withone (p=>p.aluno).hasforeignkey<Aluno>(d=> d.idpessoa).
-             * hasconstraintName("PFK_pessoaAluno);"
-            
-            e.hasone (d=>d.Curso).withmany (p=>p.aluno).hasforeignkey(d=> d.idCurso).
-             * hasconstraintName("FK_CursoAluno);"
-            
-
-             
-             */
 
 
         }

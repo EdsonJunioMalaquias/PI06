@@ -27,7 +27,17 @@ namespace PI06.Api.Controllers
 
             return Json(result);
         }
-        [HttpGet]
+        [HttpGet("cpf")]
+        public IActionResult GetByCpfAllProperties([FromBody] string cpf)
+        {
+            var result = _funcionarioService.GetByCpfIncludingProperties(cpf);
+            if(result is null)
+            {
+                return StatusCode(404, "CPF Não encontrado!");
+            }
+            return Json(result);
+        }
+        /*[HttpGet]
         [ProducesResponseType(typeof(Funcionario), 200)]
         public IActionResult Get()
         {
@@ -35,7 +45,7 @@ namespace PI06.Api.Controllers
             var result = _funcionarioService.GetAllIncludingProperties();
 
             return Json(result);
-        }
+        }*/
         [HttpPost]
         public IActionResult Post([FromBody] Funcionario funcionario)
         {

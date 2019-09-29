@@ -4,6 +4,8 @@ using PI06.Data.Context;
 using PI06.Models.Entity;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using PI06.Helpers;
+
 namespace PI06.IRepository.Repository
 {
     public class FuncionarioRepository : Repository<Funcionario>, IFuncionarioRepository
@@ -57,9 +59,15 @@ namespace PI06.IRepository.Repository
                 .FirstOrDefault(x => x.Usuario.Login == login);
         }
 
-
-
-
+        public Funcionario GetByCPFIncludingProperties(string cpf)
+        {
+            var pessoa = _contexto.Pessoa.FirstOrDefault(x => x.CodigoCpf == Pessoa.GetLongCpf(cpf));
+            if(pessoa is null)
+            {
+                return null;
+            }
+            return GetByIdIncludingProperties(pessoa.Id);
+        }
     }
     
 }

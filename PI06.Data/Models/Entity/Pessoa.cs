@@ -203,6 +203,24 @@ namespace PI06.Models.Entity {
                 throw new Exception ("CPF inválido: " + cpf);
             }
         }
+        public static long GetLongCpf(string cpf)
+        {
+            Guard.ForNullOrEmptyDefaultMessage("CPF", cpf);
+            cpf = TextoHelper.GetNumeros(cpf);
+            Guard.StringLength("CPF", cpf, 11);
+            try
+            {
+                cpf = CpfLimpo(cpf);
+                if (!IsCpf(cpf))
+                    throw new Exception();
+                long _CodigoCpf = Convert.ToInt64(cpf);
+                return _CodigoCpf;
+            }
+            catch (Exception)
+            {
+                throw new Exception("CPF inválido: " + cpf);
+            }
+        }
 
         public string GetCpfSemZeros () {
             return CodigoCpf.ToString ();

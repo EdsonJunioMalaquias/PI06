@@ -24,5 +24,9 @@ namespace PI06.Api.IServiceRepository.ServiceRepositories
         {
             return _repository.GetByIdIncludingProperties(id);
         }
+        public Funcionario GetByCpfIncludingProperties(string cpf)
+        {
+            return _repository.GetByCPFIncludingProperties(cpf);
+        }
     }
 }
