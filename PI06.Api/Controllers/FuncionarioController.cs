@@ -37,7 +37,7 @@ namespace PI06.Api.Controllers
             }
             return Json(result);
         }
-        /*[HttpGet]
+        [HttpGet]
         [ProducesResponseType(typeof(Funcionario), 200)]
         public IActionResult Get()
         {
@@ -45,7 +45,7 @@ namespace PI06.Api.Controllers
             var result = _funcionarioService.GetAllIncludingProperties();
 
             return Json(result);
-        }*/
+        }
         [HttpPost]
         public IActionResult Post([FromBody] Funcionario funcionario)
         {
@@ -54,7 +54,6 @@ namespace PI06.Api.Controllers
             {
                 return BadRequest();
             }
-            funcionario.DtInclusao = DateTime.Now;
             try
             {
                 _funcionarioService.AddAsync(funcionario);
@@ -98,10 +97,8 @@ namespace PI06.Api.Controllers
                 Cargo cargo = funcionario.Cargo;
                 Conselho conselho = funcionario.Conselho;
                 Pessoa pessoa = funcionario.Pessoa;
-                Usuario usuario = funcionario.Usuario;
                 _funcionarioService.RemoveAsync(cargo);
                 _funcionarioService.RemoveAsync(conselho);
-                _funcionarioService.RemoveAsync(usuario);
                 _funcionarioService.RemoveAsync(funcionario);
                 _funcionarioService.RemoveAsync(pessoa);
                 

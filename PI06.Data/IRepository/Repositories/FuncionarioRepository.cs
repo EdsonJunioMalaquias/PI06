@@ -39,11 +39,7 @@ namespace PI06.IRepository.Repository
                                            && x.Id != funcionarioId);
         }
 
-        public bool LoginJaCadastrado(string login, int funcionarioId)
-        {
-            return Get().Any(x => x.Usuario.Login == login
-                                           && x.Id != funcionarioId);
-        }
+
 
         public void Salvar(Funcionario funcionario)
         {
@@ -52,12 +48,7 @@ namespace PI06.IRepository.Repository
         }
 
 
-        public Funcionario Get(string login)
-        {
-            
-            return Get()
-                .FirstOrDefault(x => x.Usuario.Login == login);
-        }
+
 
         public Funcionario GetByCPFIncludingProperties(string cpf)
         {
@@ -68,6 +59,8 @@ namespace PI06.IRepository.Repository
             }
             return GetByIdIncludingProperties(pessoa.Id);
         }
+
+
     }
     
 }

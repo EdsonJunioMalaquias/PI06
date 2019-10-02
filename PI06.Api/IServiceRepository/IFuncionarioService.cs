@@ -11,7 +11,8 @@ namespace PI06.Api.IServiceRepository
     {
         IEnumerable<Funcionario> GetAllIncludingProperties();
         Funcionario GetByIdIncludingProperties(int id);
-        
+
+        void Salvar(Funcionario usuario);
         Funcionario GetByCpfIncludingProperties(string cpf);
 
     }

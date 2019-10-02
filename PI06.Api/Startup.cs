@@ -10,8 +10,13 @@ using PI06.Api.IServiceRepository;
 using PI06.Api.IServiceRepository.ServiceRepositories;
 using PI06.IRepository;
 using PI06.IRepository.Repository;
+using PI06.Data.IRepository.Repositories;
+using PI06.Data.IRepository;
 using Microsoft.AspNetCore.Identity;
-using PI06.Models.Entity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using PI06.Data.Models;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace PI06.Api
 {
@@ -34,7 +39,40 @@ namespace PI06.Api
             services.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
             services.AddTransient<IFuncionarioService, FuncionarioService>();
             services.AddTransient<IFuncionarioRepository, FuncionarioRepository>();
+            services.AddTransient<IPacienteService, PacienteService>();
+            services.AddTransient<IPacienteRepository, PacienteRepository>();
             services.AddMvc();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<Contexto>()
+                .AddDefaultTokenProviders();
+
+            //JWT
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = true;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = appSettings.ValidadoEm,
+                    ValidIssuer = appSettings.Emissor
+
+                };
+
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -60,7 +98,7 @@ namespace PI06.Api
                 c.SwaggerEndpoint("v1/swagger.json", "API - PI06 V 1");
                 c.DefaultModelExpandDepth(-1);
             });
-
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

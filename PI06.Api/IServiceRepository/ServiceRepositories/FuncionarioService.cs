@@ -28,5 +28,10 @@ namespace PI06.Api.IServiceRepository.ServiceRepositories
         {
             return _repository.GetByCPFIncludingProperties(cpf);
         }
+
+        public void Salvar(Funcionario funcionario)
+        {
+            _repository.Salvar(funcionario);
+        }
     }
 }
