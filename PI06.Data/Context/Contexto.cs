@@ -1,20 +1,27 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PI06.Models.Entity;
+using System.Linq;
 
 namespace PI06.Data.Context
 {
-    public class Contexto : DbContext {
+    public class Contexto : IdentityDbContext
+    {
         
         public Contexto (DbContextOptions<Contexto> options) : base (options) { }
         public DbSet<Pessoa> Pessoa { get; set; }
         public DbSet<Funcionario> Funcionario { get; set; }
-        public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Conselho> Conselho { get; set; }
         public DbSet<Cargo> Cargo { get; set; }
         public DbSet<Paciente> Paciente { get; set; }
 
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
+            foreach (var relacionamento in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relacionamento.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ForSqlServerUseIdentityColumns ();
             modelBuilder.HasDefaultSchema ("dbo");
 
@@ -51,9 +58,13 @@ namespace PI06.Data.Context
                     .HasConstraintName("PFK_PessoaFuncionario");
                 mb.HasOne(d => d.Cargo)
                     .WithMany(p => p.Funcionarios)
-                    .HasForeignKey(d => d.IdCargo)
+                    .HasForeignKey(d => d.CargoId)
                     .HasConstraintName("FK_Cargo").OnDelete(DeleteBehavior.Restrict);
-                  
+                mb.HasOne(d => d.Conselho)
+                    .WithMany(p => p.Funcionarios)
+                    .HasForeignKey(d => d.ConselhoId)
+                    .HasConstraintName("FK_Conselho").OnDelete(DeleteBehavior.Restrict);
+
 
             });
             
@@ -67,29 +78,15 @@ namespace PI06.Data.Context
                     .HasConstraintName("PFK_PessoaPaciente");
             });
 
-            modelBuilder.Entity<Usuario> (mb => {
-                mb.ToTable ("Usuario");
-                mb.HasKey (c => c.Id).HasName ("IdUsuario");
-                mb.Property(c => c.Id).HasColumnName("IdUsuario").IsRequired();
-                mb.Property (f => f.Login).IsRequired ();
-                mb.Property (f => f.Senha).IsRequired ();
-                mb.Property (f => f.TokenAlteracaoDeSenha).IsRequired ();
-                mb.HasOne(d => d.Funcionario)
-                    .WithOne(p => p.Usuario)
-                    .HasForeignKey<Usuario>(d => d.Id)
-                    .HasConstraintName("PFK_PessoaFuncionarioUsuario");
-            });
+
 
             modelBuilder.Entity<Conselho> (mb => {
                 mb.ToTable ("Conselho");
                 mb.HasKey (c => c.Id).HasName ("IdConselho");
-                mb.Property (c => c.Id).HasColumnName ("IdConselho").IsRequired();
-                mb.Property (f => f.DescricaoConselho).IsRequired ();
-                mb.Property (f => f.NumeroConselho).IsRequired ();
-                mb.HasOne(d => d.Funcionario)
-                    .WithOne(p => p.Conselho)
-                    .HasForeignKey<Conselho>(d => d.Id)
-                    .HasConstraintName("PFK_PessoaFuncionarioConselho");
+                mb.Property (c => c.Id).HasColumnName ("IdConselho").ValueGeneratedOnAdd();
+                mb.Property(f => f.DescricaoConselho);
+                mb.Property(f => f.NumeroConselho);
+
             });
 
             modelBuilder.Entity<Cargo> (mb => {
@@ -100,15 +97,6 @@ namespace PI06.Data.Context
                 mb.Property (f => f.DescricaoCargo).IsRequired ();
                 mb.Property (f => f.IsHealthProfession).IsRequired ();
             });
-            /*e.hasone (d=>d.pessoa).withone (p=>p.aluno).hasforeignkey<Aluno>(d=> d.idpessoa).
-             * hasconstraintName("PFK_pessoaAluno);"
-            
-            e.hasone (d=>d.Curso).withmany (p=>p.aluno).hasforeignkey(d=> d.idCurso).
-             * hasconstraintName("FK_CursoAluno);"
-            
-
-             
-             */
 
 
         }

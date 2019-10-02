@@ -5,6 +5,8 @@ using PI06.Models.Entity;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using PI06.Api.IServiceRepository;
+using System.Threading.Tasks;
 
 namespace PI06.Api.Controllers
 {
@@ -12,60 +14,49 @@ namespace PI06.Api.Controllers
     [Route("api/[controller]")]
     public class FuncionarioController : Controller
     {
-        private readonly Contexto contexto;
+        private readonly IFuncionarioService _funcionarioService;
 
-        public FuncionarioController(Contexto contexto)
+        public FuncionarioController(IFuncionarioService funcionarioService)
         {
-            this.contexto = contexto;
+            _funcionarioService = funcionarioService;
         }
         [HttpGet("{id}", Name = "GetFuncionario")]
-        [ProducesResponseType(typeof(Funcionario), 200)]
-        public IActionResult Get(int id)
+        public IActionResult GetByIdAllProperties(int id)
         {
-            var funcionario = contexto.Funcionario.FirstOrDefault(x => x.Id == id);
-            if (funcionario == null) {
-                return NotFound();
-            }
-            contexto.Pessoa.FirstOrDefault(x => x.Id == id);
-            contexto.Cargo.FirstOrDefault(x => x.Id == funcionario.IdCargo);
-            contexto.Usuario.FirstOrDefault(x => x.Id == id);
-            contexto.Conselho.FirstOrDefault(x => x.Id == id);
+            var result = _funcionarioService.GetByIdIncludingProperties(id);
 
-            return Json(funcionario);
+            return Json(result);
         }
-
+        [HttpGet("cpf")]
+        public IActionResult GetByCpfAllProperties([FromBody] string cpf)
+        {
+            var result = _funcionarioService.GetByCpfIncludingProperties(cpf);
+            if(result is null)
+            {
+                return StatusCode(404, "CPF Não encontrado!");
+            }
+            return Json(result);
+        }
         [HttpGet]
         [ProducesResponseType(typeof(Funcionario), 200)]
         public IActionResult Get()
         {
 
-            var funcionario = contexto.Funcionario.ToList();
-            if (funcionario == null)
-            {
-                return NotFound();
-            }
-            foreach (var item in funcionario)
-            {
-                item.Cargo = contexto.Cargo.FirstOrDefault(x => x.Id == item.IdCargo);
-                item.Conselho = contexto.Conselho.FirstOrDefault(x => x.Id == item.Id);
-                item.Usuario = contexto.Usuario.FirstOrDefault(x => x.Id == item.Id);
-                item.Pessoa = contexto.Pessoa.FirstOrDefault(x => x.Id == item.Id);
-            }
-            return Json(funcionario);
+            var result = _funcionarioService.GetAllIncludingProperties();
+
+            return Json(result);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Funcionario funcionario) {
+        public IActionResult Post([FromBody] Funcionario funcionario)
+        {
 
-            if (funcionario == null) {
+            if (funcionario == null)
+            {
                 return BadRequest();
             }
-            funcionario.DtInclusao = DateTime.Now;
-            contexto.Set<Funcionario>().Add(funcionario);
             try
             {
-
-                contexto.Funcionario.Add(funcionario);
-                contexto.SaveChanges();
+                _funcionarioService.AddAsync(funcionario);
                 return CreatedAtRoute("GetFuncionario", new { id = funcionario.Id }, funcionario);
             }
             catch (Exception e)
@@ -76,50 +67,42 @@ namespace PI06.Api.Controllers
 
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id,[FromBody] Funcionario funcionario)
+        public IActionResult Update(int id, [FromBody] Funcionario funcionario)
         {
-            if (funcionario == null|| funcionario.Id != id) {
+            if (funcionario == null || funcionario.Id != id)
+            {
                 return BadRequest();
             }
             funcionario.DtAlteracao = DateTime.Now;
-            contexto.Entry(funcionario).State = EntityState.Modified;
+            _funcionarioService.UpdateAsync(funcionario);
 
-            contexto.Entry(funcionario.Pessoa).State = EntityState.Modified;
-
-            contexto.Entry(funcionario.Cargo).State = EntityState.Modified;
-
-            contexto.Entry(funcionario.Conselho).State = EntityState.Modified;
-
-            contexto.Entry(funcionario.Usuario).State = EntityState.Modified;
-            contexto.SaveChanges();
             return new NoContentResult();
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var funcionario = contexto.Funcionario.FirstOrDefault(x => x.Id == id);
+            var funcionario = _funcionarioService.GetByIdIncludingProperties(id);
             if (funcionario == null)
             {
                 return NotFound();
             }
-            contexto.Pessoa.FirstOrDefault(x => x.Id == id);
-            contexto.Cargo.FirstOrDefault(x => x.Id == funcionario.IdCargo);
-            contexto.Usuario.FirstOrDefault(x => x.Id == id);
-            contexto.Conselho.FirstOrDefault(x => x.Id == id);
+            
             if (funcionario == null)
             {
                 return BadRequest();
             }
-            
+
             try
             {
+                Cargo cargo = funcionario.Cargo;
+                Conselho conselho = funcionario.Conselho;
+                Pessoa pessoa = funcionario.Pessoa;
+                _funcionarioService.RemoveAsync(cargo);
+                _funcionarioService.RemoveAsync(conselho);
+                _funcionarioService.RemoveAsync(funcionario);
+                _funcionarioService.RemoveAsync(pessoa);
                 
-                contexto.Remove(funcionario.Usuario);
-                contexto.Remove(funcionario.Conselho);
-                contexto.Remove(funcionario);
-                contexto.Remove(funcionario.Cargo);
-                contexto.Remove(funcionario.Pessoa);
-                contexto.SaveChanges();
+
                 return new NoContentResult();
             }
             catch (Exception e)
@@ -128,6 +111,8 @@ namespace PI06.Api.Controllers
                 throw;
             }
         }
+
+
 
 
 

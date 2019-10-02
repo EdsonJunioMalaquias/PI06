@@ -55,12 +55,12 @@ namespace PI06.Models.Entity {
         protected Pessoa () {
 
         }
-        public Pessoa (string cpf, DateTime dataNascimento, string enderecoemail, string sus, string rg,
-            string logradouro, string complemento, string numeroEndereco, string bairro, string cidade, Uf uf, string cep,
+        public Pessoa (string codigoCpf, DateTime dataNascimento, string enderecoemail, string sus, string rg,
+            string logradouro, string complemento, string numeroEndereco, string bairro, string cidade, Uf uf, string cepCod,
             string numeroTelefone, string ddd,string nome) {
             SetSUS (sus);
             SetRG (rg);
-            SetCpf (cpf);
+            SetCpf (codigoCpf);
             SetEmail (enderecoemail);
             SetBairro (bairro);
             SetCidade (cidade);
@@ -71,7 +71,7 @@ namespace PI06.Models.Entity {
             this.DataNascimento = dataNascimento;
             SetTelefone (numeroTelefone);
             SetDDD (ddd);
-            SetCep (cep);
+            SetCep (cepCod);
             this.Nome = nome;
         }
 
@@ -201,6 +201,24 @@ namespace PI06.Models.Entity {
                 CodigoCpf = Convert.ToInt64 (cpf);
             } catch (Exception) {
                 throw new Exception ("CPF inválido: " + cpf);
+            }
+        }
+        public static long GetLongCpf(string cpf)
+        {
+            Guard.ForNullOrEmptyDefaultMessage("CPF", cpf);
+            cpf = TextoHelper.GetNumeros(cpf);
+            Guard.StringLength("CPF", cpf, 11);
+            try
+            {
+                cpf = CpfLimpo(cpf);
+                if (!IsCpf(cpf))
+                    throw new Exception();
+                long _CodigoCpf = Convert.ToInt64(cpf);
+                return _CodigoCpf;
+            }
+            catch (Exception)
+            {
+                throw new Exception("CPF inválido: " + cpf);
             }
         }
 

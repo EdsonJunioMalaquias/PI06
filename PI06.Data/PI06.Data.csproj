@@ -21,14 +21,21 @@
     <Compile Remove="Migrations\20190917120818_initialmigration.cs" />
     <Compile Remove="Migrations\20190917120818_initialmigration.Designer.cs" />
     <Compile Remove="Migrations\20190917125045_initialmigration.cs" />
+    <Compile Remove="Migrations\20190918172837_Initial.cs" />
+    <Compile Remove="Migrations\20190918172837_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20191001134313_1ParaNCargoFuncionario.cs" />
+    <Compile Remove="Migrations\20191001134313_1ParaNCargoFuncionario.Designer.cs" />
+    <Compile Remove="Migrations\20191001134614_initial.cs" />
+    <Compile Remove="Migrations\20191001134614_initial.Designer.cs" />
+    <Compile Remove="Migrations\20191001143208_Initial.cs" />
+    <Compile Remove="Migrations\20191001143208_Initial.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
   </ItemGroup>
-	
-
 </Project>

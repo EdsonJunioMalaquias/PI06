@@ -5,29 +5,25 @@ using PI06.Models.Entity;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using PI06.Api.IServiceRepository;
 
 namespace PI06.Api.Controllers
 {
     [Route("api/[controller]")]
     public class PacienteController : Controller
     {
-       
-        private readonly Contexto contexto;
+        private readonly IPacienteService _pacienteService;
 
-        public PacienteController(Contexto contexto)
+        public PacienteController(IPacienteService pacienteService)
         {
-            this.contexto = contexto;
+            _pacienteService = pacienteService;
         }
+
         [HttpGet("{id}", Name = "GetPaciente")]
         [ProducesResponseType(typeof(Paciente), 200)]
         public IActionResult Get(int id)
         {
-            var paciente = contexto.Paciente.FirstOrDefault(x => x.Id == id);
-            if (paciente == null)
-            {
-                return NotFound();
-            }
-            contexto.Pessoa.FirstOrDefault(x => x.Id == id);
+            var paciente = _pacienteService.GetByIdIncludingProperties(id);
 
             return Json(paciente);
         }
@@ -37,16 +33,18 @@ namespace PI06.Api.Controllers
         public IActionResult Get()
         {
 
-            var paciente = contexto.Paciente.ToList();
-            if (paciente == null)
-            {
-                return NotFound();
-            }
-            foreach (var item in paciente)
-            {
-                item.Pessoa = contexto.Pessoa.FirstOrDefault(x => x.Id == item.Id);
-            }
+            var paciente = _pacienteService.GetAllAsync();
             return Json(paciente);
+        }
+        [HttpGet("cpf")]
+        public IActionResult GetByCpfAllProperties([FromBody] string cpf)
+        {
+            var result = _pacienteService.GetByCPFIncludingProperties(cpf);
+            if(result is null)
+            {
+                return StatusCode(404, "CPF Não encontrado!");
+            }
+            return Json(result);
         }
         [HttpPost]
         public IActionResult Post([FromBody] Paciente paciente)
@@ -56,13 +54,10 @@ namespace PI06.Api.Controllers
             {
                 return BadRequest();
             }
-            paciente.DtInclusao = DateTime.Now;
-            contexto.Set<Paciente>().Add(paciente);
             try
             {
-                contexto.Paciente.Add(paciente);
-                contexto.SaveChanges();
-                return CreatedAtRoute("GetPaciente", new { id = paciente.Id }, paciente);
+                _pacienteService.AddAsync(paciente);
+                return CreatedAtRoute("GetFuncionario", new { id = paciente.Id }, paciente);
             }
             catch (Exception e)
             {
@@ -79,42 +74,13 @@ namespace PI06.Api.Controllers
                 return BadRequest();
             }
             paciente.DtAlteracao = DateTime.Now;
-            contexto.Entry(paciente).State = EntityState.Modified;
+            _pacienteService.UpdateAsync(paciente);
 
-            contexto.Entry(paciente.Pessoa).State = EntityState.Modified;
-
-            contexto.SaveChanges();
             return new NoContentResult();
         }
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var paciente = contexto.Paciente.FirstOrDefault(x => x.Id == id);
-            if (paciente == null)
-            {
-                return NotFound();
-            }
-            contexto.Pessoa.FirstOrDefault(x => x.Id == id);
 
-            if (paciente == null)
-            {
-                return BadRequest();
-            }
 
-            try
-            {
 
-                contexto.Remove(paciente);
-                contexto.Remove(paciente.Pessoa);
-                contexto.SaveChanges();
-                return new NoContentResult();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                throw;
-            }
-        }
 
 
     }
