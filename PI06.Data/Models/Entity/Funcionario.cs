@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using PI06.Data.Models.Entity;
 
 namespace PI06.Models.Entity {
     public class Funcionario : EntityBase {
@@ -11,7 +12,7 @@ namespace PI06.Models.Entity {
         public Cargo Cargo { get;  set; }
         public Conselho Conselho { get;  set; }
         public Pessoa Pessoa { get; set; }
-
+         public ICollection<Consulta> Consultas { get; set; }
         public int CargoId { get; set; }
         public int? ConselhoId { get; set; }
         protected Funcionario () {
