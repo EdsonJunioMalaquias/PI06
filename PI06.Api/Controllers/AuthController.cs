@@ -30,7 +30,7 @@ namespace PI06.Api.Controllers
         }
 
         [HttpPost("nova-conta")]
-        public async Task<ActionResult> Registrar(RegisterUser registerUser)
+        public async Task<ActionResult> Registrar([FromBody] RegisterUser registerUser)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 
