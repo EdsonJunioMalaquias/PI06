@@ -27,8 +27,8 @@ namespace PI06.Api.Controllers
 
             return Json(result);
         }
-        [HttpGet("cpf")]
-        public IActionResult GetByCpfAllProperties([FromBody] string cpf)
+        [HttpGet("cpf/{cpf}")]
+        public IActionResult GetByCpfAllProperties(string cpf)
         {
             var result = _funcionarioService.GetByCpfIncludingProperties(cpf);
             if(result is null)

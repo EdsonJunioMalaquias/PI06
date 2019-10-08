@@ -29,6 +29,8 @@ namespace PI06.Api
 
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -51,6 +53,15 @@ namespace PI06.Api
 
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("*");
+                });
+            });
 
             services.AddAuthentication(x =>
             {
@@ -92,6 +103,8 @@ namespace PI06.Api
                 app.UseDeveloperExceptionPage();
             }
             app.UseSwagger();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseSwaggerUI(c =>
             {
