@@ -1,33 +1,34 @@
 <template>
   <div id="app">
+      <b-navbar type="dark" variant="dark">
+        <b-navbar-nav>
+          <b-nav-item href="#">Home</b-nav-item>
 
-    <div class="container">
+          <b-nav-item href="#">Espera</b-nav-item>
 
-      <form>
-
+          <b-nav-item-dropdown text="User" right>
+            <b-dropdown-item href="#">Account</b-dropdown-item>
+            <b-dropdown-item href="#">Settings</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-navbar>  
+      <div class="container">
         <div class="caixa">
-
-            
-
           <h4>Pesquisar Paciente:</h4>
-            
-          <div class="row">
-            <div class="input-field col s6">
-              <input id="pesquisa" type="text" v-model="cpfUsuario" class="validate" placeholder="Digite o CPF" mask="'###.###.###-##'">
-
-              <label class="active" for="pesquisa"></label>
-            </div>
+          <b-form-input id="pesquisa" 
+                        type="text" 
+                        v-model="cpfUsuario" 
+                        class="validate" 
+                        placeholder="Digite o CPF" 
+                        v-mask="'###.###.###-##'">
+          </b-form-input>
+          <label class="active" for="pesquisa"></label>
+          <div class="buton"> 
+            <b-button variant="primary" @click.prevent="buscarFuncionariosPeloCPF">Buscar</b-button>
           </div>
-
-          <button class="waves-effect waves-light btn-small" @click.prevent="buscarFuncioariosPeloCPF">Buscar</button>
-        
-        </div>
-      </form>
-
+        </div>    
       {{ resultados }}
-
     </div>
-
   </div>
 </template>
 
@@ -36,12 +37,13 @@
   export default {
     data () {
       return {
+        text: '',
         cpfUsuario: null,
         resultados: []
       }
     },
     methods: {
-      buscarFuncioariosPeloCPF () {
+      buscarFuncionariosPeloCPF () {
         paciente.listar(this.cpfUsuario)
           .then((res) => {
             console.log('resultado da API => ', res)
@@ -57,6 +59,10 @@
 
 <style>
 .caixa{
-  padding-top: 15%;
+  padding-top: 10%;
+}
+
+.buton{
+  width: 100%;
 }
 </style>

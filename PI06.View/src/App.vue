@@ -11,7 +11,8 @@ import Busca from './components/Busca.vue'
 export default {
   name: 'app',
   components: {
-    Busca
+    Busca,
+    Login
 
   }
 }
