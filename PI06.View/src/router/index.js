@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Busca from '@/components/Busca'
 import Login from '@/components/Login'
 
-
 Vue.use(Router)
 
 export default new Router({

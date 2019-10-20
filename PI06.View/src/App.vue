@@ -12,13 +12,13 @@ export default {
 </script>
 
 <style>
-/*body{
-  background-image: url("fundo5.jpg");
+body{
+  background:#ebebeb !important;
   
-}*/
+}
 
 #app {
-  font-family: sans-serif, Raleway-Regular;
+  font-family: Raleway-Regular,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
