@@ -1,20 +1,13 @@
 <template>
   <div id="app">
-    <Busca/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Login from './components/Login.vue'
-import Busca from './components/Busca.vue'
 
 export default {
-  name: 'app',
-  components: {
-    Busca,
-    Login
-
-  }
+  name: 'app'
 }
 </script>
 

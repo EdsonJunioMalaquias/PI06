@@ -1,8 +1,23 @@
 <template>
   <div class="hello">
     <div id="app">
+      <b-navbar type="dark" variant="dark">
+        <b-navbar-nav>
+          <b-nav-item href="#">Login</b-nav-item>
+
+          <b-nav-item href="#">Espera</b-nav-item>
+
+          <b-nav-item-dropdown text="User" right>
+            <b-dropdown-item href="#">Account</b-dropdown-item>
+            <b-dropdown-item href="#">Settings</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-navbar>  
+
+
+
+
       <div class="caixa">
-        <b-img src="https://logodownload.org/wp-content/uploads/2017/02/sus-logo.png" fluid alt="Responsive image"></b-img>
         <div id="campo">
            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
               <b-form-group
