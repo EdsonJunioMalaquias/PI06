@@ -10,6 +10,12 @@ Vue.use(BootstrapVue)
 import VueMask from 'v-mask'
 Vue.use(VueMask);
 
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
+import Gravatar from 'vue-gravatar';
+Vue.component('v-gravatar', Gravatar);
+
 Vue.config.productionTip = false
 
 new Vue({

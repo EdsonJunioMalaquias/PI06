@@ -2,10 +2,7 @@
   <div id="app">
       <b-navbar type="dark" variant="dark">
         <b-navbar-nav>
-          <b-nav-item href="#">Home</b-nav-item>
-
-          <b-nav-item href="#">Opções</b-nav-item>
-
+          <router-link to='/home'>Home</router-link>
         </b-navbar-nav>
       </b-navbar>  
       <div class="container">
@@ -49,6 +46,9 @@
             console.error('erro ao buscar na API =>', err)
           })
       }
+    },
+    toPage (route) {
+      this.$router.push(route)
     }
   }
 </script>

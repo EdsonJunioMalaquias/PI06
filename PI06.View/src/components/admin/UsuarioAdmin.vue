@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {baseApiUrl} from '@/global'
+//import {baseApiUrl} from '@/global'
 import axios from 'axios'
 
 
