@@ -1,30 +1,24 @@
 <template>
   <div id="app">
-    <Busca/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Login from './components/Login.vue'
-import Busca from './components/Busca.vue'
 
 export default {
-  name: 'app',
-  components: {
-    Busca
-
-  }
+  name: 'app'
 }
 </script>
 
 <style>
-/*body{
-  background-image: url("fundo5.jpg");
+body{
+  background:#ebebeb !important;
   
-}*/
+}
 
 #app {
-  font-family: sans-serif, Raleway-Regular;
+  font-family: Raleway-Regular,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
