@@ -33,17 +33,14 @@ namespace PI06.Api.Controllers
             var result = _funcionarioService.GetByCpfIncludingProperties(cpf);
             if(result is null)
             {
-                return StatusCode(404, "CPF Não encontrado!");
+                return StatusCode(404, "CPF Nï¿½o encontrado!");
             }
             return Json(result);
         }
         [HttpGet]
-        [ProducesResponseType(typeof(Funcionario), 200)]
         public IActionResult Get()
         {
-
             var result = _funcionarioService.GetAllIncludingProperties();
-
             return Json(result);
         }
         [HttpPost]
@@ -86,23 +83,13 @@ namespace PI06.Api.Controllers
             {
                 return NotFound();
             }
-            
-            if (funcionario == null)
-            {
-                return BadRequest();
-            }
-
             try
             {
                 Cargo cargo = funcionario.Cargo;
                 Conselho conselho = funcionario.Conselho;
                 Pessoa pessoa = funcionario.Pessoa;
-                _funcionarioService.RemoveAsync(cargo);
                 _funcionarioService.RemoveAsync(conselho);
                 _funcionarioService.RemoveAsync(funcionario);
-                _funcionarioService.RemoveAsync(pessoa);
-                
-
                 return new NoContentResult();
             }
             catch (Exception e)
