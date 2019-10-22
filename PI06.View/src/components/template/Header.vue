@@ -3,11 +3,24 @@
         <a class="toggle" @click="toggleMenu" v-if="!hideToggle">
             <i class="fa fa-lg" :class="icon"></i>
         </a>
-        <h1 class="title">
-            <router-link to="/">{{ title }}</router-link>
-        </h1>
-        <UserDropdown v-if="!hideUserDropdown" />
+
+        
+
+
+         <ul>
+            <li class="menu-item-wrapper">
+                <h2 class="menu-item active"><router-link to="#">Home</router-link></h2> 
+            </li>
+            <li class="menu-item-wrapper">
+                <h2 class="menu-item"><router-link to="/">Consulta</router-link></h2> 
+            </li>
+            <li class="menu-item-wrapper">
+                <h2 class="menu-item"><router-link to="/">{{ title }}</router-link></h2> 
+            </li>
+        </ul>
     </header>
+       
+    
 </template>
 
 <script>
@@ -35,48 +48,56 @@ export default {
 </script>
 
 <style>
-    .header {
-        grid-area: header;
-        background: linear-gradient(to right, #8bc34a, #49c167);
+    .menu-item-wrapper {
+        float: left;
+    }
+    .menu-item {
+        position: relative;
+        padding: 5px 16px;
+    }
 
+    .menu-item:after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        width: 0;
+        height: 2px;
+        background: black;
+        transition: 0.2s;
+    }
+
+    .menu-item.active:after,
+    .menu-item:hover:after {
+    left: 0;
+    width: 100%;
+    }
+ 
+    .header {
+        background: linear-gradient(to right, #98a9f1, #49c167);
         display: flex;
         justify-content: center;
-        align-items: center;
         margin-bottom: 2em;
+        padding-top: 1em;
     }
-
-    .title {
-        font-size: 1.2rem;
+    a:hover {
+        color: #FFF;
+        
+        font-weight:normal;
+        
+        text-decoration: none;
+     }
+    header.header > a.toggle:hover {
         color: #fff;
-        font-weight: 100;
-        flex-grow: 1;
-        text-align: center;
-    }
-
-    .title a {
-        color: #FFF;
+        background-color: rgba(0, 0, 0, 0.2);
+                
+        font-weight:normal;
+        
         text-decoration: none;
     }
-
-    .title a:hover {
-        color: #FFF;
-        text-decoration: none;
-    }
-
     header.header > a.toggle {
         width: 60px;
         height: 100%;
         color: #fff;
         justify-self: flex-start;
-        text-decoration: none;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    header.header > a.toggle:hover {
-        color: #fff;
-        background-color: rgba(0, 0, 0, 0.2);
     }
 </style>

@@ -1,7 +1,10 @@
 import { http } from './config'
 
 export default {
-    listar:(cpf) => {
-        return http.get(`/api/funcionario/cpf/${cpf}`)
+    getByCpf:(cpf) => {
+        return http.get(`/api/paciente/cpf/${cpf}`)
+    },
+    findConsultasByPaciente:(idPaciente) => {
+        return http.get(`/api/consulta/${idPaciente}`)
     }
 }

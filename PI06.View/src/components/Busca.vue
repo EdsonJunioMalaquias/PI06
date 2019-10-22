@@ -37,7 +37,7 @@
     },
     methods: {
       buscarFuncionariosPeloCPF () {
-        paciente.listar(this.cpfUsuario)
+        paciente.getByCpf(this.cpfUsuario)
           .then((res) => {
             console.log('resultado da API => ', res)
             this.resultados = res.data

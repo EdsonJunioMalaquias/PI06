@@ -1,7 +1,7 @@
 <template>
     <footer class="footer">
-        <span>Copyright <strong>GRUPO
-            </strong> © 2015-2018</span>
+        <span>Copyright <strong>PI06
+            </strong> © 2019</span>
     </footer>
 </template>
 

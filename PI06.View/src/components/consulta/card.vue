@@ -1,16 +1,57 @@
 <template>
     <div class="card-style">
-        <h1 class="title">{{ title }}</h1>
+        <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
+        <h1 class="title blackColor">{{ title }}</h1>
         <p>{{ content }}</p>
+         
     </div>
 </template>
-
 <script>
-export default { 
-    name: 'Card',
-    props: {title: String, content: String},
-}
+  import paciente from '../../../services/paciente'
+    export default { 
+        name: 'Card',
+        props: {
+            title: String, 
+            content: String,
+            medico: String,
+        },
+        data () {
+            return {
+                text: '',
+                cpfUsuario: null,
+                resultadosPessoais: [],
+                resultadosConsultas: []
+            }
+            
+    },
+        methods: {
+        buscarPacientePeloCPF () {
+            paciente.getByCpf(this.cpfUsuario)
+            .then((res) => {
+                console.log('resultado da API => ', res)
+                this.resultadosPessoais = res.data
+            })
+            .catch((err) => {
+                console.error('erro ao buscar na API =>', err)
+            })
+        },
+            buscarConsultas () {
+            paciente.getByCpf(this.resultadosPessoais.data.paciente.id)
+            .then((res) => {
+                console.log('resultado da API => ', res)
+                this.resultadosConsultas = res.data
+            })
+            .catch((err) => {
+                console.error('erro ao buscar na API =>', err)
+            })
+        }
+        },
+        toPage (route) {
+        this.$router.push(route)
+        }
+  }
 </script>
+
 
 <style>
     body {
@@ -26,27 +67,23 @@ export default {
         flex-direction: row;
         flex-wrap: wrap;
         margin: auto;
-        background: grey;
-        width: 750px;
-        opacity: .5;
-        border-radius: 3px;
+        background:whitesmoke;
+        border-radius: 20px;
         padding: 10px;
     }
 
-    .card-style {
+    .card-style  {
         width: 100%;
-        height: 300px;
-        align-self: center;
-        background: whitesmoke;
-        padding: 5px;
-        border-radius: 3px;
-        margin: 10px 10px;
+        height: 200px;
+        margin: 8px;
+        background:rgb(230, 230, 230);
+        border-radius: 10px;
         font-family: monospace;
-        transition: all .15s ease-in-out;
-        overflow: scroll;
-
-        
+        overflow-y: scroll;
+        text-align: justify;
+        padding: 10px;
     }
-
-
+    .blackColor {
+        color: black;
+    }
 </style>

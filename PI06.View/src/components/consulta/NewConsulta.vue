@@ -36,10 +36,15 @@
                             <h4>Histórico</h4>
                             <div id="container">
                                 <Card title="Shea" content="Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e ."></card>
-                                <Card title="Bobby" content="This is the content!"></card>
-                                <Card title="Ashley" content="This is the content!"></card>
-                                <Card title="Katie" content="This is the content!"></card>
-                            </div>
+                                <Card title="Shea" content="Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .
+                         "></card>
+                         <Card title="Shea" content="Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .
+                         "></card>
+                         <Card title="Shea" content="Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e .
+                         "></card>
+
+
+   </div>
                             <table>
                                 <thead>
                                     <tr>
@@ -55,8 +60,7 @@
                                         <td>100</td>
                                         <td>50.00</td>
                                         <td>
-                                        <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
-                                        <button class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
+                                       
                                         </td>
                                     </tr>
                                 </tbody>
