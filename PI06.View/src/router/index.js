@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Auth from '@/components/auth/Auth'
 import Home from '@/components/home/Home'
 import AdminPages from '@/components/admin/AdminPages'
+import novaConsulta from '@/components/consulta/NewConsulta'
 
 
 Vue.use(Router)
@@ -35,6 +36,11 @@ export default new Router({
             path: '/adminpages',
             name: 'AdminPages',
             component: AdminPages
+        },
+        {
+            path: '/novaConsulta',
+            name: 'Consulta',
+            component: novaConsulta
         }
     ]
 })

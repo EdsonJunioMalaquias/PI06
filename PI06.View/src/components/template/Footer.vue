@@ -1,6 +1,6 @@
 <template>
     <footer class="footer">
-        <span>Copyright <strong>GRUPO MALAQUIAS
+        <span>Copyright <strong>GRUPO
             </strong> © 2015-2018</span>
     </footer>
 </template>
@@ -22,5 +22,7 @@ export default {
         align-items: center;
         justify-content: flex-end;
         padding-right: 10px;
+
+        
     }
 </style>
