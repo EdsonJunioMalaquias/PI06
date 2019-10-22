@@ -25,5 +25,9 @@ namespace PI06.Api.IServiceRepository.ServiceRepositories
         {
             return _repository.GetByIdIncludingProperties(id);
         }
+        public IEnumerable<Paciente> GetAllIncludingProperties()
+        {
+            return _repository.GetAllIncludingProperties();
+        }
     }
 }

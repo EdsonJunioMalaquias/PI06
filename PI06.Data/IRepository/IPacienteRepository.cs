@@ -10,6 +10,7 @@ namespace PI06.Data.IRepository
     {
         Paciente GetByIdIncludingProperties(int id);
 
+        IEnumerable<Paciente> GetAllIncludingProperties();
         Paciente GetByCPFIncludingProperties(string cpf);
     }
 }

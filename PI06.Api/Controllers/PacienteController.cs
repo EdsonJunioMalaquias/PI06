@@ -32,8 +32,7 @@ namespace PI06.Api.Controllers
         [ProducesResponseType(typeof(Paciente), 200)]
         public IActionResult Get()
         {
-
-            var paciente = _pacienteService.GetAllAsync();
+            var paciente = _pacienteService.GetAllIncludingProperties();
             return Json(paciente);
         }
         [HttpGet("cpf")]

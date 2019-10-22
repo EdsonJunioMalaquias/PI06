@@ -32,5 +32,11 @@ namespace PI06.Data.IRepository.Repositories
             IQueryable<Paciente> query = dbSet.Include(p => p.Pessoa).Where(i => i.Id == id);
             return query.FirstOrDefault();
         }
+        public IEnumerable<Paciente> GetAllIncludingProperties()
+        {
+            IQueryable<Paciente> query = dbSet.Include(p => p.Pessoa)
+                                                .Include(c =>c.Consultas);
+            return query.AsEnumerable();
+        }
     }
 }
