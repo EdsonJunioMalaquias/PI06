@@ -1,13 +1,17 @@
 <template>
   <div id="app">
-      <b-navbar type="dark" variant="dark">
+      <b-navbar type="dark" variant="info">
         <b-navbar-nav>
-          <router-link to='/home'>Home</router-link>
+          <b-nav-item router-link to='/home'>Home</b-nav-item>
         </b-navbar-nav>
       </b-navbar>  
+      
       <div class="container">
+
         <div class="caixa">
+
           <h4>Pesquisar Paciente:</h4>
+
           <b-form-input id="pesquisa" 
                         type="text" 
                         v-model="cpfUsuario" 
@@ -15,13 +19,46 @@
                         placeholder="Digite o CPF" 
                         v-mask="'###.###.###-##'">
           </b-form-input>
-          <label class="active" for="pesquisa"></label>
+
           <div class="buton"> 
             <b-button variant="primary" @click.prevent="buscarFuncionariosPeloCPF">Buscar</b-button>
+            <b-button class="button2" variant="primary">Adicionar</b-button>
           </div>
+
         </div>    
-      {{ resultados }}
-    </div>
+      </div>
+
+      <div id="container2" class="container">          
+        <div class="row">
+            <div class="col-md">
+                <form>
+                    <label>Nome</label>
+                    <input type="text"  placeholder="Nome">
+                    <label>Data de Nascimento</label>
+                    <input type="date"  placeholder="Data de Nascimento">
+                    <label>CPF</label>
+                    <input type="text"  placeholder="CPF">
+                    <b-container class="bv-example-row">
+                      <b-row>
+                        <b-col>
+                          <label>Medico</label>
+                          <b-form-select v-model="selected" :options="options"></b-form-select>
+                        </b-col>
+                        <b-col>
+                          <label>Data da Chegada</label>
+                          <input type="date" placeholder="Data">
+                        </b-col>
+                        <b-col>
+                          <label>Horas da Chegada</label>
+                          <input type="time" placeholder="horas">
+                        </b-col>
+                      </b-row>
+                    </b-container>
+                    <b-button  class="waves-effect waves-light btn-small buton" variant="primary">Adicionar Paciente a Fila</b-button>
+                </form>
+            </div>          
+        </div>
+      </div>
   </div>
 </template>
 
@@ -32,7 +69,14 @@
       return {
         text: '',
         cpfUsuario: null,
-        resultados: []
+        resultados: [],
+        options: [
+          { value: null, text: 'Medico 1' },
+          { value: 'a', text: 'Medico 2' },
+          { value: 'b', text: 'Medico 3' },
+          { value: 'c', text: 'Medico 4' },
+          { value: 'd', text: 'Medico 5', disabled: true }
+        ]
       }
     },
     methods: {
@@ -55,10 +99,16 @@
 
 <style>
 .caixa{
-  padding-top: 10%;
+  padding-top: 3%;
+}
+.buton{
+  margin-top: 20px;
+}
+.button2{
+  margin-left: 20px;
+}
+#container2{
+  margin-top: 3%;
 }
 
-.buton{
-  width: 100%;
-}
 </style>
