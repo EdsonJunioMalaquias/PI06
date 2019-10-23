@@ -9,12 +9,16 @@
                 <b-button variant="dark" @click.prevent="buscarFuncionariosPeloCPF" router-link to='/busca'>Adicionar Pacientes</b-button>
             </b-navbar-nav>
         </b-navbar>
+
     </div> 
 </template>
 
 <script>
 export default {
-    
+    data() {
+      return {
+      }
+    }  
 }
 </script>
 

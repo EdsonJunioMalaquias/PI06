@@ -22,7 +22,7 @@
 
           <div class="buton"> 
             <b-button variant="primary" @click.prevent="buscarFuncionariosPeloCPF">Buscar</b-button>
-            <b-button class="button2" variant="primary">Adicionar</b-button>
+            <b-button class="button2" variant="primary" @click="disabled = (disabled + 1) % 2" >Adicionar</b-button>
           </div>
 
         </div>    
@@ -33,16 +33,16 @@
             <div class="col-md">
                 <form>
                     <label>Nome</label>
-                    <input type="text"  placeholder="Nome">
+                    <input type="text"  placeholder="Nome" :disabled="disabled == 0 ? true : false">
                     <label>Data de Nascimento</label>
-                    <input type="date"  placeholder="Data de Nascimento">
+                    <input type="date"  placeholder="Data de Nascimento" :disabled="disabled == 0 ? true : false">
                     <label>CPF</label>
-                    <input type="text"  placeholder="CPF">
+                    <input type="text"  placeholder="CPF" :disabled="disabled == 0 ? true : false">
                     <b-container class="bv-example-row">
                       <b-row>
                         <b-col>
                           <label>Medico</label>
-                          <b-form-select v-model="selected" :options="options"></b-form-select>
+                          <b-form-select :options="options"></b-form-select>
                         </b-col>
                         <b-col>
                           <label>Data da Chegada</label>
@@ -54,7 +54,7 @@
                         </b-col>
                       </b-row>
                     </b-container>
-                    <b-button  class="waves-effect waves-light btn-small buton" variant="primary">Adicionar Paciente a Fila</b-button>
+                    <b-button router-link to='/espera' class="waves-effect waves-light btn-small buton" variant="primary">Adicionar Paciente a Fila</b-button>
                 </form>
             </div>          
         </div>
@@ -67,6 +67,7 @@
   export default {
     data () {
       return {
+        disabled: 0,
         text: '',
         cpfUsuario: null,
         resultados: [],
@@ -90,9 +91,6 @@
             console.error('erro ao buscar na API =>', err)
           })
       }
-    },
-    toPage (route) {
-      this.$router.push(route)
     }
   }
 </script>
