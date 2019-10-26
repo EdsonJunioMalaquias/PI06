@@ -76,6 +76,12 @@ namespace PI06.IRepository.Repository
             _contexto.Entry(obj).State = EntityState.Modified;
             return await CommitAsync();
         }
+  
+        public void SalvarSync(TEntity obj)
+        {
+            AddOrUpdate(obj);
+            Commit();
+        }
 
         public virtual async Task<int> UpdateRangeAsync(IEnumerable<TEntity> entities)
         {
