@@ -35,8 +35,8 @@ namespace PI06.Api.Controllers
             var paciente = _pacienteService.GetAllIncludingProperties();
             return Json(paciente);
         }
-        [HttpGet("cpf")]
-        public IActionResult GetByCpfAllProperties([FromBody] string cpf)
+        [HttpGet("cpf/{cpf}")]
+        public IActionResult GetByCpfAllProperties(string cpf)
         {
             var result = _pacienteService.GetByCPFIncludingProperties(cpf);
             if(result is null)

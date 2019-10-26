@@ -33,7 +33,7 @@ namespace PI06.Api.Controllers
             var result = _funcionarioService.GetByCpfIncludingProperties(cpf);
             if(result is null)
             {
-                return StatusCode(404, "CPF N�o encontrado!");
+                return StatusCode(404, "CPF Não encontrado!");
             }
             return Json(result);
         }

@@ -1,14 +1,37 @@
 <template>
-    <div class="card-style">
-        <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
-        <h1 class="title blackColor">{{ title }}</h1>
-        <p>{{ content }}</p>
-         
+    <div class="card-style" >
+        <div v-for="item of resultadosConsultas" :key="item.id" >
+                <div v-for="procedimento of item.procedimentos" :key="procedimento.id">
+                   <h4> {{procedimento.tipoProcedimento.descricao}}</h4>
+                    <p>Médico: <br></p>
+                    <table >
+                        <thead>
+                            <tr>
+                                <th>Descrição -</th>
+                                <th>Resultado -</th>
+                                <th>Resultado Referência</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align:center;" >{{procedimento.exame.tipoExame.descricao}}</td>
+                                <td style="text-align:center;" >{{procedimento.exame.resultado}} </td>
+                                <td style="text-align:center;" >{{procedimento.exame.tipoExame.resultadoReferencia}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Observações:{{procedimento.observacao}} <br></p>
+
+                </div>            
+        </div>
     </div>
 </template>
 <script>
   import paciente from '../../../services/paciente'
     export default { 
+        mounted(){
+            this.buscarPacientePeloCPF ();
+        },
         name: 'Card',
         props: {
             title: String, 
@@ -17,9 +40,9 @@
         },
         data () {
             return {
-                text: '',
-                cpfUsuario: null,
-                resultadosPessoais: [],
+                textError: '',
+                cpfUsuario: 90790162091,
+                resultadosPessoais: {},
                 resultadosConsultas: []
             }
             
@@ -27,24 +50,16 @@
         methods: {
         buscarPacientePeloCPF () {
             paciente.getByCpf(this.cpfUsuario)
-            .then((res) => {
-                console.log('resultado da API => ', res)
-                this.resultadosPessoais = res.data
-            })
-            .catch((err) => {
-                console.error('erro ao buscar na API =>', err)
-            })
-        },
-            buscarConsultas () {
-            paciente.getByCpf(this.resultadosPessoais.data.paciente.id)
-            .then((res) => {
-                console.log('resultado da API => ', res)
-                this.resultadosConsultas = res.data
-            })
-            .catch((err) => {
-                console.error('erro ao buscar na API =>', err)
-            })
-        }
+                .then((res) => {
+                    console.log('resultado da API => ', res.data.consultas)
+                    this.resultadosPessoais = res.data
+                    this.resultadosConsultas = res.data.consultas
+                })
+                .catch((err) => {
+                    console.error('erro ao buscar na API =>', err)
+                })
+            },
+
         },
         toPage (route) {
         this.$router.push(route)
@@ -86,4 +101,6 @@
     .blackColor {
         color: black;
     }
+
+
 </style>
