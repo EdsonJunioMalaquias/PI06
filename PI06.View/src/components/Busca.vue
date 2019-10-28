@@ -32,12 +32,15 @@
         <div class="row">
             <div class="col-md">
                 <form>
-                    <label>Nome</label>
                     <input type="text"  placeholder="Nome" :disabled="disabled == 0 ? true : false">
-                    <label>Data de Nascimento</label>
+                    <label>Nome</label>
+
                     <input type="date"  placeholder="Data de Nascimento" :disabled="disabled == 0 ? true : false">
-                    <label>CPF</label>
+                    <label>Data de Nascimento</label>
+
                     <input type="text"  placeholder="CPF" :disabled="disabled == 0 ? true : false">
+                    <label>CPF</label>
+                    
                     <b-container class="bv-example-row">
                       <b-row>
                         <b-col>
@@ -106,7 +109,7 @@
   margin-left: 20px;
 }
 #container2{
-  margin-top: 3%;
+  margin-top: 2%;
 }
 
 </style>
