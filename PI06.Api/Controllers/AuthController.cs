@@ -50,7 +50,7 @@ namespace PI06.Api.Controllers
         }
 
         [HttpPost("entrar")]
-        public async Task<ActionResult> Login(LoginUser loginUser)
+        public async Task<ActionResult> Login([FromBody]LoginUser loginUser)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 

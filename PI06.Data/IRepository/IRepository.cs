@@ -32,7 +32,7 @@ namespace PI06.IRepository
         void Update(TEntity obj);
 
         void Commit();
-
+        void SalvarSync(TEntity obj);
         void AddOrUpdate(TEntity obj);
     }
 }

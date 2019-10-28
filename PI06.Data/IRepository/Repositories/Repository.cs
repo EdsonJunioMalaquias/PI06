@@ -146,10 +146,16 @@ namespace PI06.IRepository.Repository
 
         public void AddOrUpdate(TEntity obj)
         {
-            if (obj.Id > 0)
-                Update(obj);
-            else
+             var ob = _contexto.Set<TEntity>().Find(obj.Id);
+            if (ob == null)
+            {
                 Add(obj);
+            }
+            else
+            {
+                Update(obj);
+            }
+
         }
 
         public void Commit()

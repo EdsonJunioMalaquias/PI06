@@ -15,9 +15,6 @@ namespace PI06.Models.Entity {
         public bool IsHealthProfession { get;  set; }
         [JsonIgnore]
         public virtual ICollection<Funcionario> Funcionarios { get; set; }
-        protected Cargo () {
-
-        }
 
         public Cargo (string DescricaoCargo, bool IsHealthProfession) {
             this.IsHealthProfession = IsHealthProfession;

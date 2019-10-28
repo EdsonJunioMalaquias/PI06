@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using PI06.Data.Models;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using PI06.Data.IRepository.Repository;
 
 namespace PI06.Api
 {
@@ -39,10 +40,42 @@ namespace PI06.Api
             options.UseSqlServer(Configuration
             .GetConnectionString("PI06")));
             services.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
             services.AddTransient<IFuncionarioService, FuncionarioService>();
             services.AddTransient<IFuncionarioRepository, FuncionarioRepository>();
+
             services.AddTransient<IPacienteService, PacienteService>();
             services.AddTransient<IPacienteRepository, PacienteRepository>();
+
+            services.AddTransient<ICargoService, CargoService>();
+            services.AddTransient<ICargoRepository, CargoRepository>();
+
+            services.AddTransient<IConsultaService, ConsultaService>();
+            services.AddTransient<IConsultaRepository, ConsultaRepository>();
+
+            services.AddTransient<ICirurgiaService, CirurgiaService>();
+            services.AddTransient<ICirurgiaRepository, CirurgiaRepository>();
+
+            services.AddTransient<IConselhoService, ConselhoService>();
+            services.AddTransient<IConselhoRepository, ConselhoRepository>();
+
+            services.AddTransient<IExameService, ExameService>();
+            services.AddTransient<IExameRepository, ExameRepository>();
+
+            services.AddTransient<IPessoaService, PessoaService>();
+            services.AddTransient<IPessoaRepository, PessoaRepository>();
+            
+            services.AddTransient<IProcedimentoService, ProcedimentoService>();
+            services.AddTransient<IProcedimentoRepository, ProcedimentoRepository>();
+            
+            services.AddTransient<ITipoExameService, TipoExameService>();
+            services.AddTransient<ITipoExameRepository, TipoExameRepository>();
+            
+            services.AddTransient<ITipoProcedimentoService, TipoProcedimentoService>();
+            services.AddTransient<ITipoProcedimentoRepository, TipoProcedimentoRepository>();
+            
+
             services.AddMvc();
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<Contexto>()
                 .AddDefaultTokenProviders();

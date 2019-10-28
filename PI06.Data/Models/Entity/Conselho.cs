@@ -12,7 +12,7 @@ namespace PI06.Models.Entity {
         public int? NumeroConselho { get; set; }
         public String DescricaoConselho { get;  set; }
         [JsonIgnore]
-        public virtual ICollection<Funcionario> Funcionarios { get; set; }
+        public ICollection<Funcionario> Funcionarios { get; set; }
 
         public Conselho (int? numeroConselho, string descricaoConselho) {
             SetNumeroConselho (numeroConselho);

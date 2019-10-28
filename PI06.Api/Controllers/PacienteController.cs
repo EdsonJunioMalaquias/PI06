@@ -6,83 +6,83 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using PI06.Api.IServiceRepository;
+using System.Threading.Tasks;
 
 namespace PI06.Api.Controllers
 {
     [Route("api/[controller]")]
     public class PacienteController : Controller
     {
-        private readonly IPacienteService _pacienteService;
+        private readonly IPacienteService _service;
 
         public PacienteController(IPacienteService pacienteService)
         {
-            _pacienteService = pacienteService;
+            _service = pacienteService;
         }
 
-        [HttpGet("{id}", Name = "GetPaciente")]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(Paciente), 200)]
-        public IActionResult Get(int id)
+        public IActionResult GetByIdIncludingAllProperties(int id)
         {
-            var paciente = _pacienteService.GetByIdIncludingProperties(id);
-
-            return Json(paciente);
+            var obj = _service.GetByIdIncludingProperties(id);
+            return Json(obj);
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(Paciente), 200)]
-        public IActionResult Get()
+        public IActionResult GetAllIncludingAllProperties()
         {
-            var paciente = _pacienteService.GetAllIncludingProperties();
-            return Json(paciente);
+            var obj = _service.GetAllIncludingProperties();
+            return Json(obj);
         }
-        [HttpGet("cpf/{cpf}")]
-        public IActionResult GetByCpfAllProperties(string cpf)
-        {
-            var result = _pacienteService.GetByCPFIncludingProperties(cpf);
-            if(result is null)
-            {
-                return StatusCode(404, "CPF Não encontrado!");
-            }
-            return Json(result);
-        }
-        [HttpPost]
-        public IActionResult Post([FromBody] Paciente paciente)
-        {
 
-            if (paciente == null)
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Paciente entity)
+        {
+            if (entity == null)
             {
                 return BadRequest();
             }
             try
             {
-                _pacienteService.AddAsync(paciente);
-                return CreatedAtRoute("GetFuncionario", new { id = paciente.Id }, paciente);
+                _service.AddOrUpdateAndCommitSync(entity);
+                return StatusCode(200, entity);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message.FirstOrDefault());
+            }
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var obj = await _service.GetByIdAsync(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                await _service.RemoveAsync(obj);
+                return new NoContentResult();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 throw;
             }
-
         }
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Paciente paciente)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] Paciente entity)
         {
-            if (paciente == null || paciente.Id != id)
+            if (entity == null)
             {
                 return BadRequest();
             }
-            paciente.DtAlteracao = DateTime.Now;
-            _pacienteService.UpdateAsync(paciente);
-
+            entity.DtAlteracao = DateTime.Now;
+            await _service.UpdateAsync(entity);
             return new NoContentResult();
         }
-
-
-
-
-
     }
-    
-
 }

@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PI06.Data.Context;
-using PI06.Models.Entity;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using PI06.Api.IServiceRepository;
 using System.Threading.Tasks;
 using PI06.Data.Models.Entity;
@@ -15,41 +11,69 @@ namespace PI06.Api.Controllers
     [Route("api/[controller]")]
     public class ConsultaController : Controller
     {
-        private readonly IConsultaService _consultaService;
-
-        public ConsultaController(IConsultaService consultaService) {
-
-            _consultaService = consultaService;
-
+        private readonly IConsultaService _service;
+        public ConsultaController(IConsultaService _service)
+        {
+            this._service = _service;
         }
-
-        [HttpGet("{idPaciente}")]
-        [ProducesResponseType(typeof(Consulta), 200)]
-        public IActionResult Get(int idPaciente) {
-            var consultaAll = _consultaService.GetAllIncludingProperties(idPaciente);
-
+        [HttpGet("{id}")]
+        public IActionResult GetByIdAllProperties(int id)
+        {
+            var result =  _service.GetAllIncludingProperties(id);
+            return Json(result);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var consultaAll = await _service.GetAllAsync();
             return Json(consultaAll);
-
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Consulta consulta) {
-            if(consulta == null) {
+        public IActionResult Post([FromBody] Consulta entity)
+        {
+            if (entity == null)
+            {
                 return BadRequest();
             }
             try
             {
-                _consultaService.AddAsync(consulta);
-                return CreatedAtRoute("GetConsulta", new {id = consulta.Id },consulta);
-
+                _service.AddOrUpdateAndCommitSync(entity);
+                return StatusCode(200, entity);
             }
-            catch (Exception e) {
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message.FirstOrDefault());
+            }
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var obj = await _service.GetByIdAsync(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                await _service.RemoveAsync(obj);
+                return new NoContentResult();
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
                 throw;
             }
-
-
-        } 
-
-
+        }
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] Consulta entity)
+        {
+            if (entity == null)
+            {
+                return BadRequest();
+            }
+            entity.DtAlteracao = DateTime.Now;
+            await _service.UpdateAsync(entity);
+            return new NoContentResult();
+        }
     }
 }

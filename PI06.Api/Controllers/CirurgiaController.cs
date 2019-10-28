@@ -14,52 +14,66 @@ namespace PI06.Api.Controllers
     [Route("api/[controller]")]
     public class CirurgiaController : Controller
     {
-        private readonly ICirurgiaService _cirurgiaService;
-
-        public CirurgiaController(ICirurgiaService cirurgiaService)
+        private readonly ICirurgiaService _service;
+        public CirurgiaController(ICirurgiaService _service)
         {
-            _cirurgiaService = cirurgiaService;
-
+            this._service = _service;
         }
-
-
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAllProperties(int id)
+        {
+            var result = await _service.GetByIdAsync(id);
+            return Json(result);
+        }
         [HttpGet]
-        [ProducesResponseType(typeof(Cirurgia), 200)]
         public async Task<IActionResult> Get() {
-
-            var consultaAll = await _cirurgiaService.GetAllAsync();
-
+            var consultaAll = await _service.GetAllAsync();
             return Json(consultaAll);
-
         }
-
-        public IActionResult Post([FromBody] Cirurgia cirurgia) {
-            if (cirurgia == null) {
-
+        [HttpPost]
+        public IActionResult Post([FromBody] Cirurgia entity) {
+            if (entity == null) {
                 return BadRequest();
-
             }
             try
             {
-                _cirurgiaService.AddAsync(cirurgia);
-                return CreatedAtRoute("GetCirurgia", new { id = cirurgia.Id }, cirurgia);
+                _service.AddOrUpdateAndCommitSync(entity);
+                return StatusCode(200, entity);
             }
-            catch (Exception c) {
-
-                Console.WriteLine(c.Message);
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message.FirstOrDefault());
+            }
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var obj = await _service.GetByIdAsync(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                await _service.RemoveAsync(obj);
+                return new NoContentResult();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
                 throw;
             }
-
-
         }
-
-
-
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] Cirurgia entity)
+        {
+            if (entity == null)
+            {
+                return BadRequest();
+            }
+            entity.DtAlteracao = DateTime.Now;
+            await _service.UpdateAsync(entity);
+            return new NoContentResult();
+        }
     }
-
-
-
-
-
-
 }

@@ -8,16 +8,6 @@ namespace PI06.Data.IRepository
 {
    public interface IConsultaRepository : IRepository<Consulta>
     {
-
          IEnumerable<Consulta> GetAllConsultasByIdPaciente(int id);
-
-
-
-
-
-
-
-
-
     }
 }

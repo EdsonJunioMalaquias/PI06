@@ -28,7 +28,7 @@ namespace PI06.IRepository.Repository
                                                 .Include(c => c.Procedimentos)
                                                     .ThenInclude(e => e.Exame)
                                                         .ThenInclude(a => a.TipoExame)
-                                                .Where(i => i.IdPaciente == id); ;
+                                                .Where(i => i.IdPaciente == id);
             return query.AsEnumerable();
 
         }

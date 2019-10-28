@@ -14,82 +14,66 @@ namespace PI06.Api.Controllers
     [Route("api/[controller]")]
     public class FuncionarioController : Controller
     {
-        private readonly IFuncionarioService _funcionarioService;
-
+        private readonly IFuncionarioService _service;
+        
         public FuncionarioController(IFuncionarioService funcionarioService)
         {
-            _funcionarioService = funcionarioService;
+            _service = funcionarioService;
         }
-        [HttpGet("{id}", Name = "GetFuncionario")]
-        public IActionResult GetByIdAllProperties(int id)
-        {
-            var result = _funcionarioService.GetByIdIncludingProperties(id);
 
-            return Json(result);
+        [HttpGet("{id}")]
+        public IActionResult GetByIdIncludingAllProperties(int id)
+        {
+            var obj = _service.GetByIdIncludingProperties(id);
+            return Json(obj);
+        }
+
+        [HttpGet]
+        public IActionResult GetAllIncludingAllProperties()
+        {
+            var obj = _service.GetAllIncludingProperties();
+            return Json(obj);
         }
         [HttpGet("cpf/{cpf}")]
         public IActionResult GetByCpfAllProperties(string cpf)
         {
-            var result = _funcionarioService.GetByCpfIncludingProperties(cpf);
-            if(result is null)
+            var result = _service.GetByCpfIncludingProperties(cpf);
+            if (result is null)
             {
                 return StatusCode(404, "CPF Não encontrado!");
             }
             return Json(result);
         }
-        [HttpGet]
-        public IActionResult Get()
-        {
-            var result = _funcionarioService.GetAllIncludingProperties();
-            return Json(result);
-        }
         [HttpPost]
-        public IActionResult Post([FromBody] Funcionario funcionario)
+        public async Task<IActionResult> Post([FromBody] Funcionario entity)
         {
-
-            if (funcionario == null)
+            if (entity == null)
             {
                 return BadRequest();
             }
+
             try
             {
-                _funcionarioService.AddAsync(funcionario);
-                return CreatedAtRoute("GetFuncionario", new { id = funcionario.Id }, funcionario);
+             
+                await _service.AddAsync(entity);
+                return StatusCode(200, entity);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
-                throw;
+                return StatusCode(400, ex.Message);
             }
-
-        }
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Funcionario funcionario)
-        {
-            if (funcionario == null || funcionario.Id != id)
-            {
-                return BadRequest();
-            }
-            funcionario.DtAlteracao = DateTime.Now;
-            _funcionarioService.UpdateAsync(funcionario);
-
-            return new NoContentResult();
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var funcionario = _funcionarioService.GetByIdIncludingProperties(id);
-            if (funcionario == null)
+            var obj = await _service.GetByIdAsync(id);
+            if (obj == null)
             {
                 return NotFound();
             }
             try
             {
-                Cargo cargo = funcionario.Cargo;
-                Conselho conselho = funcionario.Conselho;
-                Pessoa pessoa = funcionario.Pessoa;
-                _funcionarioService.RemoveAsync(conselho);
-                _funcionarioService.RemoveAsync(funcionario);
+                await _service.RemoveAsync(obj);
                 return new NoContentResult();
             }
             catch (Exception e)
@@ -98,12 +82,16 @@ namespace PI06.Api.Controllers
                 throw;
             }
         }
-
-
-
-
-
-
-
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] Funcionario entity)
+        {
+            if (entity == null)
+            {
+                return BadRequest();
+            }
+            entity.DtAlteracao = DateTime.Now;
+            await _service.UpdateAsync(entity);
+            return new NoContentResult();
+        }
     }
 }

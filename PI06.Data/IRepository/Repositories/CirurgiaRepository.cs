@@ -11,9 +11,9 @@ using System.Text;
 namespace PI06.IRepository.Repository
 
 {
-    public class CirurgiaRespository : Repository<Cirurgia>,ICirurgiaRepository 
+    public class CirurgiaRepository : Repository<Cirurgia>,ICirurgiaRepository 
     {
-        public CirurgiaRespository(Contexto context) : base(context)
+        public CirurgiaRepository(Contexto context) : base(context)
         {
         }
     }

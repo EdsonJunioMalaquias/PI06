@@ -14,44 +14,70 @@ namespace PI06.Api.Controllers
     [Route("api/[controller]")]
     public class ConselhoController : Controller
     {
-        private readonly IConselhoService _conselhoService;
-
-        public ConselhoController(IConselhoService conselhoService)
+        private readonly IConselhoService _service;
+        public ConselhoController(IConselhoService _service)
         {
-
-
-            _conselhoService = conselhoService;
+            this._service = _service;
         }
-
-
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAllProperties(int id)
+        {
+            var result = await _service.GetByIdAsync(id);
+            return Json(result);
+        }
         [HttpGet]
         [ProducesResponseType(typeof(Conselho), 200)]
         public async Task<IActionResult> Get()
         {
-
-            var consultaAll = await _conselhoService.GetAllAsync();
-
+            var consultaAll = await _service.GetAllAsync();
             return Json(consultaAll);
-
         }
-        public IActionResult Post([FromBody] Conselho conselho) {
-
-            if (conselho == null) {
+        [HttpPost]
+        public IActionResult Post([FromBody] Conselho entity)
+        {
+            if (entity == null)
+            {
                 return BadRequest();
             }
             try
             {
-                _conselhoService.AddAsync(conselho);
-                return CreatedAtRoute("GetConselho", new { id = conselho.Id }, conselho);
+                _service.AddOrUpdateAndCommitSync(entity);
+                return StatusCode(200, entity);
             }
-            catch (Exception e) {
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message.FirstOrDefault());
+            }
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var obj = await _service.GetByIdAsync(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                await _service.RemoveAsync(obj);
+                return new NoContentResult();
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
                 throw;
             }
-
-
-
         }
-
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] Conselho entity)
+        {
+            if (entity == null)
+            {
+                return BadRequest();
+            }
+            entity.DtAlteracao = DateTime.Now;
+            await _service.UpdateAsync(entity);
+            return new NoContentResult();
+        }
     }
 }
