@@ -11,44 +11,18 @@
         </b-navbar>
 
         
-        <table>
-            <tr>
-                <th>Nome</th>
-                <th>Data de Nascimento</th>
-                <th>CPF</th>
-                <th>Medico a Atender</th>
-                <th>Data Chegada</th>
-                <th>Hora Chegada</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-        </table>
+        <b-table striped hover :items="items">
+            <template v-slot:cell(status)="row">
+               <b-form-checkbox v-model="checked" switch size="lg" >
+                    <div v-if="checked === true">
+                    Atendido
+                    </div>
+                    <div v-else>
+                    Não Atendido
+                    </div>
+                </b-form-checkbox>
+            </template>
+        </b-table>
     </div> 
 </template>
 
@@ -56,14 +30,24 @@
 export default {
     data() {
       return {
-          
+          checked: false,
+          items: [
+          { Nome: '-',
+            Data_de_Nascimento: '-', 
+            CPF: '-', 
+            Medico: '-', 
+            Data_Chegada: '-',
+            Hora_Chegada: '-',
+            Status:''
+            }
+        ]
       }
     }  
 }
 </script>
 
 <style>
-#app{
+.fila{
     text-align: center;
 }
 th{
