@@ -38,6 +38,7 @@ export default {
             Medico: '-', 
             Data_Chegada: '-',
             Hora_Chegada: '-',
+            Grau_de_Emergencia: '-',
             Status:''
             }
         ]
@@ -51,7 +52,7 @@ export default {
     text-align: center;
 }
 th{
-    width: 10%;
+    width: 8%;
 }
 td{
     text-align:center;

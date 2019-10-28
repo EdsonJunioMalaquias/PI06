@@ -40,7 +40,7 @@
 
                     <input type="text"  placeholder="CPF" :disabled="disabled == 0 ? true : false">
                     <label>CPF</label>
-                    
+
                     <b-container class="bv-example-row">
                       <b-row>
                         <b-col>
@@ -54,6 +54,10 @@
                         <b-col>
                           <label>Horas da Chegada</label>
                           <input type="time" placeholder="horas">
+                        </b-col>
+                        <b-col>
+                          <label>Grau de Emergenica</label>
+                          <b-form-select :options="options2"></b-form-select>
                         </b-col>
                       </b-row>
                     </b-container>
@@ -80,6 +84,13 @@
           { value: 'b', text: 'Medico 3' },
           { value: 'c', text: 'Medico 4' },
           { value: 'd', text: 'Medico 5', disabled: true }
+        ],
+        options2: [
+          { value: null, text: 'Vermelho' },
+          { value: 'a', text: 'Laranja' },
+          { value: 'b', text: 'Amarelo' },
+          { value: 'c', text: 'Verde' },
+          { value: 'd', text: 'Azul'}
         ]
       }
     },
