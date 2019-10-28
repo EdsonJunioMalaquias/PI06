@@ -23,6 +23,11 @@ namespace PI06.Api.IServiceRepository.ServiceRepositories
             return await repository.AddAsync(obj);
         }
 
+        public void AddOrUpdateAndCommitSync(TEntity obj)
+        {
+            repository.SalvarSync(obj);
+        }
+
         public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             await repository.AddRangeAsync(entities);

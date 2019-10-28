@@ -15,23 +15,8 @@ namespace PI06.Models.Entity {
          public ICollection<Consulta> Consultas { get; set; }
         public int CargoId { get; set; }
         public int? ConselhoId { get; set; }
-        protected Funcionario () {
+  
 
-        }
-        public Funcionario (
-            DateTime dataContratacao, DateTime? dataDemissao, Cargo cargo, Conselho  conselho,Pessoa pessoa) {
-            
-            SetDataContratacao (dataContratacao);
-            SetDataDemissao (dataDemissao);
-
-            SetCargo(cargo.IsHealthProfession, cargo);
-            if (cargo.IsHealthProfession) {
-                Conselho = conselho;
-            } else {
-                Conselho = null;
-            }
-            this.Pessoa = pessoa;
-        }
 
         public void SetCargo (Boolean IsHealthProfession, Cargo cargo) {
             if (IsHealthProfession && Conselho == null) {

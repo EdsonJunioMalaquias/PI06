@@ -27,11 +27,7 @@ namespace PI06.IRepository.Repository
                                                 .Include(p => p.Pessoa).Where(i => i.Id == id);
             return query.FirstOrDefault();
         }
-        public bool CpfJaCadastrado(Int64 cpf, int funcionarioId)
-        {
-            return Get().Any(x => x.Pessoa.CodigoCpf == cpf
-                                           && x.Id != funcionarioId);
-        }
+      
         public void Salvar(Funcionario funcionario)
         {
             AddOrUpdate(funcionario);

@@ -1,44 +1,35 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using PI06.Data.Context;
-using PI06.Models.Entity;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using PI06.Api.IServiceRepository;
 using System.Threading.Tasks;
+using PI06.Data.Models.Entity;
+using System;
+// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PI06.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class PacienteController : Controller
+    public class ConsultaController : Controller
     {
-        private readonly IPacienteService _service;
-
-        public PacienteController(IPacienteService pacienteService)
+        private readonly IConsultaService _service;
+        public ConsultaController(IConsultaService _service)
         {
-            _service = pacienteService;
+            this._service = _service;
         }
-
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Paciente), 200)]
-        public IActionResult GetByIdIncludingAllProperties(int id)
+        public IActionResult GetByIdAllProperties(int id)
         {
-            var obj = _service.GetByIdIncludingProperties(id);
-            return Json(obj);
+            var result =  _service.GetAllIncludingProperties(id);
+            return Json(result);
         }
-
         [HttpGet]
-        [ProducesResponseType(typeof(Paciente), 200)]
-        public IActionResult GetAllIncludingAllProperties()
+        public async Task<IActionResult> Get()
         {
-            var obj = _service.GetAllIncludingProperties();
-            return Json(obj);
+            var consultaAll = await _service.GetAllAsync();
+            return Json(consultaAll);
         }
-
-
         [HttpPost]
-        public IActionResult Post([FromBody] Paciente entity)
+        public IActionResult Post([FromBody] Consulta entity)
         {
             if (entity == null)
             {
@@ -74,7 +65,7 @@ namespace PI06.Api.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] Paciente entity)
+        public async Task<IActionResult> Update([FromBody] Consulta entity)
         {
             if (entity == null)
             {

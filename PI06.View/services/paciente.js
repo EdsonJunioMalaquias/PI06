@@ -1,10 +1,19 @@
 import { http } from './config'
 
 export default {
-    getByCpf:(cpf) => {
+    get:(cpf) => {
         return http.get(`/api/paciente/cpf/${cpf}`)
+    },    
+    get:(id) => {
+        return http.get(`/api/paciente/${id}`)
+    }, 
+    get:() => {
+        return http.get(`/api/paciente/`)
     },
-    findConsultasByPaciente:(idPaciente) => {
-        return http.get(`/api/consulta/${idPaciente}`)
+    post:(obj) => {
+        return http.post(`/api/paciente/`,obj)
+    },
+    put:(obj) => {
+        return http.post(`/api/paciente/`,obj)
     }
 }

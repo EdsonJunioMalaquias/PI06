@@ -21,6 +21,7 @@ namespace PI06.Api.IServiceRepository
         Task<bool> RemoveAsync(object id);
         Task RemoveAsync(TEntity obj);
         Task RemoveRangeAsync(IEnumerable<TEntity> entities);
+        void AddOrUpdateAndCommitSync(TEntity obj);
     }
     
 }

@@ -7,41 +7,32 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using PI06.Api.IServiceRepository;
 using System.Threading.Tasks;
+using PI06.Data.Models.Entity;
 
 namespace PI06.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class PacienteController : Controller
+    public class CirurgiaController : Controller
     {
-        private readonly IPacienteService _service;
-
-        public PacienteController(IPacienteService pacienteService)
+        private readonly ICirurgiaService _service;
+        public CirurgiaController(ICirurgiaService _service)
         {
-            _service = pacienteService;
+            this._service = _service;
         }
-
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Paciente), 200)]
-        public IActionResult GetByIdIncludingAllProperties(int id)
+        public async Task<IActionResult> GetByIdAllProperties(int id)
         {
-            var obj = _service.GetByIdIncludingProperties(id);
-            return Json(obj);
+            var result = await _service.GetByIdAsync(id);
+            return Json(result);
         }
-
         [HttpGet]
-        [ProducesResponseType(typeof(Paciente), 200)]
-        public IActionResult GetAllIncludingAllProperties()
-        {
-            var obj = _service.GetAllIncludingProperties();
-            return Json(obj);
+        public async Task<IActionResult> Get() {
+            var consultaAll = await _service.GetAllAsync();
+            return Json(consultaAll);
         }
-
-
         [HttpPost]
-        public IActionResult Post([FromBody] Paciente entity)
-        {
-            if (entity == null)
-            {
+        public IActionResult Post([FromBody] Cirurgia entity) {
+            if (entity == null) {
                 return BadRequest();
             }
             try
@@ -74,7 +65,7 @@ namespace PI06.Api.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] Paciente entity)
+        public async Task<IActionResult> Update([FromBody] Cirurgia entity)
         {
             if (entity == null)
             {

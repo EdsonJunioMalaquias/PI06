@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PI06.Data.Context;
 using PI06.Models.Entity;
 using System.Linq;
@@ -7,38 +6,33 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using PI06.Api.IServiceRepository;
 using System.Threading.Tasks;
+using PI06.Data.Models.Entity;
+using System;
 
 namespace PI06.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class PacienteController : Controller
+    public class ExameController : Controller
     {
-        private readonly IPacienteService _service;
-
-        public PacienteController(IPacienteService pacienteService)
+        private readonly IExameService _service;
+        public ExameController(IExameService _service)
         {
-            _service = pacienteService;
+            this._service = _service;
         }
-
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Paciente), 200)]
-        public IActionResult GetByIdIncludingAllProperties(int id)
+        public async Task<IActionResult> GetByIdAllProperties(int id)
         {
-            var obj = _service.GetByIdIncludingProperties(id);
-            return Json(obj);
+            var result = await _service.GetByIdAsync(id);
+            return Json(result);
         }
-
         [HttpGet]
-        [ProducesResponseType(typeof(Paciente), 200)]
-        public IActionResult GetAllIncludingAllProperties()
+        public async Task<IActionResult> Get()
         {
-            var obj = _service.GetAllIncludingProperties();
-            return Json(obj);
+            var consultaAll = await _service.GetAllAsync();
+            return Json(consultaAll);
         }
-
-
         [HttpPost]
-        public IActionResult Post([FromBody] Paciente entity)
+        public IActionResult Post([FromBody] Exame entity)
         {
             if (entity == null)
             {
@@ -74,7 +68,7 @@ namespace PI06.Api.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] Paciente entity)
+        public async Task<IActionResult> Update([FromBody] Exame entity)
         {
             if (entity == null)
             {
