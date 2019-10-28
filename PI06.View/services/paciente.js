@@ -1,7 +1,7 @@
 import { http } from './config'
 
 export default {
-    get:(cpf) => {
+    getByCpf:(cpf) => {
         return http.get(`/api/paciente/cpf/${cpf}`)
     },    
     get:(id) => {

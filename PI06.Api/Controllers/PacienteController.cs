@@ -19,6 +19,16 @@ namespace PI06.Api.Controllers
         {
             _service = pacienteService;
         }
+        [HttpGet("cpf/{cpf}")]
+        public IActionResult GetByCpfAllProperties(string cpf)
+        {
+            var result = _service.GetByCPFIncludingProperties(cpf);
+            if (result is null)
+            {
+                return StatusCode(404, "CPF Não encontrado!");
+            }
+            return Json(result);
+        }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Paciente), 200)]
