@@ -54,41 +54,37 @@
 
                                 <label>Observações:</label>
                                     <p>
-                                        <textarea v-model="textarea" rows="5" cols="5"></textarea>
+                                        <textarea v-model="observacao" rows="5" cols="5"></textarea>
                                     </p>
                                 
 
                                 
                                 <label for="">Exame</label>
-                                <select >
-                                    <option>Selecione</option>
+                                <select v-model="idTipoExame">
+                                    <option value="-1">Selecione</option>
                                     <option v-for="item in this.ListaExames" :key="item.id" :value="item.id"  > {{item.descricao}}</option>
 
                                 </select>
+                                
                                 <br>
                                 <br>
-                                <input type="text" placeholder="Resultado" v-model="result">
+                                <input type="text" placeholder="Resultado" v-model="resultado">
                                 <br>
                                 <br>
-                                <button v-on:click="AdicionarExame()" class="waves-effect waves-light btn-small">++++++<i class="material-icons left">more</i></button>
+                                <button v-on:click="AdicionarExame()" class="waves-effect waves-light btn-small">+<i class="material-icons left">more</i></button>
                                 <br>
                                 <br>
                                 
                                 <label>Exames Incluidos</label>
                                 <ul>
-                                    <li>
-                                        Exame 1 - resultado 1 - Remover - Editar
+                                    <li v-for="item in exames" :key="item.id">
+                                       {{item.id}} - {{item.resultado}} -<span @click.prevent="RemoverExame(item.id)" > Remover</span> - <span @click.prevent="EditarExame(item.id,item.resultado)" >Editar</span> 
                                     </li>
                                     
-                                    <li>
-                                        Exame 1 - resultado 1 
-                                    </li>
-                                    <li>
-                                        Exame 1 - resultado 1 
-                                    </li>
+                      
                                 </ul>
                                 
-                                 <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
+                                 <button @click.prevent="CadastrarConsulta()" class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
                                
                                 
                             </form>
@@ -133,13 +129,16 @@
   </div>
 </template>
 
-
 <script>
   
     import Header from '../template/Header'
     import Footer from '../template/Footer'
     import paciente from '../../../services/paciente'
     import tipoExame from '../../../services/tipoExame'
+    import consulta from '../../../services/consulta'
+    import procedimento from '../../../services/procedimento'
+    import exame from '../../../services/exame'
+
     export default { 
         components: {
             Header,
@@ -148,9 +147,8 @@
         },
         mounted(){
             this.ListarTipoExame();
-            this.buscarPacientePeloCPF ();
+            this.buscarPacientePeloCPF();
             this.dateNow = new Date();
-            
         },
   
         computed:(
@@ -170,97 +168,107 @@
                 resultadosConsultas: [],
                 ListaExames:[],
 
-                idade: 0,
+                idTipoExame:-1,
+                resultado:"",
                 dateNow: "",
-                peso: 0,
+                idade: 0,
+                
+                /*peso: 0,
                 altura:0,
                 protManchester: 0,
                 precao:0,
-                batcardia:0,
+                batcardia:0,*/
                 textarea:"",
-                result:[]
+              
+                exames:[],
+
+                observacao:"",
             }
             
     },
         methods: {
-        buscarPacientePeloCPF () {
-            paciente.getByCpf(this.cpfUsuario)
-                .then((res) => {
-                    this.resultadosPessoais = res.data.pessoa
-                    this.resultadosConsultas = res.data.consultas
-                    this.calculaIdade();
-                })
-                .catch((err) => {
-                    console.error('erro ao buscar na API =>' + err)
+            AdicionarExame(){
+                this.exames.push({
+                   resultado:this.resultado,
+                    id:this.idTipoExame
                 })
             },
-        calculaIdade(){
-            var dataNasc = new Date(this.resultadosPessoais.dataNascimento);
-            var currentDate = new Date();
-            var currentYear = currentDate.getFullYear();
-            var birthdayThisYear = new Date(currentYear, dataNasc.getMonth(), dataNasc.getDate());
-            this.idade = currentYear - dataNasc.getFullYear();
-            if(birthdayThisYear > currentDate) {
-                this.idade--;
+            RemoverExame(id){
+                this.exames.splice(this.exames.indexOf(id), 1);
+            },
+            EditarExame(id, resultado){
+                this.resultado = resultado;
+                this.idTipoExame = id;
+            },
+
+            buscarPacientePeloCPF () {
+                paciente.getByCpf(this.cpfUsuario)
+                    .then((res) => {
+                        this.resultadosPessoais = res.data.pessoa
+                        this.resultadosConsultas = res.data.consultas
+                        this.calculaIdade();
+                    })
+                },
+            calculaIdade(){
+                var dataNasc = new Date(this.resultadosPessoais.dataNascimento);
+                var currentDate = new Date();
+                var currentYear = currentDate.getFullYear();
+                var birthdayThisYear = new Date(currentYear, dataNasc.getMonth(), dataNasc.getDate());
+                this.idade = currentYear - dataNasc.getFullYear();
+                if(birthdayThisYear > currentDate) {
+                    this.idade--;
+                }
+            
+            },
+            ListarTipoExame(){
+                tipoExame.get()
+                    .then((res) => {
+                        this.ListaExames = res.data;
+                    })
+            },
+            CadastrarConsulta(){
+                var obj = {
+                    idPaciente:this.resultadosPessoais.id,
+                    idFuncionarioMedico: this.medicoiD,
+                    dataInicio: this.dateNow,
+                    dataTermino: new Date()
+                }
+                
+            consulta.post(obj)
+            .then((res) => {
+                     this.cadastrarProcedimento(res.data.id);
+                });
+            },
+            cadastrarProcedimento(idConsulta){
+                var obj = {
+                    observacao: this.observacao,
+                    idConsulta: idConsulta,
+                    idTipoProcedimento: this.idTipoProcedimento
+                }
+                procedimento.post(obj)
+                .then((res) => {
+                     this.cadastrarExame(res.data.id);
+                });
+                
+            },
+        
+            cadastrarExame(idProcedimentoExame){
+                
+                this.exames.forEach(element => {
+                    var obj = {
+                        resultado: element.resultado,
+                        idTipoExame: element.id,
+                        iD:idProcedimentoExame
+                   
+                    }
+                    exame.post(obj);
+                });
+            },
+            toPage (route) {
+            this.$router.push(route)
             }
-        
-        },
-        ListarTipoExame(){
-            tipoExame.get()
-                .then((res) => {
-                    this.ListaExames = res.data;
-                    console.log(res);
-                })
-                .catch((err) => {
-                    console.error('erro ao buscar na API =>' + err)
-                })
-        },
-        CadastrarConsulta(){
-            tipoExame.get()
-                .then((res) => {
-                    this.ListaExames = res.data;
-                    console.log(res);
-                })
-                .catch((err) => {
-                    console.error('erro ao buscar na API =>' + err)
-                })
-/* "idPaciente": 1,
-  "idFuncionarioMedico": 1,
-  "dataInicio": "2019-10-29T00:26:34.099Z",
-  "dataTermino": "2019-10-29T00:26:34.100Z",
- */
-        },
-        
-        cadastrarProcedimento(){
- /*"procedimentos": [
-    {
-      "observacao": "Virose",
-       "idConsulta": 0,
-      "idTipoProcedimento":1,
     }
-    */
-        },
-        
-        cadastrarExame(){
-     /*"exame": {
-        "resultado": "string",
-        "idTipoExame": vai vim do select
-      },*/
-        },
-        buscarConsulta(){
-
-        },
-        
-        buscarProcedimento(){
-
-        },
-        
-
-        },
-        toPage (route) {
-        this.$router.push(route)
-        }
-  }
+}
 </script>
 
 

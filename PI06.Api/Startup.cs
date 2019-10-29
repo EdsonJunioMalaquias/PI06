@@ -36,6 +36,19 @@ namespace PI06.Api
         public void ConfigureServices(IServiceCollection services)
         {
             
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin()
+                    .AllowCredentials();
+                
+                });
+            });
+
             services.AddDbContext<Contexto>(options =>
             options.UseSqlServer(Configuration
             .GetConnectionString("PI06")));
@@ -87,15 +100,8 @@ namespace PI06.Api
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(MyAllowSpecificOrigins,
-                builder =>
-                {
-                    builder.WithOrigins("*");
-                });
-            });
-
+            
+            
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
