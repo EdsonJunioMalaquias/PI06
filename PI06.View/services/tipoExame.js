@@ -11,6 +11,6 @@ export default {
         return http.post(`/api/tipoExame/`,obj)
     },
     put:(obj) => {
-        return http.post(`/api/tipoExame/`,obj)
+        return http.put(`/api/tipoExame/`,obj)
     }
 }

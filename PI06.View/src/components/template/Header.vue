@@ -5,6 +5,9 @@
                 <h2 class="menu-item active"><router-link to="/">Home</router-link></h2> 
             </li>
             <li class="menu-item-wrapper">
+                <h2 class="menu-item active"><router-link to="/busca">Busca</router-link></h2> 
+            </li>
+            <li class="menu-item-wrapper">
                 <h2 class="menu-item"><router-link to="/novaConsulta/">Nova Consulta</router-link></h2> 
             </li>
         </ul>

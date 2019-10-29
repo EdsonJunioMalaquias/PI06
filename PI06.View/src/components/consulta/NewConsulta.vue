@@ -10,19 +10,87 @@
                         <div class="col-md">
                             <form>
                                 <h4>Dados Pessoais</h4>
+
                                 <label>Nome</label>
-                                <input type="text" readonly :value="resultadosPessoais.pessoa.nome">
+                                <input type="text" readonly :value="resultadosPessoais.nome">
+
                                 <label>SUS:</label>
-                                <input type="number" readonly :value="resultadosPessoais.pessoa.sus">
-                                <label>Idade</label>
+                                <input type="number" readonly :value="resultadosPessoais.sus">
+
+                                <label>Idade:</label>
                                 <input type="number" readonly :value="idade">
-                                <label>Peso</label>
-                                <input type="number" placeholder="Peso">
-                                <label>Altura</label>
-                                <input type="number" placeholder="Altura">
                                 
+                                <hr>
+                        <!--        <h5>Triagem</h5>
+                                <br>
+
+                                <label>Peso em Kg:</label>
+                                <input type="number" placeholder="Peso" v-model="peso">
+
+                                <label>Altura em metros:</label>
+                                <input type="number" placeholder="Altura" v-model="altura">
+
+                                <label>Preção:</label>
+                                <input type="number" placeholder="Preção" v-model="precao">
                                 
-                                <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
+                                <label>Batimentos Cardíacos:</label>
+                                <input type="number" placeholder="Batimentos Cardíacos" v-model="batcardia">
+
+                                <label>IMC</label>
+                                <input type="number" placeholder="IMC" v-model="imc">
+                                
+                                <br><br>
+                                <label for="">Protocolo de Manchester:</label>
+                                <select v-model="protManchester">
+                                    <option value="0" > Selecione</option>
+                                    <option value="1" style="color:red"> Emergência</option>
+                                    <option value="2" style="color:orange"> Muito Urgente</option>
+                                    <option value="3" style="color:#737326"> Urgente</option>
+                                    <option value="4" style="color:#12b312"> Pouco Urgente</option>
+                                    <option value="5" style="color:blue"> Não Urgente</option>   
+                                </select>-!-->
+                                
+                                <h5>Dados Nova Consulta</h5>
+
+                                <label>Observações:</label>
+                                    <p>
+                                        <textarea v-model="textarea" rows="5" cols="5"></textarea>
+                                    </p>
+                                
+
+                                
+                                <label for="">Exame</label>
+                                <select >
+                                    <option>Selecione</option>
+                                    <option v-for="item in this.ListaExames" :key="item.id" :value="item.id"  > {{item.descricao}}</option>
+
+                                </select>
+                                <br>
+                                <br>
+                                <input type="text" placeholder="Resultado" v-model="result">
+                                <br>
+                                <br>
+                                <button v-on:click="AdicionarExame()" class="waves-effect waves-light btn-small">++++++<i class="material-icons left">more</i></button>
+                                <br>
+                                <br>
+                                
+                                <label>Exames Incluidos</label>
+                                <ul>
+                                    <li>
+                                        Exame 1 - resultado 1 - Remover - Editar
+                                    </li>
+                                    
+                                    <li>
+                                        Exame 1 - resultado 1 
+                                    </li>
+                                    <li>
+                                        Exame 1 - resultado 1 
+                                    </li>
+                                </ul>
+                                
+                                 <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
+                               
+                                
                             </form>
                         </div>
 
@@ -70,8 +138,8 @@
   
     import Header from '../template/Header'
     import Footer from '../template/Footer'
-
     import paciente from '../../../services/paciente'
+    import tipoExame from '../../../services/tipoExame'
     export default { 
         components: {
             Header,
@@ -79,16 +147,38 @@
             
         },
         mounted(){
+            this.ListarTipoExame();
             this.buscarPacientePeloCPF ();
+            this.dateNow = new Date();
+            
         },
+  
+        computed:(
+            {
+                imc:function(){
+                   return(this.peso== 0 || this.altura== 0) ?0: parseFloat(this.peso/(Math.pow(this.altura,2))).toFixed(2);
+                }
+            }),
 
         data () {
             return {
-                textError: '',
+                medicoiD:1,
                 cpfUsuario: 90790162091,
+                idTipoProcedimento : 1,
+                
                 resultadosPessoais: {},
                 resultadosConsultas: [],
-                idade: 20
+                ListaExames:[],
+
+                idade: 0,
+                dateNow: "",
+                peso: 0,
+                altura:0,
+                protManchester: 0,
+                precao:0,
+                batcardia:0,
+                textarea:"",
+                result:[]
             }
             
     },
@@ -96,14 +186,75 @@
         buscarPacientePeloCPF () {
             paciente.getByCpf(this.cpfUsuario)
                 .then((res) => {
-                    console.log('resultado da API => ', res.data.consultas)
-                    this.resultadosPessoais = res.data
+                    this.resultadosPessoais = res.data.pessoa
                     this.resultadosConsultas = res.data.consultas
+                    this.calculaIdade();
                 })
                 .catch((err) => {
-                    console.error('erro ao buscar na API =>', err)
+                    console.error('erro ao buscar na API =>' + err)
                 })
             },
+        calculaIdade(){
+            var dataNasc = new Date(this.resultadosPessoais.dataNascimento);
+            var currentDate = new Date();
+            var currentYear = currentDate.getFullYear();
+            var birthdayThisYear = new Date(currentYear, dataNasc.getMonth(), dataNasc.getDate());
+            this.idade = currentYear - dataNasc.getFullYear();
+            if(birthdayThisYear > currentDate) {
+                this.idade--;
+            }
+        
+        },
+        ListarTipoExame(){
+            tipoExame.get()
+                .then((res) => {
+                    this.ListaExames = res.data;
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.error('erro ao buscar na API =>' + err)
+                })
+        },
+        CadastrarConsulta(){
+            tipoExame.get()
+                .then((res) => {
+                    this.ListaExames = res.data;
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.error('erro ao buscar na API =>' + err)
+                })
+/* "idPaciente": 1,
+  "idFuncionarioMedico": 1,
+  "dataInicio": "2019-10-29T00:26:34.099Z",
+  "dataTermino": "2019-10-29T00:26:34.100Z",
+ */
+        },
+        
+        cadastrarProcedimento(){
+ /*"procedimentos": [
+    {
+      "observacao": "Virose",
+       "idConsulta": 0,
+      "idTipoProcedimento":1,
+    }
+    */
+        },
+        
+        cadastrarExame(){
+     /*"exame": {
+        "resultado": "string",
+        "idTipoExame": vai vim do select
+      },*/
+        },
+        buscarConsulta(){
+
+        },
+        
+        buscarProcedimento(){
+
+        },
+        
 
         },
         toPage (route) {
@@ -146,6 +297,21 @@
     .blackColor {
         color: black;
     }
-
+    label {
+        color: black !important;
+    }
+    input[readonly="readonly"]{
+        color:rgb(90, 90, 90) !important;
+    }
+    hr{
+        border: 1em;
+        color: black;
+    }
+    select{
+        display: inline;
+    }
+    textarea{
+        height: 10rem;
+    }
 
 </style>

@@ -14,7 +14,7 @@ export default {
         return http.post(`/api/funcionario/`,obj)
     },
     put:(obj) => {
-        return http.post(`/api/funcionario/`,obj)
+        return http.put(`/api/funcionario/`,obj)
     },
     autenticar:(obj) => {
         return http.post(`/api/auth/entrar`,obj)
