@@ -32,6 +32,8 @@
         <div class="row">
             <div class="col-md">
                 <form>
+                    <h4>Cadastrar Paciente:</h4>
+
                     <input type="text"  placeholder="Nome" :disabled="disabled == 0 ? true : false">
                     <label>Nome</label>
 
