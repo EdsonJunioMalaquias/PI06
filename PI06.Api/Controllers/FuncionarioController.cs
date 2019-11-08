@@ -34,6 +34,12 @@ namespace PI06.Api.Controllers
             var obj = _service.GetAllIncludingProperties();
             return Json(obj);
         }
+        [HttpGet("{cargo}")]
+        public IActionResult GetAllIncludingAllProperties(string cargo)
+        {
+            var obj = _service.GetAllIncludingProperties(cargo);
+            return Json(obj);
+        }
         [HttpGet("cpf/{cpf}")]
         public IActionResult GetByCpfAllProperties(string cpf)
         {
@@ -44,6 +50,7 @@ namespace PI06.Api.Controllers
             }
             return Json(result);
         }
+        
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Funcionario entity)
         {

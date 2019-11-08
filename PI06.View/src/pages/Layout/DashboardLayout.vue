@@ -20,6 +20,11 @@
         <md-icon>content_paste</md-icon>
         <p> Pasciente</p>
       </sidebar-link>
+      <sidebar-link to="/novaconsulta">
+        <md-icon>content_paste</md-icon>
+        <p> Nova Consulta</p>
+      </sidebar-link>
+
     </side-bar>
 
     <div class="main-panel">

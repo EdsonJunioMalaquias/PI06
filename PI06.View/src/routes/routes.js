@@ -5,6 +5,7 @@ import Consulta from "@/pages/Consulta.vue";
 import Usuario from "@/pages/Usuario.vue";
 import Busca from "@/pages/Busca.vue";
 import Notifications from "@/pages/Notifications.vue";
+import novaConsulta from "@/pages/NewConsulta.vue";
 
 const routes = [
   {
@@ -28,15 +29,20 @@ const routes = [
         component: Usuario
       },
       {
-        path: '/busca',
-        name: 'Busca',
+        path: "/busca",
+        name: "Busca",
         component: Busca
-    },
+      },
       {
         path: "notifications",
         name: "Notificaçoes",
         component: Notifications
-      }
+      },
+      {
+        path: 'novaconsulta',
+        name: 'NovaConsulta',
+        component: novaConsulta
+      },
       
     ]
   }

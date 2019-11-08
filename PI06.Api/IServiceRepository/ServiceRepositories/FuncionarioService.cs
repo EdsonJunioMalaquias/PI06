@@ -33,5 +33,10 @@ namespace PI06.Api.IServiceRepository.ServiceRepositories
         {
             _repository.Salvar(funcionario);
         }
+
+        public IEnumerable<Funcionario> GetAllIncludingProperties(string cargo)
+        {
+            return _repository.GetAllIncludingProperties(cargo);
+        }
     }
 }

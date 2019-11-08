@@ -42,5 +42,13 @@ namespace PI06.IRepository.Repository
             }
             return GetByIdIncludingProperties(pessoa.Id);
         }
+
+        public IEnumerable<Funcionario> GetAllIncludingProperties(string cargo)
+        {
+            IQueryable<Funcionario> query = dbSet.Include(c => c.Conselho)
+                                                .Include(p => p.Pessoa)
+                                                .Where(p => p.Cargo.DescricaoCargo == cargo);
+            return query.AsEnumerable();
+        }
     }
 }

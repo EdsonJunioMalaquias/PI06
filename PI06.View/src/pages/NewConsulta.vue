@@ -1,25 +1,24 @@
-
 <template>
   <div>
 	<div class="form">
-		<Header title="Consulta" hideToggle="false" hideUserDropdown="false" />
 			<div>
-				<div class="container">
+				<div class="md-layout">
 				
-					<div class="row">
-						<div class="col-md">
+						<div  class="md-layout-item md-small-size-50 md-size-50">
 							<form>
 								<h4>Dados Pessoais</h4>
-
-								<label>Nome</label>
-								<input type="text" readonly :value="resultadosPessoais.nome">
-
-								<label>SUS:</label>
-								<input type="number" readonly :value="resultadosPessoais.sus">
-
-								<label>Idade:</label>
-								<input type="number" readonly :value="idade">
-								
+								<md-field>
+									<label for="Nome">Nome</label>
+									<md-input type="text" id="Nome"  readonly :value="resultadosPessoais.nome"></md-input>
+								</md-field>
+								<md-field>
+									<label for="sus">SUS:</label>
+									<md-input type="number" id="sus"   readonly :value="resultadosPessoais.sus"></md-input>
+								</md-field>
+								<md-field>
+									<label>Idade</label>
+									<md-input type="number" readonly :value="idade">></md-input>
+								</md-field>
 								<hr>
 						<!--        <h5>Triagem</h5>
 								<br>
@@ -52,29 +51,28 @@
 								
 								<h5>Dados Nova Consulta</h5>
 
-								<label>Observações:</label>
-									<p>
-										<textarea v-model="observacao" rows="5" cols="5"></textarea>
-									</p>
-								
+								<md-field>
+									<label>Observações</label>
+									<md-textarea v-model="observacao" required maxlength="100"></md-textarea>
+									<span class="md-error">Preencha a Observações!</span>
+								</md-field>
+					
 
+								<md-field>
+									<label >Exames</label>
+									<md-select v-model="idTipoExame">
+										<md-option v-for="item in this.ListaExames" :key="item.id" :value="item.id"  > {{item.descricao}}</md-option>
+									</md-select>
+								</md-field>
 								
-								<label for="">Exame</label>
-								<select v-model="idTipoExame">
-									<option value="-1">Selecione</option>
-									<option v-for="item in this.ListaExames" :key="item.id" :value="item.id"  > {{item.descricao}}</option>
-
-								</select>
-								
-								<br>
-								<br>
-								<input type="text" placeholder="Resultado" v-model="resultado">
-								<br>
-								<br>
-								<button v-on:click.prevent="AdicionarExame()" class="waves-effect waves-light btn-small">+<i class="material-icons left">more</i></button>
-								<br>
-								<br>
-								
+								<md-field>
+									<label>Resultado</label>
+									<md-input type="text" placeholder="Resultado" v-model="resultado" required></md-input>
+									<span class="md-error">Campo Obrigatorio!</span>
+								</md-field>
+							
+								<md-button v-on:click.prevent="AdicionarExame()" class="md-raised md-primary" >Adcionar Exame</md-button>
+								 							
 								<label>Exames Incluidos</label>
 								<ul>
 									<li v-for="item in exames" :key="item.id">
@@ -84,67 +82,82 @@
 					  
 								</ul>
 								
-								 <button @click.prevent="CadastrarConsulta()" class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
-							   
+								<md-button @click.prevent="CadastrarConsulta()" class="md-raised md-primary">Cadastrar Consulta</md-button>
+								
+								<md-snackbar md-position="center" :md-duration="duracao" :md-active.sync="showSnackbar" md-persistent>
+									<span>{{error}}</span>
+									<md-button class="md-primary" @click="showSnackbar = false">Fechar</md-button>
+								</md-snackbar>
 								
 							</form>
 						</div>
+						<div class="md-size-50">
+							<md-card md-with-hover>
+								<md-ripple>
+									<md-card-header>
+										<div class="md-title">Histórico</div>
+									</md-card-header>
 
-						<div class="col-md center">
-							<h4>Histórico</h4>
-							<div id="container">
-								<div  >
-									<div class="card-style" v-for="item of resultadosConsultas" :key="item.id" >
-											<div v-for="procedimento of item.procedimentos" :key="procedimento.id">
-											<h4> {{procedimento.tipoProcedimento.descricao}}</h4>
-												<p>Médico: <br></p>
-												<table >
-													<thead>
-														<tr>
-															<th>Descrição -</th>
-															<th>Resultado -</th>
-															<th>Resultado Referência</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td style="text-align:center;" >{{procedimento.exame.tipoExame.descricao}}</td>
-															<td style="text-align:center;" >{{procedimento.exame.resultado}} </td>
-															<td style="text-align:center;" >{{procedimento.exame.tipoExame.resultadoReferencia}}</td>
-														</tr>
-													</tbody>
-												</table>
-												<p>Observações:{{procedimento.observacao}} <br></p>
+									<md-card-content>
+										<div>
+											<div class="card-style" v-for="item of resultadosConsultas" :key="item.id" >
+												<div v-for="procedimento of item.procedimentos" :key="procedimento.id">
+													<div class="md-title">{{procedimento.tipoProcedimento.descricao}}</div>
+													<h4> {{procedimento.tipoProcedimento.descricao}}</h4>
+													<p>Médico: <br></p>
+													<md-table >
+															<md-table-row>
+																<md-table-head>Descrição</md-table-head>
+																<md-table-head>Resultado</md-table-head>
+																	<md-table-head>Resultado Referência</md-table-head>
+																</md-table-row>
+																<md-table-row>
+																	<md-table-cell>{{procedimento.exame.resultado}} </md-table-cell>
+																	<md-table-cell>{{procedimento.exame.tipoExame.resultadoReferencia}}</md-table-cell>
+																</md-table-row>
+														</md-table>
+														<p>Observações:{{procedimento.observacao}} <br></p>
+													</div>            
+												</div>
+											</div>
+										</md-card-content>
 
-											</div>            
-									</div>
-								</div>
-							</div>
+									<md-card-actions>
+										<md-button>Action</md-button>
+										<md-button>Action</md-button>
+									</md-card-actions>
+								</md-ripple>
+							</md-card>
+						
+
 						</div>
-					</div>
+					
 				 </div>
 			</div>
-		<Footer/>
 	</div>
   </div>
 </template>
 
 <script>
-  
-	import Header from '../template/Header'
-	import Footer from '../template/Footer'
-	import paciente from '../../../services/paciente'
-	import tipoExame from '../../../services/tipoExame'
-	import consulta from '../../../services/consulta'
-	import procedimento from '../../../services/procedimento'
-	import exame from '../../../services/exame'
 
+/* eslint-disable */
+	import paciente from '../../services/paciente'
+	import tipoExame from '../../services/tipoExame'
+	import consulta from '../../services/consulta'
+	import procedimento from '../../services/procedimento'
+	import exame from '../../services/exame'
+	const toLower = text => {
+		return text.toString().toLowerCase()
+	}
+
+	const searchByName = (items, term) => {
+		if (term) {
+			return items.filter(item => toLower(item.name).includes(toLower(term)))
+		}
+
+		return items
+	}
 	export default { 
-		components: {
-			Header,
-			Footer,
-			
-		},
 		mounted(){
 			this.ListarTipoExame();
 			this.buscarPacientePeloCPF();
@@ -155,11 +168,16 @@
 			{
 				imc:function(){
 				   return(this.peso== 0 || this.altura== 0) ?0: parseFloat(this.peso/(Math.pow(this.altura,2))).toFixed(2);
-				}
+				},
+				
 			}),
 
 		data () {
 			return {
+				showSnackbar: false,
+				error: "Erro Inesperado!",
+				duracao: 4000,
+
 				medicoiD:1,
 				cpfUsuario: 90790162091,
 				idTipoProcedimento : 1,
@@ -168,7 +186,7 @@
 				resultadosConsultas: [],
 				ListaExames:[],
 
-				idTipoExame:-1,
+				idTipoExame:0,
 				resultado:"",
 				dateNow: "",
 				idade: 0,
@@ -208,6 +226,10 @@
 						this.resultadosPessoais = res.data.pessoa
 						this.resultadosConsultas = res.data.consultas
 						this.calculaIdade();
+						
+					}).catch((err)=> {
+						this.error = err.message;
+						this.showSnackbar = true;
 					})
 				},
 			calculaIdade(){
@@ -277,25 +299,8 @@
 
 
 <style>
-	body {
-		background: #A1FFCE;  /* fallback for old browsers */
-		background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE);  /* Chrome 10-25, Safari 5.1-6 */
-		background: linear-gradient(to right, #FAFFD1, #A1FFCE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-		display: flex;
-		flex-direction: column;
-	}
 
-	#container {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		margin: auto;
-		background:whitesmoke;
-		border-radius: 20px;
-		padding: 10px;
-	}
-
-	.card-style  {
+.card-style  {
 		width: 100%;
 		height: 200px;
 		margin: 8px;
@@ -306,24 +311,21 @@
 		text-align: justify;
 		padding: 10px;
 	}
-	.blackColor {
-		color: black;
-	}
-	label {
-		color: black !important;
-	}
-	input[readonly="readonly"]{
-		color:rgb(90, 90, 90) !important;
-	}
-	hr{
-		border: 1em;
-		color: black;
-	}
-	select{
-		display: inline;
-	}
+
 	textarea{
 		height: 10rem;
+		width: 100%;
 	}
 
+</style>
+<style lang="scss" scoped>
+	.md-card {
+		width: 100%;
+		margin: 4px;
+		display: inline-block;
+		vertical-align: top;
+	}
+	.md-field {
+		max-width: 300px;
+	}
 </style>
