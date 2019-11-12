@@ -10,9 +10,9 @@ namespace PI06.Api.Controllers
     [Route("api/[controller]")]
     public class FilaController : Controller
     {
-        private readonly IFIlaService _service;
+        private readonly IFilaService _service;
 
-        public FilaController(IFIlaService filaService)
+        public FilaController(IFilaService filaService)
         {
             _service = filaService;
         }

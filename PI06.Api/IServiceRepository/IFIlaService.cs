@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PI06.Api.IServiceRepository
 {
-    public interface IFIlaService : IServiceBase<Fila>
+    public interface IFilaService : IServiceBase<Fila>
     {
         IEnumerable<Fila> GetByFuncionarioIncludeAllProperity(int idMedico);
         IEnumerable<Fila> GetIncludeAllProperity();

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PI06.Api.IServiceRepository.ServiceRepositories
 {
-    public class FilaService : ServiceBase<Fila>, IFIlaService
+    public class FilaService : ServiceBase<Fila>, IFilaService
     {
         private readonly IFilaRepository _repository;
 

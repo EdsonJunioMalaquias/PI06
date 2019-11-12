@@ -15,6 +15,7 @@ using PI06.Data.IRepository.Repositories;
 using PI06.Data.IRepository.Repository;
 using PI06.Data.Models;
 using PI06.IRepository;
+using PI06.Data.Models.Entity;
 using PI06.IRepository.Repository;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Text;
@@ -87,6 +88,12 @@ namespace PI06.Api
 
             services.AddTransient<ITipoProcedimentoService, TipoProcedimentoService>();
             services.AddTransient<ITipoProcedimentoRepository, TipoProcedimentoRepository>();
+
+            services.AddTransient<IFilaService, FilaService>();
+            services.AddTransient<IFilaRepository, FilaRepository>();
+
+            services.AddTransient<IAtendimentoService, AtendimentoService>();
+            services.AddTransient<IAtendimentoRepository, AtendimentoRepository>();
 
 
             services.AddMvc();
