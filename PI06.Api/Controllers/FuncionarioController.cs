@@ -1,11 +1,7 @@
-using System;
 using Microsoft.AspNetCore.Mvc;
-using PI06.Data.Context;
-using PI06.Models.Entity;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using PI06.Api.IServiceRepository;
+using PI06.Models.Entity;
+using System;
 using System.Threading.Tasks;
 
 namespace PI06.Api.Controllers
@@ -15,17 +11,17 @@ namespace PI06.Api.Controllers
     public class FuncionarioController : Controller
     {
         private readonly IFuncionarioService _service;
-        
+
         public FuncionarioController(IFuncionarioService funcionarioService)
         {
             _service = funcionarioService;
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetByIdIncludingAllProperties(int id)
+        [HttpGet("id/{id}")]
+        public IActionResult Get(int id)
         {
-            var obj = _service.GetByIdIncludingProperties(id);
-            return Json(obj);
+            var result = _service.GetByIdIncludingProperties(id);
+            return Json(result);
         }
 
         [HttpGet]
@@ -50,7 +46,7 @@ namespace PI06.Api.Controllers
             }
             return Json(result);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Funcionario entity)
         {
@@ -61,7 +57,9 @@ namespace PI06.Api.Controllers
 
             try
             {
-             
+
+
+                entity.DtInclusao = DateTime.Now;
                 await _service.AddAsync(entity);
                 return StatusCode(200, entity);
             }

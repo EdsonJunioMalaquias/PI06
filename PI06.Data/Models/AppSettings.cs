@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PI06.Data.Models
+﻿namespace PI06.Data.Models
 {
     public class AppSettings
     {

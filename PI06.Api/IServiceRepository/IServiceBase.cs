@@ -1,13 +1,11 @@
 ﻿using PI06.Models.Entity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PI06.Api.IServiceRepository
 {
 
-    public interface IServiceBase<TEntity> where  TEntity : EntityBase
+    public interface IServiceBase<TEntity> where TEntity : EntityBase
     {
         Task<TEntity> AddAsync(TEntity obj);
         Task AddRangeAsync(IEnumerable<TEntity> entities);
@@ -23,5 +21,5 @@ namespace PI06.Api.IServiceRepository
         Task RemoveRangeAsync(IEnumerable<TEntity> entities);
         void AddOrUpdateAndCommitSync(TEntity obj);
     }
-    
+
 }

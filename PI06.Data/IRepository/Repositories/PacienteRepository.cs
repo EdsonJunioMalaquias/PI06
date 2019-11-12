@@ -1,12 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PI06.Data.Context;
-using PI06.Data.IRepository;
 using PI06.IRepository.Repository;
 using PI06.Models.Entity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace PI06.Data.IRepository.Repositories
 {
@@ -30,39 +27,48 @@ namespace PI06.Data.IRepository.Repositories
         public Paciente GetByIdIncludingProperties(int id)
         {
             IQueryable<Paciente> query = dbSet.Include(p => p.Pessoa)
-                                                .Include(c =>c.Consultas)
+                                                .Include(c => c.Consultas)
                                                     .ThenInclude(exames => exames.Procedimentos)
-                                                    .ThenInclude(e=> e.TipoProcedimento)
+                                                    .ThenInclude(e => e.TipoProcedimento)
 
-                                                .Include(c =>c.Consultas)
-                                                    .ThenInclude(exames => exames.Procedimentos)
-                                                    .ThenInclude(e=> e.Cirurgia)
 
-                                                .Include(c =>c.Consultas)
+                                                .Include(c => c.Consultas)
                                                     .ThenInclude(exames => exames.Procedimentos)
-                                                    .ThenInclude(e=> e.Exame)
+                                                    .ThenInclude(e => e.Cirurgia)
+
+                                                .Include(c => c.Consultas)
+                                                    .ThenInclude(exames => exames.Procedimentos)
+                                                    .ThenInclude(e => e.Exame)
                                                     .ThenInclude(a => a.TipoExame)
-                                                
+
+                                                .Include(c => c.Consultas)
+                                                    .ThenInclude(e => e.FuncionarioMedico)
+                                                    .ThenInclude(p => p.Pessoa)
+
                                                 .Where(i => i.Id == id);
             return query.FirstOrDefault();
         }
         public IEnumerable<Paciente> GetAllIncludingProperties()
         {
             IQueryable<Paciente> query = dbSet.Include(p => p.Pessoa)
-                                                .Include(c =>c.Consultas)
-                                                    .ThenInclude(exames => exames.Procedimentos)
-                                                    .ThenInclude(e=> e.TipoProcedimento)
 
-                                                .Include(c =>c.Consultas)
+                                                .Include(c => c.Consultas)
                                                     .ThenInclude(exames => exames.Procedimentos)
-                                                    .ThenInclude(e=> e.Cirurgia)
+                                                    .ThenInclude(e => e.TipoProcedimento)
 
-                                                .Include(c =>c.Consultas)
+                                                .Include(c => c.Consultas)
                                                     .ThenInclude(exames => exames.Procedimentos)
-                                                    .ThenInclude(e=> e.Exame)
-                                                    .ThenInclude(a => a.TipoExame);
+                                                    .ThenInclude(e => e.Cirurgia)
 
-                                                    
+                                                .Include(c => c.Consultas)
+                                                    .ThenInclude(exames => exames.Procedimentos)
+                                                    .ThenInclude(e => e.Exame)
+                                                    .ThenInclude(a => a.TipoExame)
+
+                                                .Include(c => c.Consultas)
+                                                    .ThenInclude(e => e.FuncionarioMedico)
+                                                    .ThenInclude(p => p.Pessoa);
+
             return query.AsEnumerable();
         }
     }

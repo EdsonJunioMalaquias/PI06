@@ -8,52 +8,58 @@ namespace PI06.Data.Context
 {
     public class Contexto : IdentityDbContext
     {
-        
-        public Contexto (DbContextOptions<Contexto> options) : base (options) { }
+
+        public Contexto(DbContextOptions<Contexto> options) : base(options) { }
         public DbSet<Pessoa> Pessoa { get; set; }
         public DbSet<Funcionario> Funcionario { get; set; }
         public DbSet<Conselho> Conselho { get; set; }
         public DbSet<Cargo> Cargo { get; set; }
         public DbSet<Paciente> Paciente { get; set; }
 
+        public DbSet<Fila> Fila { get; set; }
 
-        protected override void OnModelCreating (ModelBuilder modelBuilder) {
+        public DbSet<Atendimento> Atendimento { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
             foreach (var relacionamento in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relacionamento.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ForSqlServerUseIdentityColumns ();
-            modelBuilder.HasDefaultSchema ("dbo");
+            modelBuilder.ForSqlServerUseIdentityColumns();
+            modelBuilder.HasDefaultSchema("dbo");
 
-            modelBuilder.Entity<Pessoa> (mb => {
-                mb.ToTable ("Pessoa").HasIndex(e => new { e.CodigoCpf, e.Uf, e.Sus  }).IsUnique();
-                mb.HasKey (c => c.Id).HasName ("IdPessoa");
-                mb.Property (c => c.Id).HasColumnName ("IdPessoa").ValueGeneratedOnAdd ();
-                mb.Property (c => c.Nome)
-                    .IsRequired ()
-                    .HasMaxLength (300);
-                mb.Property (f => f.DataNascimento).IsRequired ();
-                mb.Property (f => f.EnderecoEmail)
-                    .IsRequired ()
-                    .HasMaxLength (150);
-                mb.Property (f => f.Bairro).IsRequired ();
-                mb.Property (f => f.Cidade).IsRequired ();
-                mb.Property (f => f.Logradouro).IsRequired ();
-                mb.Property (f => f.NumeroEndereco).IsRequired ();
-                mb.Property (f => f.Uf).IsRequired();
-                mb.Property (f => f.Complemento);
-                mb.Property (f => f.CodigoCpf).IsRequired();
-                
+            modelBuilder.Entity<Pessoa>(mb =>
+            {
+                mb.ToTable("Pessoa").HasIndex(e => new { e.CodigoCpf, e.Uf, e.Sus }).IsUnique();
+                mb.HasKey(c => c.Id).HasName("IdPessoa");
+                mb.Property(c => c.Id).HasColumnName("IdPessoa").ValueGeneratedOnAdd();
+                mb.Property(c => c.Nome)
+                    .IsRequired()
+                    .HasMaxLength(300);
+                mb.Property(f => f.DataNascimento).IsRequired();
+                mb.Property(f => f.EnderecoEmail)
+                    .IsRequired()
+                    .HasMaxLength(150);
+                mb.Property(f => f.Bairro).IsRequired();
+                mb.Property(f => f.Cidade).IsRequired();
+                mb.Property(f => f.Logradouro).IsRequired();
+                mb.Property(f => f.NumeroEndereco).IsRequired();
+                mb.Property(f => f.Uf).IsRequired();
+                mb.Property(f => f.Complemento);
+                mb.Property(f => f.CodigoCpf).IsRequired();
+
             });
 
-            modelBuilder.Entity<Funcionario> (mb => {
-                mb.ToTable ("Funcionario");
-                mb.HasKey (c => c.Id).HasName ("IdFuncionario");
-                mb.Property (c => c.Id).HasColumnName ("IdFuncionario").IsRequired();
-                mb.Property (f => f.DataContratacao).IsRequired ();
-                mb.Property (f => f.DataDemissao).HasDefaultValue (null);
+            modelBuilder.Entity<Funcionario>(mb =>
+            {
+                mb.ToTable("Funcionario");
+                mb.HasKey(c => c.Id).HasName("IdFuncionario");
+                mb.Property(c => c.Id).HasColumnName("IdFuncionario").IsRequired();
+                mb.Property(f => f.DataContratacao).IsRequired();
+                mb.Property(f => f.DataDemissao).HasDefaultValue(null);
                 mb.HasOne(d => d.Pessoa)
                     .WithOne(p => p.Funcionario)
                     .HasForeignKey<Funcionario>(d => d.Id)
@@ -69,11 +75,12 @@ namespace PI06.Data.Context
 
 
             });
-            
-            modelBuilder.Entity<Paciente> (mb => {
-                mb.ToTable ("Paciente");
-                mb.HasKey (c => c.Id).HasName ("IdPaciente");
-                mb.Property (c => c.Id).HasColumnName ("IdPaciente").IsRequired();
+
+            modelBuilder.Entity<Paciente>(mb =>
+            {
+                mb.ToTable("Paciente");
+                mb.HasKey(c => c.Id).HasName("IdPaciente");
+                mb.Property(c => c.Id).HasColumnName("IdPaciente").IsRequired();
                 mb.HasOne(d => d.Pessoa)
                     .WithOne(p => p.Paciente)
                     .HasForeignKey<Paciente>(d => d.Id)
@@ -82,25 +89,28 @@ namespace PI06.Data.Context
 
 
 
-            modelBuilder.Entity<Conselho> (mb => {
-                mb.ToTable ("Conselho");
-                mb.HasKey (c => c.Id).HasName ("IdConselho");
-                mb.Property (c => c.Id).HasColumnName ("IdConselho").ValueGeneratedOnAdd();
+            modelBuilder.Entity<Conselho>(mb =>
+            {
+                mb.ToTable("Conselho");
+                mb.HasKey(c => c.Id).HasName("IdConselho");
+                mb.Property(c => c.Id).HasColumnName("IdConselho").ValueGeneratedOnAdd();
                 mb.Property(f => f.DescricaoConselho);
                 mb.Property(f => f.NumeroConselho);
 
             });
 
-            modelBuilder.Entity<Cargo> (mb => {
-                mb.ToTable ("Cargo");
-                mb.HasKey (c => c.Id).HasName ("IDCargo");
-                mb.Property (c => c.Id).HasColumnName ("IDCargo")
-                    .ValueGeneratedOnAdd ();
-                mb.Property (f => f.DescricaoCargo).IsRequired ();
-                mb.Property (f => f.IsHealthProfession).IsRequired ();
+            modelBuilder.Entity<Cargo>(mb =>
+            {
+                mb.ToTable("Cargo");
+                mb.HasKey(c => c.Id).HasName("IDCargo");
+                mb.Property(c => c.Id).HasColumnName("IDCargo")
+                    .ValueGeneratedOnAdd();
+                mb.Property(f => f.DescricaoCargo).IsRequired();
+                mb.Property(f => f.IsHealthProfession).IsRequired();
             });
 
-            modelBuilder.Entity<Consulta>(pro => {
+            modelBuilder.Entity<Consulta>(pro =>
+            {
                 pro.ToTable("Consulta");
                 pro.HasKey(c => c.Id).HasName("IdConsulta");
                 pro.Property(c => c.Id).HasColumnName("IdConsulta")
@@ -118,37 +128,75 @@ namespace PI06.Data.Context
                    .HasConstraintName("FK_PacienteConsulta");
             });
 
-            modelBuilder.Entity<TipoExame>(te => {
+            modelBuilder.Entity<TipoExame>(te =>
+            {
                 te.ToTable("TipoExame");
                 te.HasKey(c => c.Id).HasName("IdTipoExame");
                 te.Property(c => c.Id).HasColumnName("IdTipoExame").ValueGeneratedOnAdd();
                 te.Property(c => c.Descricao).IsRequired();
-                te.Property(c => c.ResultadoReferencia).IsRequired();                    
+                te.Property(c => c.ResultadoReferencia).IsRequired();
             });
 
-            modelBuilder.Entity<TipoProcedimento>(tp => {
+            modelBuilder.Entity<TipoProcedimento>(tp =>
+            {
                 tp.ToTable("TipoProcedimento");
                 tp.HasKey(c => c.Id).HasName("IdTipoProcedimento");
                 tp.Property(c => c.Id).HasColumnName("IdTipoProcedimento").ValueGeneratedOnAdd();
                 tp.Property(c => c.Descricao).IsRequired();
             });
 
-            modelBuilder.Entity<Cirurgia>(ci => {
+            modelBuilder.Entity<Cirurgia>(ci =>
+            {
                 ci.ToTable("Cirurgia");
                 ci.HasKey(c => c.Id).HasName("IdCirurgiaProcedimento");
-                ci.Property (c => c.Id).HasColumnName ("IdCirurgiaProcedimento").IsRequired();
-                
+                ci.Property(c => c.Id).HasColumnName("IdCirurgiaProcedimento").IsRequired();
+
                 ci.HasOne(d => d.Procedimento)
                     .WithOne(p => p.Cirurgia)
                     .HasForeignKey<Cirurgia>(d => d.Id)
                     .HasConstraintName("PFK_IdProcedimentoCirurgia");
-                
+
                 ci.Property(c => c.Descricao).IsRequired();
 
 
             });
+            modelBuilder.Entity<Atendimento>(ci =>
+            {
+                ci.ToTable("Atendimento");
+                ci.HasKey(c => c.Id).HasName("IdAtendimento");
+                ci.Property(c => c.Id).HasColumnName("IdAtendimento").IsRequired();
 
-            modelBuilder.Entity<Exame>(ex => {
+                ci.HasOne(d => d.Paciente)
+                    .WithMany(p => p.Atendimentos)
+                    .HasForeignKey(d => d.PacienteId)
+                    .HasConstraintName("PFK_IdPacienteFila");
+
+                ci.HasOne(d => d.Medico)
+                    .WithMany(p => p.Atendimentos)
+                    .HasForeignKey(d => d.MedicoId)
+                    .HasConstraintName("PFK_IdMedicoFila");
+
+                ci.Property(c => c.DataChegada).IsRequired();
+
+                ci.Property(c => c.StatusDeAtendimento).IsRequired();
+
+                ci.HasOne(p => p.Fila)
+                    .WithMany(i => i.Atendimentos)
+                    .HasForeignKey(i => i.FilaId)
+                    .HasConstraintName("FK_IdFila");
+
+
+            });
+            modelBuilder.Entity<Fila>(ci =>
+            {
+                ci.ToTable("Fila");
+                ci.HasKey(c => c.Id).HasName("IdFila");
+                ci.Property(c => c.Id).HasColumnName("IdFila").IsRequired();
+
+            });
+
+            modelBuilder.Entity<Exame>(ex =>
+            {
                 ex.ToTable("Exame");
                 ex.HasKey(c => c.Id).HasName("IdExame");
                 ex.Property(c => c.Id).HasColumnName("IdExame");
@@ -158,13 +206,14 @@ namespace PI06.Data.Context
                     .HasForeignKey<Exame>(a => a.Id)
                     .HasConstraintName("PFK_ProcedimentoExame");
 
-                ex.HasOne(p=> p.TipoExame)
+                ex.HasOne(p => p.TipoExame)
                     .WithMany(i => i.Exames)
                     .HasForeignKey(i => i.IdTipoExame)
                     .HasConstraintName("FK_IdTipoExame");
             });
 
-            modelBuilder.Entity<Procedimento>(proc => {
+            modelBuilder.Entity<Procedimento>(proc =>
+            {
                 proc.ToTable("Procedimento");
                 proc.HasKey(c => c.Id).HasName("IdProcedimento");
                 proc.Property(c => c.Id).HasColumnName("idProcedimento");
@@ -174,10 +223,10 @@ namespace PI06.Data.Context
                    .HasForeignKey(d => d.IdConsulta)
                    .HasConstraintName("FK_IdConsulta");
 
-               proc.HasOne(d => d.TipoProcedimento)
-                    .WithMany(d => d.Procedimentos)
-                    .HasForeignKey(d=>d.IdTipoProcedimento)
-                    .HasConstraintName("FK_IdTipoProcedimento");  
+                proc.HasOne(d => d.TipoProcedimento)
+                     .WithMany(d => d.Procedimentos)
+                     .HasForeignKey(d => d.IdTipoProcedimento)
+                     .HasConstraintName("FK_IdTipoProcedimento");
             });
 
 

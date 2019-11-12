@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PI06.Data.Context;
-using PI06.Models.Entity;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using PI06.Api.IServiceRepository;
-using System.Threading.Tasks;
 using PI06.Data.Models.Entity;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PI06.Api.Controllers
 {
@@ -40,6 +36,8 @@ namespace PI06.Api.Controllers
             }
             try
             {
+
+                entity.DtInclusao = DateTime.Now;
                 _service.AddOrUpdateAndCommitSync(entity);
                 return StatusCode(200, entity);
             }

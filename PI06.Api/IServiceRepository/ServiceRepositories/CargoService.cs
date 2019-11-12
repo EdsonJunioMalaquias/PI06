@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using PI06.Data.IRepository;
 using PI06.Models.Entity;
-using PI06.Data.IRepository;
+using System.Collections.Generic;
 
 namespace PI06.Api.IServiceRepository.ServiceRepositories
 {

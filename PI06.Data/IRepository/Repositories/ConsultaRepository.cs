@@ -1,19 +1,17 @@
-﻿using System;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 using PI06.Data.Context;
-using PI06.Models.Entity;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using PI06.Helpers;
-using PI06.Data.Models.Entity;
 using PI06.Data.IRepository;
+using PI06.Data.Models.Entity;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PI06.IRepository.Repository
 {
     public class ConsultaRepository : Repository<Consulta>, IConsultaRepository
     {
-    
-        public ConsultaRepository(Contexto context) : base(context) {
+
+        public ConsultaRepository(Contexto context) : base(context)
+        {
 
 
 
@@ -23,6 +21,7 @@ namespace PI06.IRepository.Repository
         {
             IQueryable<Consulta> query = dbSet.Include(p => p.Procedimentos)
                                                     .ThenInclude(e => e.TipoProcedimento)
+                                                .Include(c => c.FuncionarioMedico)
                                                 .Include(c => c.Procedimentos)
                                                     .ThenInclude(e => e.Cirurgia)
                                                 .Include(c => c.Procedimentos)

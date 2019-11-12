@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using PI06.Api.IServiceRepository;
-using System.Threading.Tasks;
 using PI06.Data.Models.Entity;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PI06.Api.Controllers
@@ -19,7 +19,7 @@ namespace PI06.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetByIdAllProperties(int id)
         {
-            var result =  _service.GetAllIncludingProperties(id);
+            var result = _service.GetAllIncludingProperties(id);
             return Json(result);
         }
         [HttpGet]
@@ -37,6 +37,8 @@ namespace PI06.Api.Controllers
             }
             try
             {
+
+                entity.DtInclusao = DateTime.Now;
                 _service.AddOrUpdateAndCommitSync(entity);
                 return StatusCode(200, entity);
             }

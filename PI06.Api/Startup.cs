@@ -1,23 +1,23 @@
 ﻿
-using PI06.Data.Context;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.IdentityModel.Tokens;
 using PI06.Api.IServiceRepository;
 using PI06.Api.IServiceRepository.ServiceRepositories;
+using PI06.Data.Context;
+using PI06.Data.IRepository;
+using PI06.Data.IRepository.Repositories;
+using PI06.Data.IRepository.Repository;
+using PI06.Data.Models;
 using PI06.IRepository;
 using PI06.IRepository.Repository;
-using PI06.Data.IRepository.Repositories;
-using PI06.Data.IRepository;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using PI06.Data.Models;
+using Swashbuckle.AspNetCore.Swagger;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using PI06.Data.IRepository.Repository;
 
 namespace PI06.Api
 {
@@ -35,7 +35,7 @@ namespace PI06.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
@@ -45,7 +45,7 @@ namespace PI06.Api
                     .AllowAnyMethod()
                     .AllowAnyOrigin()
                     .AllowCredentials();
-                
+
                 });
             });
 
@@ -78,16 +78,16 @@ namespace PI06.Api
 
             services.AddTransient<IPessoaService, PessoaService>();
             services.AddTransient<IPessoaRepository, PessoaRepository>();
-            
+
             services.AddTransient<IProcedimentoService, ProcedimentoService>();
             services.AddTransient<IProcedimentoRepository, ProcedimentoRepository>();
-            
+
             services.AddTransient<ITipoExameService, TipoExameService>();
             services.AddTransient<ITipoExameRepository, TipoExameRepository>();
-            
+
             services.AddTransient<ITipoProcedimentoService, TipoProcedimentoService>();
             services.AddTransient<ITipoProcedimentoRepository, TipoProcedimentoRepository>();
-            
+
 
             services.AddMvc();
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<Contexto>()
@@ -100,8 +100,8 @@ namespace PI06.Api
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
-            
-            
+
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

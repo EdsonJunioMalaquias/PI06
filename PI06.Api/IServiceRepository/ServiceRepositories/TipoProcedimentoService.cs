@@ -1,9 +1,5 @@
 ﻿using PI06.Data.IRepository;
 using PI06.Data.Models.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PI06.Api.IServiceRepository.ServiceRepositories
 {
@@ -13,7 +9,8 @@ namespace PI06.Api.IServiceRepository.ServiceRepositories
 
         private readonly ITipoProcedimentoRepository _repository;
 
-        public TipoProcedimentoService(ITipoProcedimentoRepository repository) : base(repository){
+        public TipoProcedimentoService(ITipoProcedimentoRepository repository) : base(repository)
+        {
 
             _repository = repository;
 

@@ -2,7 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PI06.Models.Entity
 {
-    public class RegisterUser  {
+    public class RegisterUser
+    {
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [EmailAddress(ErrorMessage = "O campo {0} está em formato inválido")]
@@ -14,7 +15,7 @@ namespace PI06.Models.Entity
 
         [Compare("Password", ErrorMessage = "As senhas não conferem.")]
         public string Confirmpassowrd { get; set; }
-        
+
     }
 
     public class LoginUser

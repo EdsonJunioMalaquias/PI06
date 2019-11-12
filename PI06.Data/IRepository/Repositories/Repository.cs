@@ -1,11 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using PI06.Data.Context;
+using PI06.Models.Entity;
 using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using PI06.Models.Entity;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using PI06.Data.Context;
 
 namespace PI06.IRepository.Repository
 {
@@ -76,7 +76,7 @@ namespace PI06.IRepository.Repository
             _contexto.Entry(obj).State = EntityState.Modified;
             return await CommitAsync();
         }
-  
+
         public void SalvarSync(TEntity obj)
         {
             AddOrUpdate(obj);
@@ -146,7 +146,7 @@ namespace PI06.IRepository.Repository
 
         public void AddOrUpdate(TEntity obj)
         {
-             var ob = _contexto.Set<TEntity>().Find(obj.Id);
+            var ob = _contexto.Set<TEntity>().Find(obj.Id);
             if (ob == null)
             {
                 Add(obj);
@@ -163,7 +163,7 @@ namespace PI06.IRepository.Repository
             try
             {
                 _contexto.SaveChanges();
-            }          
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PI06.Data.Context;
+﻿using PI06.Data.Context;
 using PI06.IRepository.Repository;
 using PI06.Models.Entity;
 using System.Collections.Generic;

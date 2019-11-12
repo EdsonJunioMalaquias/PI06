@@ -1,14 +1,17 @@
 import { http } from './config'
 
 export default {
-    get:(cpf) => {
+    getByCpf:(cpf) => {
         return http.get(`/api/funcionario/cpf/${cpf}`)
     },    
-    get:(id) => {
-        return http.get(`/api/funcionario/${id}`)
+    getbById:(id) => {
+        return http.get(`/api/funcionario/id/${id}`)
     }, 
     get:() => {
         return http.get(`/api/funcionario/`)
+    },
+    getbyCargo:(cargo) => {
+        return http.get(`/api/funcionario/${cargo}`)
     },
     post:(obj) => {
         return http.post(`/api/funcionario/`,obj)

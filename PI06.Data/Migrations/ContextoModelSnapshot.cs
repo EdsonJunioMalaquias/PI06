@@ -181,6 +181,41 @@ namespace PI06.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("PI06.Data.Models.Entity.Atendimento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IdAtendimento")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataChegada");
+
+                    b.Property<DateTime?>("DtAlteracao");
+
+                    b.Property<DateTime>("DtInclusao");
+
+                    b.Property<int>("FilaId");
+
+                    b.Property<int>("GrauDeEmergencia");
+
+                    b.Property<int>("MedicoId");
+
+                    b.Property<int>("PacienteId");
+
+                    b.Property<bool>("StatusDeAtendimento");
+
+                    b.HasKey("Id")
+                        .HasName("IdAtendimento");
+
+                    b.HasIndex("FilaId");
+
+                    b.HasIndex("MedicoId");
+
+                    b.HasIndex("PacienteId");
+
+                    b.ToTable("Atendimento");
+                });
+
             modelBuilder.Entity("PI06.Data.Models.Entity.Cirurgia", b =>
                 {
                     b.Property<int>("Id")
@@ -248,6 +283,23 @@ namespace PI06.Data.Migrations
                     b.HasIndex("IdTipoExame");
 
                     b.ToTable("Exame");
+                });
+
+            modelBuilder.Entity("PI06.Data.Models.Entity.Fila", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IdFila")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DtAlteracao");
+
+                    b.Property<DateTime>("DtInclusao");
+
+                    b.HasKey("Id")
+                        .HasName("IdFila");
+
+                    b.ToTable("Fila");
                 });
 
             modelBuilder.Entity("PI06.Data.Models.Entity.Procedimento", b =>
@@ -461,7 +513,7 @@ namespace PI06.Data.Migrations
                     b.HasKey("Id")
                         .HasName("IdPessoa");
 
-                    b.HasIndex("CodigoCpf")
+                    b.HasIndex("CodigoCpf", "Uf", "Sus")
                         .IsUnique();
 
                     b.ToTable("Pessoa");
@@ -510,6 +562,27 @@ namespace PI06.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PI06.Data.Models.Entity.Atendimento", b =>
+                {
+                    b.HasOne("PI06.Data.Models.Entity.Fila", "Fila")
+                        .WithMany("Atendimentos")
+                        .HasForeignKey("FilaId")
+                        .HasConstraintName("FK_IdFila")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("PI06.Models.Entity.Funcionario", "Medico")
+                        .WithMany("Atendimentos")
+                        .HasForeignKey("MedicoId")
+                        .HasConstraintName("PFK_IdMedicoFila")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("PI06.Models.Entity.Paciente", "Paciente")
+                        .WithMany("Atendimentos")
+                        .HasForeignKey("PacienteId")
+                        .HasConstraintName("PFK_IdPacienteFila")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("PI06.Data.Models.Entity.Cirurgia", b =>

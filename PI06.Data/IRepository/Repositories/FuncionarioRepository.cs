@@ -1,10 +1,8 @@
-using System;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PI06.Data.Context;
 using PI06.Models.Entity;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using PI06.Helpers;
+using System.Linq;
 
 namespace PI06.IRepository.Repository
 {
@@ -27,7 +25,7 @@ namespace PI06.IRepository.Repository
                                                 .Include(p => p.Pessoa).Where(i => i.Id == id);
             return query.FirstOrDefault();
         }
-      
+
         public void Salvar(Funcionario funcionario)
         {
             AddOrUpdate(funcionario);
@@ -36,7 +34,7 @@ namespace PI06.IRepository.Repository
         public Funcionario GetByCPFIncludingProperties(string cpf)
         {
             var pessoa = _contexto.Pessoa.FirstOrDefault(x => x.CodigoCpf == Pessoa.GetLongCpf(cpf));
-            if(pessoa is null)
+            if (pessoa is null)
             {
                 return null;
             }

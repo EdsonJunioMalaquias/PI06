@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PI06.Data.Context;
-using PI06.Models.Entity;
-using System.Linq;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using PI06.Data;
-using PI06.Api.IServiceRepository.ServiceRepositories;
 using PI06.Api.IServiceRepository;
+using PI06.Models.Entity;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PI06.Api.Controllers
 {
@@ -28,9 +24,9 @@ namespace PI06.Api.Controllers
         }
         [HttpGet]
         [ProducesResponseType(typeof(Cargo), 200)]
-        public  IActionResult Get()
+        public IActionResult Get()
         {
-            var consultaAll =  _service.GetAllDistinct();
+            var consultaAll = _service.GetAllDistinct();
             return Json(consultaAll);
         }
         [HttpPost]
@@ -42,6 +38,8 @@ namespace PI06.Api.Controllers
             }
             try
             {
+
+                entity.DtInclusao = DateTime.Now;
                 _service.AddOrUpdateAndCommitSync(entity);
                 return StatusCode(200, entity);
             }
