@@ -25,7 +25,7 @@
         <md-card>
           <md-card-header data-background-color="green">
             <h4 class="title">Lista de Espera</h4>
-            <p class="category">Pascientes</p>
+            <p class="category">Paciente</p>
           </md-card-header>
           <md-card-content>
             <ordered-table table-header-color="orange"></ordered-table>
