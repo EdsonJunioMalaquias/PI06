@@ -1,73 +1,108 @@
 <template>
   <div id="app">
-      <md-navbar type="dark" variant="info">
-        <md-navbar-nav>
-          <md-nav-item router-link to='/home'>Home</md-nav-item>
-        </md-navbar-nav>
-      </md-navbar>  
-      
-      <div class="container">
+    <div class="container">
+      <md-card>
 
-        <div class="caixa">
+        <md-card-header data-background-color="green">
+          <h4 class="title">Pesquisar Pacientes</h4>
+          <p class="category">Buscar Pacientes pelo CPF</p>
+        </md-card-header>
 
-          <h4>Pesquisar Paciente:</h4>
+        <md-card-content>
 
-          <md-form-input id="pesquisa" 
-                        type="text" 
-                        v-model="cpfUsuario" 
-                        class="validate" 
-                        placeholder="Digite o CPF" 
-                        v-mask="'###.###.###-##'">
-          </md-form-input>
+          <md-field>
+            <label for="pesquisa">Digite o CPF</label>
+            <md-input id="pesquisa" 
+                      type="text" 
+                      v-model="cpfUsuario" 
+                      class="validate"
+                      v-mask="'###.###.###-##'">
+            </md-input>
+          </md-field>
 
-          <div class="buton"> 
-            <md-button variant="primary" @click.prevent="buscarFuncionariosPeloCPF">Buscar</md-button>
-            <md-button class="button2" variant="primary" @click="disabled = (disabled + 1) % 2" >Adicionar</md-button>
+          <div class="buton">
+            <md-button @click.prevent="buscarFuncionariosPeloCPF" class="md-raised md-success">
+              Buscar
+            </md-button> 
+            <md-button class="button2 md-raised md-success" v-if="disabled==0" @click="disabled = (disabled + 1) % 2" >Adicionar</md-button>
+            <md-button class="button2 md-raised md-success" v-if="disabled==1" @click="disabled = (disabled + 1) % 2" >Cancelar</md-button>
           </div>
+          
+        </md-card-content>
 
-        </div>    
-      </div>
+      </md-card>       
+    </div>
 
-      <div id="container2" class="container">          
-        <div class="row">
-            <div class="col-md">
-                <form>
-                    <h4>Cadastrar Paciente:</h4>
+    <div class="container" v-if="disabled==1">                        
+      <md-card>
 
-                    <input type="text"  placeholder="Nome" :disabled="disabled == 0 ? true : false">
-                    <label>Nome</label>
+        <md-card-header data-background-color="green">
+          <h4 class="title">Adicionar Pacientes</h4>
+          <p class="category">Adicionar Pacientes Manualmente</p>
+        </md-card-header>
 
-                    <input type="date"  placeholder="Data de Nascimento" :disabled="disabled == 0 ? true : false">
-                    <label>Data de Nascimento</label>
+        <md-card-content>
+          
+          <md-field>
+            <label for="Nome">Nome</label>
+            <md-input type="text" id="Nome"></md-input>
+          </md-field>
 
-                    <input type="text"  placeholder="CPF" :disabled="disabled == 0 ? true : false">
-                    <label>CPF</label>
+          <md-datepicker v-model="selectedDate">
+            <label>Data de Nascimento</label>
+          </md-datepicker> 
 
-                    <md-container class="bv-example-row">
-                      <md-row>
-                        <md-col>
-                          <label>Medico</label>
-                          <md-form-select :options="options"></md-form-select>
-                        </md-col>
-                        <b-col>
-                          <label>Data da Chegada</label>
-                          <input type="date" placeholder="Data">
-                        </b-col>
-                        <md-col>
-                          <label>Horas da Chegada</label>
-                          <input type="time" placeholder="horas">
-                        </md-col>
-                        <md-col>
-                          <label>Grau de Emergenica</label>
-                          <md-form-select :options="options2"></md-form-select>
-                        </md-col>
-                      </md-row>
-                    </md-container>
-                    <md-button router-link to='/espera' class="waves-effect waves-light btn-small buton" variant="primary">Adicionar Paciente a Fila</md-button>
-                </form>
-            </div>          
-        </div>
-      </div>
+          <md-field>
+            <label for="CPF">CPF</label>
+            <md-input type="text" v-model="CPF" id="CPF" v-mask="'###.###.###-##'"></md-input>
+          </md-field>
+
+          <div class="md-layout">
+            <div class="md-layout-item">
+              <md-field>
+                <label for="medico">Medico</label>
+                <md-select name="medico" id="medico">
+                  <md-option value="M1">Medico1</md-option>
+                  <md-option value="M2">Medico2</md-option>
+                  <md-option value="M3">Medico3</md-option>
+                  <md-option value="M4">Medico4</md-option>
+                  <md-option value="M5">Medico5</md-option>
+                </md-select>
+              </md-field>
+            </div>
+
+            <div class="md-layout-item">
+              <md-field>
+                <md-input type="date" id="DataChegada">Data da Chegada</md-input>
+                <span class="md-helper-text">Data da Chegada</span>
+              </md-field>
+            </div>
+            
+            <div class="md-layout-item">
+              <md-field>
+                <md-input type="time" id="HoradaChegada"></md-input>
+                <span class="md-helper-text">Hora da Chegada</span>
+              </md-field>
+            </div>
+
+            <div class="md-layout-item">
+              <md-field>
+                <label for="GrauEmergencia">Grau de Emergência</label>
+                <md-select name="GrauEmergencia" id="GrauEmergencia">
+                  <md-option value="M1">Emergência</md-option>
+                  <md-option value="M2">Muito Urgente</md-option>
+                  <md-option value="M3">Urgente</md-option>
+                  <md-option value="M4">Pouco Urgente</md-option>
+                  <md-option value="M5">Não Urgente</md-option>
+                </md-select>
+              </md-field>
+            </div>
+
+          </div>
+          <md-button class="md-raised md-success buton">Adicionar Paciente a Fila</md-button>            
+        </md-card-content>
+      </md-card>          
+    </div>
   </div>
 </template>
 
@@ -76,24 +111,12 @@
   export default {
     data () {
       return {
+        selectedDate: null,
         disabled: 0,
         text: '',
         cpfUsuario: null,
         resultados: [],
-        options: [
-          { value: null, text: 'Medico 1' },
-          { value: 'a', text: 'Medico 2' },
-          { value: 'b', text: 'Medico 3' },
-          { value: 'c', text: 'Medico 4' },
-          { value: 'd', text: 'Medico 5', disabled: true }
-        ],
-        options2: [
-          { value: null, text: 'Vermelho' },
-          { value: 'a', text: 'Laranja' },
-          { value: 'b', text: 'Amarelo' },
-          { value: 'c', text: 'Verde' },
-          { value: 'd', text: 'Azul'}
-        ]
+        CPF:""
       }
     },
     methods: {
@@ -112,17 +135,7 @@
 </script>
 
 <style>
-.caixa{
-  padding-top: 3%;
+.md-list-item-text{
+  position:unset !important;
 }
-.buton{
-  margin-top: 20px;
-}
-.button2{
-  margin-left: 20px;
-}
-#container2{
-  margin-top: 2%;
-}
-
 </style>

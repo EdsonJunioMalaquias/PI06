@@ -19,6 +19,9 @@
        <sidebar-link to="/buscapaciente">
         <md-icon>content_paste</md-icon>
         <p>Paciente</p>
+       <sidebar-link to="/busca">
+        <md-icon>person</md-icon>
+        <p> Incluir Pacientes</p>
       </sidebar-link>
       
        <sidebar-link to="/cadastropessoa">
