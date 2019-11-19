@@ -8,6 +8,7 @@ import AdminPages from '@/components/admin/AdminPages'
 import novaConsulta from '@/components/consulta/NewConsulta'
 import Espera from '@/components/Espera'
 import CadastroPessoaForm from '@/component/UserProfile/CadastroPessoaForm'
+import Relatorio from "@/pages/Relatorio.vue"
 
 
 
@@ -54,6 +55,11 @@ export default new Router({
             path: '/cadastropessoa',
             name: 'Cadastro de Pessoas',
             component: CadastroPessoaForm
-        }
+        },
+        {
+            path: "relatorio",
+            name: "Relatorio",
+            component: Relatorio
+          }
     ]
 })

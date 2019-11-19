@@ -10,9 +10,10 @@
             <p class="category">Medicos Ativos</p>
           </md-card-header>
           <md-card-content>
-            <medico-table table-header-color="green"></medico-table>
+            <md-card-actions>
             <md-button class="md-raised md-success">Novo</md-button>
             <md-button class="md-raised md-success">Editar</md-button>
+          </md-card-actions>
           </md-card-content>
           
         </md-card>
@@ -26,9 +27,10 @@
             <p class="category">Enfermeiros Ativos</p>
           </md-card-header>
           <md-card-content>
-            <enfermeiro-table table-header-color="green"></enfermeiro-table>
+            <md-card-actions>
             <md-button class="md-raised md-success">Novo</md-button>
             <md-button class="md-raised md-success">Editar</md-button>
+          </md-card-actions>
           </md-card-content>
         </md-card>
       </div>
@@ -42,8 +44,10 @@
           </md-card-header>
           <md-card-content>
             <simple-table table-header-color="green"></simple-table>
+            <md-card-actions>
             <md-button class="md-raised md-success">Novo</md-button>
             <md-button class="md-raised md-success">Editar</md-button>
+          </md-card-actions>
           </md-card-content>
         </md-card>
       </div>

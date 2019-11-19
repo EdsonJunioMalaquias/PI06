@@ -6,7 +6,8 @@ import Usuario from "@/pages/Usuario.vue";
 import Notifications from "@/pages/Notifications.vue";
 import Consulta from "@/pages/NewConsulta.vue";
 
-import CadastroPessoaForm from "@/pages/UserProfile/CadastroPessoaForm.vue"
+import CadastroPessoaForm from "@/pages/UserProfile/CadastroPessoaForm.vue";
+import Relatorio from "@/pages/Relatorio.vue";
 
 const routes = [
   {
@@ -38,7 +39,14 @@ const routes = [
         path: "cadastropessoa",
         name: "Cadastro de Pessoas",
         component: CadastroPessoaForm 
+      },
+      
+      {
+        path: "relatorio",
+        name: "Relatorio",
+        component: Relatorio
       }
+      
       
     ]
   }
