@@ -135,7 +135,7 @@
 </script>
 
 <style>
-.md-ripple > span {
+.md-list-item-text{
   position:unset !important;
 }
 </style>
