@@ -1,11 +1,10 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import ListaEspera from "@/pages/ListaEspera.vue";
-import Consulta from "@/pages/Consulta.vue";
 import Usuario from "@/pages/Usuario.vue";
 import Busca from "@/pages/Busca.vue";
 import Notifications from "@/pages/Notifications.vue";
-import novaConsulta from "@/pages/NewConsulta.vue";
+import Consulta from "@/pages/NewConsulta.vue";
 
 const routes = [
   {
@@ -37,11 +36,6 @@ const routes = [
         path: "notifications",
         name: "Notificaçoes",
         component: Notifications
-      },
-      {
-        path: 'novaconsulta',
-        name: 'NovaConsulta',
-        component: novaConsulta
       },
       
     ]

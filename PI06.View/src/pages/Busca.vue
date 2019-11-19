@@ -63,25 +63,7 @@
                 <label for="medico">Medico</label>
                 <md-select name="medico" id="medico">
                   <md-option value="M1">Medico1</md-option>
-                  <md-option value="M2">Medico2</md-option>
-                  <md-option value="M3">Medico3</md-option>
-                  <md-option value="M4">Medico4</md-option>
-                  <md-option value="M5">Medico5</md-option>
                 </md-select>
-              </md-field>
-            </div>
-
-            <div class="md-layout-item">
-              <md-field>
-                <md-input type="date" id="DataChegada">Data da Chegada</md-input>
-                <span class="md-helper-text">Data da Chegada</span>
-              </md-field>
-            </div>
-            
-            <div class="md-layout-item">
-              <md-field>
-                <md-input type="time" id="HoradaChegada"></md-input>
-                <span class="md-helper-text">Hora da Chegada</span>
               </md-field>
             </div>
 
@@ -89,11 +71,11 @@
               <md-field>
                 <label for="GrauEmergencia">Grau de Emergência</label>
                 <md-select name="GrauEmergencia" id="GrauEmergencia">
-                  <md-option value="M1">Emergência</md-option>
-                  <md-option value="M2">Muito Urgente</md-option>
-                  <md-option value="M3">Urgente</md-option>
-                  <md-option value="M4">Pouco Urgente</md-option>
-                  <md-option value="M5">Não Urgente</md-option>
+                  <md-option value="1">Emergência</md-option>
+                  <md-option value="2">Muito Urgente</md-option>
+                  <md-option value="3">Urgente</md-option>
+                  <md-option value="4">Pouco Urgente</md-option>
+                  <md-option value="5">Não Urgente</md-option>
                 </md-select>
               </md-field>
             </div>
