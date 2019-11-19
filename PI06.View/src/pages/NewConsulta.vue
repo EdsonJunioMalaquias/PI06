@@ -86,8 +86,13 @@
                 </md-card-header>
 
                 <md-card-content>
+                  <div class="search-wrapper">
+                    <input type="text" v-model="search" placeholder="Search title.." />
+                    <label>Search title:</label>
+                  </div>
+
                   <div>
-                    <div class="card-style" v-for="item of resultadosConsultas" :key="item.id">
+                    <div class="card-style" v-for="item of filteredList" :key="item.id">
                       <div v-for="procedimento of item.procedimentos" :key="procedimento.id">
                         <div class="md-title">{{procedimento.tipoProcedimento.descricao}}</div>
                         <h4>{{procedimento.tipoProcedimento.descricao}}</h4>
@@ -147,10 +152,18 @@ export default {
       return this.peso == 0 || this.altura == 0
         ? 0
         : parseFloat(this.peso / Math.pow(this.altura, 2)).toFixed(2);
+    },
+    filteredList() {
+      return this.resultadosConsultas.filter(consuta => {
+        return consuta.funcionarioMedico.pessoa.nome
+          .toLowerCase()
+          .includes(this.search.toLowerCase());
+      });
     }
   },
   data() {
     return {
+      search: "",
       showSnackbar: false,
       error: "Erro Inesperado!",
       duracao: 4000,
