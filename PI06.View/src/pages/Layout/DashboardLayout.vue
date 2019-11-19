@@ -17,8 +17,8 @@
         <p> Usuarios</p>
       </sidebar-link>
        <sidebar-link to="/busca">
-        <md-icon>content_paste</md-icon>
-        <p> Pasciente</p>
+        <md-icon>person</md-icon>
+        <p> Incluir Pacientes</p>
       </sidebar-link>
       <sidebar-link to="/novaconsulta">
         <md-icon>content_paste</md-icon>

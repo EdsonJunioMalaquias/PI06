@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-      <md-navbar type="dark" variant="info">
-        <md-navbar-nav>
-          <md-nav-item router-link to='/home'>Home</md-nav-item>
-        </md-navbar-nav>
-      </md-navbar>  
       
       <div class="container">
 
@@ -12,17 +7,21 @@
 
           <h4>Pesquisar Paciente:</h4>
 
-          <md-form-input id="pesquisa" 
+          <md-field>
+            <label for="pesquisa">Pesquisar CPF</label>
+            <md-input id="pesquisa" 
                         type="text" 
                         v-model="cpfUsuario" 
-                        class="validate" 
-                        placeholder="Digite o CPF" 
-                        v-mask="'###.###.###-##'">
-          </md-form-input>
+                        class="validate"
+                        v-mask="'###.###.###-##'"></md-input>
+          </md-field>
 
-          <div class="buton"> 
-            <md-button variant="primary" @click.prevent="buscarFuncionariosPeloCPF">Buscar</md-button>
-            <md-button class="button2" variant="primary" @click="disabled = (disabled + 1) % 2" >Adicionar</md-button>
+          <div class="buton">
+            <md-button @click.prevent="buscarFuncionariosPeloCPF" class="md-raised md-success">
+              Buscar
+            </md-button> 
+            <md-button class="button2 md-raised md-success" v-if="disabled==0" @click="disabled = (disabled + 1) % 2" >Adicionar</md-button>
+            <md-button class="button2 md-raised md-success" v-if="disabled==1" @click="disabled = (disabled + 1) % 2" >Cancelar</md-button>
           </div>
 
         </div>    
@@ -34,36 +33,59 @@
                 <form>
                     <h4>Cadastrar Paciente:</h4>
 
-                    <input type="text"  placeholder="Nome" :disabled="disabled == 0 ? true : false">
-                    <label>Nome</label>
+                    <md-field>
+                      <label for="Nome">Nome</label>
+                      <md-input type="text" id="Nome" :disabled="disabled == 0 ? true : false"></md-input>
+                    </md-field>
 
-                    <input type="date"  placeholder="Data de Nascimento" :disabled="disabled == 0 ? true : false">
-                    <label>Data de Nascimento</label>
+                    <md-datepicker v-model="selectedDate" :disabled="disabled == 0 ? true : false">
+                      <label :disabled="disabled == 0 ? true : false">Data de Nascimento</label>
+                    </md-datepicker>
+                    
+                    <md-field>
+                      <label for="CPF">CPF</label>
+                      <md-input type="text" id="CPF" :disabled="disabled == 0 ? true : false"></md-input>
+                    </md-field>
 
-                    <input type="text"  placeholder="CPF" :disabled="disabled == 0 ? true : false">
-                    <label>CPF</label>
-
-                    <md-container class="bv-example-row">
-                      <md-row>
-                        <md-col>
-                          <label>Medico</label>
-                          <md-form-select :options="options"></md-form-select>
-                        </md-col>
-                        <b-col>
-                          <label>Data da Chegada</label>
-                          <input type="date" placeholder="Data">
-                        </b-col>
-                        <md-col>
-                          <label>Horas da Chegada</label>
-                          <input type="time" placeholder="horas">
-                        </md-col>
-                        <md-col>
-                          <label>Grau de Emergenica</label>
-                          <md-form-select :options="options2"></md-form-select>
-                        </md-col>
-                      </md-row>
-                    </md-container>
-                    <md-button router-link to='/espera' class="waves-effect waves-light btn-small buton" variant="primary">Adicionar Paciente a Fila</md-button>
+                    <div class="md-layout">
+                      <div class="md-layout-item">
+                        <md-field>
+                          <label for="medico">Medico</label>
+                          <md-select name="medico" id="medico">
+                            <md-option value="M1">Medico1</md-option>
+                            <md-option value="M2">Medico2</md-option>
+                            <md-option value="M3">Medico3</md-option>
+                            <md-option value="M4">Medico4</md-option>
+                            <md-option value="M5">Medico5</md-option>
+                          </md-select>
+                        </md-field>
+                      </div>
+                      <div class="md-layout-item">
+                        <md-field>
+                          <label for="DataChegada">Data da Chegada</label>
+                          <md-input type="date" id="DataChegada"></md-input>
+                        </md-field>
+                      </div>
+                      <div class="md-layout-item">
+                        <md-field>
+                          <label for="HoradaChegada">Hora da Chegada</label>
+                          <md-input type="time" id="HoradaChegada"></md-input>
+                        </md-field>
+                      </div>
+                      <div class="md-layout-item">
+                        <md-field>
+                          <label for="GrauEmergencia">Grau de Emergência</label>
+                          <md-select name="GrauEmergencia" id="GrauEmergencia">
+                            <md-option value="M1">Emergência</md-option>
+                            <md-option value="M2">Muito Urgente</md-option>
+                            <md-option value="M3">Urgente</md-option>
+                            <md-option value="M4">Pouco Urgente</md-option>
+                            <md-option value="M5">Não Urgente</md-option>
+                          </md-select>
+                        </md-field>
+                      </div>
+                    </div>
+                    <md-button class="md-raised md-success buton">Adicionar Paciente a Fila</md-button>
                 </form>
             </div>          
         </div>
@@ -76,6 +98,7 @@
   export default {
     data () {
       return {
+        selectedDate: null,
         disabled: 0,
         text: '',
         cpfUsuario: null,
