@@ -135,5 +135,7 @@
 </script>
 
 <style>
-
+.md-ripple > span {
+  position:unset !important;
+}
 </style>
