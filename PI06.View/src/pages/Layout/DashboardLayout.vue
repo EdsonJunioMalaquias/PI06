@@ -16,14 +16,19 @@
         <md-icon>content_paste</md-icon>
         <p> Usuarios</p>
       </sidebar-link>
+       <sidebar-link to="/buscapaciente">
+        <md-icon>content_paste</md-icon>
+        <p>Paciente</p>
        <sidebar-link to="/busca">
         <md-icon>person</md-icon>
         <p> Incluir Pacientes</p>
       </sidebar-link>
-      <sidebar-link to="/novaconsulta">
-        <md-icon>content_paste</md-icon>
-        <p> Nova Consulta</p>
+      
+       <sidebar-link to="/cadastropessoa">
+        <md-icon>person</md-icon>
+        <p>Cadastro Pessoa</p>
       </sidebar-link>
+
 
     </side-bar>
 

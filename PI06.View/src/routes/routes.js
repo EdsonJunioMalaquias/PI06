@@ -2,7 +2,7 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import ListaEspera from "@/pages/ListaEspera.vue";
 import Usuario from "@/pages/Usuario.vue";
-import Busca from "@/pages/Busca.vue";
+
 import Notifications from "@/pages/Notifications.vue";
 import Consulta from "@/pages/NewConsulta.vue";
 
@@ -26,11 +26,6 @@ const routes = [
         path: "usuario",
         name: "Usuarios",
         component: Usuario
-      },
-      {
-        path: "/busca",
-        name: "Busca",
-        component: Busca
       },
       {
         path: "notifications",

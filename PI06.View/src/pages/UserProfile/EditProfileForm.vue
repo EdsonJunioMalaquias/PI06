@@ -28,10 +28,9 @@
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>idade</label>
-              <md-input v-model="idade" type="text"></md-input>
-            </md-field>
+            <md-autocomplete v-model="selectedIdade" :md-options="idade">
+            <label>Idade</label>
+            </md-autocomplete>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
@@ -76,6 +75,18 @@ export default {
       default: ""
     }
   },
+    data: () => ({
+      selectedIdade: null,
+      idade: [
+        '01',
+        '02',
+        '03',
+        '04',
+        '05'
+        
+      ]
+      
+    })
   /* mounted(){
             this.buscarPacientePeloCPF ();
         },

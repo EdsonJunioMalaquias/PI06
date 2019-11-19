@@ -11,7 +11,10 @@
           </md-card-header>
           <md-card-content>
             <medico-table table-header-color="green"></medico-table>
+            <md-button class="md-raised md-success">Novo</md-button>
+            <md-button class="md-raised md-success">Editar</md-button>
           </md-card-content>
+          
         </md-card>
       </div>
       <div
@@ -24,6 +27,8 @@
           </md-card-header>
           <md-card-content>
             <enfermeiro-table table-header-color="green"></enfermeiro-table>
+            <md-button class="md-raised md-success">Novo</md-button>
+            <md-button class="md-raised md-success">Editar</md-button>
           </md-card-content>
         </md-card>
       </div>
@@ -37,6 +42,8 @@
           </md-card-header>
           <md-card-content>
             <simple-table table-header-color="green"></simple-table>
+            <md-button class="md-raised md-success">Novo</md-button>
+            <md-button class="md-raised md-success">Editar</md-button>
           </md-card-content>
         </md-card>
       </div>

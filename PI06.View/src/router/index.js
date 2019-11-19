@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Busca from '@/components/Busca'
+import BuscaPaciente from '@/components/BuscaPaciente'
 import Login from '@/components/Login'
 import Auth from '@/components/auth/Auth'
 import Home from '@/components/home/Home'
 import AdminPages from '@/components/admin/AdminPages'
 import novaConsulta from '@/components/consulta/NewConsulta'
 import Espera from '@/components/Espera'
+import CadastroPessoaForm from '@/component/UserProfile/CadastroPessoaForm'
+
 
 
 Vue.use(Router)
@@ -19,9 +21,9 @@ export default new Router({
             component: Login
         },
         {
-            path: '/busca',
-            name: 'Busca',
-            component: Busca
+            path: '/buscapaciente',
+            name: 'BuscaPaciente',
+            component: BuscaPaciente
         },
         {
             path: '/auth',
@@ -47,6 +49,11 @@ export default new Router({
             path: '/espera',
             name: 'Espera',
             component: Espera
+        },
+        {
+            path: '/cadastropessoa',
+            name: 'Cadastro de Pessoas',
+            component: CadastroPessoaForm
         }
     ]
 })
