@@ -41,7 +41,7 @@
           </div>
            <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
-              <label>Endereco de email</label>
+              <label>Endereço de email</label>
               <md-input v-model="idade" type="email"></md-input>
             </md-field>
           </div>
@@ -59,7 +59,7 @@
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
-              <label>Numero</label>
+              <label>Número </label>
               <md-input v-model="idade" type="text"></md-input>
             </md-field>
           </div>
@@ -70,7 +70,7 @@
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-autocomplete v-model="selectCidade" :md-options="uf">
-            <label>Uniodade Federativa</label>
+            <label>Unidade Federativa</label>
             </md-autocomplete>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
@@ -92,7 +92,7 @@
             </md-autocomplete>
           </div>
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-raised md-success">Nova Cadastro</md-button>
+            <md-button class="md-raised md-success">Novo Cadastro</md-button>
           </div>
         </div>
       </md-card-content>
