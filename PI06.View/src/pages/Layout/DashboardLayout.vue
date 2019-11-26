@@ -28,7 +28,7 @@
       </sidebar-link>
       <sidebar-link to="/relatorio">
         <md-icon>person</md-icon>
-        <p>Relatorio</p>
+        <p>Relatório </p>
       </sidebar-link>
 
 
