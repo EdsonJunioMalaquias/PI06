@@ -8,6 +8,7 @@
             <p class="category">Medicos Ativos</p>
           </md-card-header>
           <md-card-content>
+            <medico-table table-header-color="green"></medico-table>
             <md-card-actions>
               <md-button to="/cadastropessoa" class="md-raised md-success">Novo</md-button>
               <md-button class="md-raised md-success">Editar</md-button>
@@ -22,6 +23,7 @@
             <p class="category">Enfermeiros Ativos</p>
           </md-card-header>
           <md-card-content>
+            <enfermeiro-table table-header-color="green"></enfermeiro-table>
             <md-card-actions>
               <md-button to="/cadastropessoa" class="md-raised md-success">Novo</md-button>
               <md-button class="md-raised md-success">Editar</md-button>

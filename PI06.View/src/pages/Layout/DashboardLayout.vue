@@ -16,11 +16,7 @@
         <md-icon>content_paste</md-icon>
         <p> Usuarios</p>
       </sidebar-link>
- 
-       <sidebar-link to="/busca">
-        <md-icon>person</md-icon>
-        <p> Incluir Pacientes</p>
-      </sidebar-link>
+
       
        <sidebar-link to="/cadastropessoa">
         <md-icon>person</md-icon>
