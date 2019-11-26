@@ -8,17 +8,18 @@
           <p class="category">Relatorio dos Medicos</p>
         </md-card-header>
 
-        <md-card-content>
+        <md-card-content >
 
-          <md-field>
+          <md-field id="editor" ref="editor"
+            >
            <iframe 
            v-if="loaded"
             :src="iframe.src"
             :style="iframe.style"
             :height="iframe.style.height"
             :width="iframe.style.width"
-            
-            frameborder="0" ></iframe>
+            frameborder="0" >
+            </iframe>
           </md-field>
 
           
