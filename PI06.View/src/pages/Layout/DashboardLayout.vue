@@ -26,6 +26,10 @@
         <md-icon>person</md-icon>
         <p>Cadastro Pessoa</p>
       </sidebar-link>
+      <sidebar-link to="/relatorio">
+        <md-icon>person</md-icon>
+        <p>Relatorio</p>
+      </sidebar-link>
 
 
     </side-bar>
