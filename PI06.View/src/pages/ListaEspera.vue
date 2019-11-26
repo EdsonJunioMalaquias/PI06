@@ -90,6 +90,7 @@
 
 <script>
 import fila from "../../services/fila.js";
+import paciente from "../../services/paciente.js";
 import funcionario from "../../services/funcionario.js";
 import moment from "moment";
 
@@ -156,7 +157,11 @@ export default {
       });
     },
     mudarStatusAtendimento(statusAtual) {},
-    getIdPaciente() {},
+    getIdPaciente() {
+      paciente.getByCpf(this.cpf).then(res => {
+        console.log(res);
+      });
+    },
     buscarFuncionarioPeloCargo() {
       funcionario.getbyCargo("Médico").then(res => {
         this.medicos = res.data;
