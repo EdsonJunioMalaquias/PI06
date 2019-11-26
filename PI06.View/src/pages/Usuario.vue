@@ -9,7 +9,7 @@
           </md-card-header>
           <md-card-content>
             <md-card-actions>
-              <md-button class="md-raised md-success">Novo</md-button>
+              <md-button to="/cadastropessoa" class="md-raised md-success">Novo</md-button>
               <md-button class="md-raised md-success">Editar</md-button>
             </md-card-actions>
           </md-card-content>
@@ -23,7 +23,7 @@
           </md-card-header>
           <md-card-content>
             <md-card-actions>
-              <md-button class="md-raised md-success">Novo</md-button>
+              <md-button to="/cadastropessoa" class="md-raised md-success">Novo</md-button>
               <md-button class="md-raised md-success">Editar</md-button>
             </md-card-actions>
           </md-card-content>
@@ -38,7 +38,7 @@
           <md-card-content>
             <simple-table table-header-color="green"></simple-table>
             <md-card-actions>
-              <md-button class="md-raised md-success">Novo</md-button>
+              <md-button to="/cadastropessoa" class="md-raised md-success">Novo</md-button>
               <md-button class="md-raised md-success">Editar</md-button>
             </md-card-actions>
           </md-card-content>
