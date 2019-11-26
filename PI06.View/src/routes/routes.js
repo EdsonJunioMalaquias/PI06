@@ -7,6 +7,8 @@ import Notifications from "@/pages/Notifications.vue";
 import Consulta from "@/pages/NewConsulta.vue";
 
 import CadastroPessoa from "@/pages/UserProfile/CadastroPessoaForm.vue"
+
+import Busca from "@/pages/Busca.vue"
 const routes = [
   {
     path: "/",
@@ -35,8 +37,13 @@ const routes = [
       },
       {
         path: "cadastropessoa",
-        name: "cadastropessoa",
+        name: "Cadastropessoa",
         component: CadastroPessoa
+      },
+      {
+        path: "busca",
+        name: "Busca",
+        component: Busca
       },
 
     ]

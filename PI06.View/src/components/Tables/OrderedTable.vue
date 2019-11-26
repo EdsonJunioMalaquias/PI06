@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import fila from "../../../services/Fila.js";
+import fila from "../../../services/fila.js";
 import moment from "moment";
 export default {
   name: "ordered-table",

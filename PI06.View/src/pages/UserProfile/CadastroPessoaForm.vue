@@ -7,12 +7,10 @@
       </md-card-header>
 
       <md-card-content>
-        
         <div class="md-layout">
           <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
               <h4 class="title">Dados Pessoais</h4>
-              
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
@@ -23,72 +21,70 @@
           </div>
           <div class="md-layout-item md-small-size-50 md-size-50">
             <md-field>
-                <md-datepicker v-model="date" md-debounce="100" />
-                
+              <md-datepicker v-model="dataNascimento" md-debounce="100" />
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
-              <label>rg</label>
+              <label>RG</label>
               <md-input v-model="idade" type="text"></md-input>
             </md-field>
           </div>
-           <div class="md-layout-item md-small-size-100 md-size-50">
+          <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Cpf</label>
               <md-input v-model="idade" type="text"></md-input>
             </md-field>
           </div>
-           <div class="md-layout-item md-small-size-100 md-size-100">
+          <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
-              <label>Endereco de email</label>
-              <md-input v-model="idade" type="email"></md-input>
-            </md-field>
-          </div>
-           <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>logradouro</label>
-              <md-input v-model="idade" type="text"></md-input>
-            </md-field>
-          </div>
-           <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>Complemento</label>
-              <md-input v-model="idade" type="text"></md-input>
+              <label>Endereco de Email</label>
+              <md-input v-model="enderecoEmail" type="email"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
-              <label>Numero</label>
-              <md-input v-model="idade" type="text"></md-input>
+              <label>Logradouro</label>
+              <md-input v-model="logradouro" type="text"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>Complemento</label>
+              <md-input v-model="complemento" type="text"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>Número</label>
+              <md-input v-model="numeroResidencia" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-autocomplete v-model="selectCidade" :md-options="cidades">
-            <label>Cidade</label>
+              <label>Cidade</label>
             </md-autocomplete>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-autocomplete v-model="selectCidade" :md-options="uf">
-            <label>Uniodade Federativa</label>
+            <md-autocomplete v-model="selectedUF" :md-options="uf">
+              <label>Unidade Federativa</label>
             </md-autocomplete>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
-                
-              <label>Numero de Telefone</label>
-              <md-input v-model="idade" type="text"></md-input>
+              <label>Número de Telefone</label>
+              <md-input v-model="numeroTelefone" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
-              <label>Cep</label>
-              <md-input v-model="idade" type="number"></md-input>
+              <label>CEP</label>
+              <md-input v-model="cep" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-autocomplete v-model="selectCargo" :md-options="cargo">
-            <label>Cargo</label>
+              <label>Cargo</label>
             </md-autocomplete>
           </div>
           <div class="md-layout-item md-size-100 text-right">
@@ -97,10 +93,11 @@
         </div>
       </md-card-content>
     </md-card>
+    {{ teste }}
   </form>
 </template>
+
 <script>
- /* import paciente from '../../../services/paciente' */
 export default {
   name: "cadastro-pessoa-form",
   props: {
@@ -110,30 +107,77 @@ export default {
     }
   },
   data: () => ({
-      selectedCidade: null,
-      selectedUF: null,
-      cidades: [
-        'Patos de Minas',
-        'Guimarania',
-        'Belo Horizonte',
-        'Presidente Olegario',
-        'Carmo do Paranaiba'
-        
-      ],
-      uf: [
-        'MG',
-        'SP',
-        'RJ'
-        
-      ],
-      cargo:[
-          'Medico',
-          'Recepcionista',
-          'Enfermeiro',
-          'Paciente' 
-      ]
-    })
- 
+    isFuncionario: false,
+    isCargoSaude: false,
+    selectedCidade: null,
+    selectedUF: null,
+    selectCargo: null,
+
+    nome: "",
+    dataNascimento: "",
+    idade: "",
+    rg: "",
+    cpf: "",
+    enderecoEmail: "",
+    logradouro: "",
+    complemento: "",
+    numeroResidencia: "",
+    cep: "",
+    sus: "",
+    ddd: "",
+    numeroTelefone: "",
+
+    numeroConselho: "",
+    descricaoConselho: "",
+
+    cidades: [
+      "Patos de Minas",
+      "Guimarania",
+      "Belo Horizonte",
+      "Presidente Olegario",
+      "Carmo do Paranaiba"
+    ],
+    uf: ["MG"],
+    cargo: ["Medico", "Recepcionista", "Enfermeiro"]
+  }),
+  methods: {
+    Cadastrar() {
+      var pessoa = this.cadastrarPessoa;
+      if (this.isFuncionario) {
+        this.cadastrarFuncionario(pessoa);
+      } else {
+        this.CadastrarPaciente(pessoa);
+      }
+    },
+    cadastrarPessoa() {
+      var obj = {
+        nome: this.nome,
+        dataNascimento: this.dataNascimento,
+        rg: this.rg,
+        sus: this.sus,
+        codigoCpf: this.cpf,
+        enderecoEmail: this.enderecoEmail,
+        logradouro: this.logradouro,
+        complemento: this.complemento,
+        numeroEndereco: this.numeroResidencia,
+        bairro: this.bairro,
+        cidade: this.selectedCidade,
+        uf: this.selectedUF,
+        numeroTelefone: this.numeroTelefone,
+        ddd: this.ddd,
+        cep: this.cep
+      };
+      return obj;
+    },
+    CadastrarPaciente(obj) {
+      //this.$set(this.someObject, 'b', 2)
+      console.log(obj);
+    },
+    cadastrarFuncionario(obj) {
+      console.log(obj);
+    }
+  }
 };
 </script>
+
 <style></style>
