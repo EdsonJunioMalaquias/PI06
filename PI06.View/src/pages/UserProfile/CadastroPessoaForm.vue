@@ -20,11 +20,11 @@
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-50 md-size-50">
-            <md-field>
+            
               <md-datepicker v-model="dataNascimento">
                 <label>Data Nascimento</label>
               </md-datepicker>
-            </md-field>
+            
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
