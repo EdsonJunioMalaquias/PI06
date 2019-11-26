@@ -3,7 +3,7 @@
     <md-card>
       <md-card-header :data-background-color="dataBackgroundColor">
         <h4 class="title">Consulta</h4>
-        <p class="category">Prencha os Campos a baixo</p>
+        <p class="category">Preencha os Campos a baixo</p>
       </md-card-header>
 
       <md-card-content>
@@ -23,7 +23,7 @@
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
-              <label>Cartao SUS</label>
+              <label>Cartão SUS</label>
               <md-input v-model="sus" type="email"></md-input>
             </md-field>
           </div>
@@ -34,13 +34,13 @@
           </div>
           <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
-              <h4 class="title"> Historico</h4>
+              <h4 class="title"> Histórico</h4>
               
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
-              <label>Descricao</label>
+              <label>Descrição</label>
               <md-input v-model="Peso" type="text"></md-input>
             </md-field>
           </div>
@@ -52,7 +52,7 @@
           </div>
           <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
-              <label>Resultado Referencia</label>
+              <label>Resultado Referência</label>
               <md-input v-model="Peso" type="text"></md-input>
             </md-field>
           </div>
