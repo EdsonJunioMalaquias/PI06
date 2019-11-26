@@ -21,19 +21,21 @@
           </div>
           <div class="md-layout-item md-small-size-50 md-size-50">
             <md-field>
-              <md-datepicker v-model="dataNascimento" md-debounce="100" />
+              <md-datepicker v-model="dataNascimento">
+                <label>Data Nascimento</label>
+              </md-datepicker>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>RG</label>
-              <md-input v-model="idade" type="text"></md-input>
+              <md-input v-model="rg" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Cpf</label>
-              <md-input v-model="idade" type="text"></md-input>
+              <md-input v-model="cpf" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-100">
@@ -61,7 +63,7 @@
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-autocomplete v-model="selectCidade" :md-options="cidades">
+            <md-autocomplete v-model="selectedCidade" :md-options="cidades">
               <label>Cidade</label>
             </md-autocomplete>
           </div>
@@ -70,12 +72,19 @@
               <label>Unidade Federativa</label>
             </md-autocomplete>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
+          <div class="md-layout-item md-small-size-100 md-size-10">
             <md-field>
-              <label>Número de Telefone</label>
-              <md-input v-model="numeroTelefone" type="text"></md-input>
+              <label>DDD</label>
+              <md-input v-model="ddd" type="text"></md-input>
             </md-field>
           </div>
+          <div class="md-layout-item md-small-size-100 md-size-40">
+            <md-field>
+              <label>Número de Telefone</label>
+              <md-input v-model="numeroTelefone" type="number"></md-input>
+            </md-field>
+          </div>
+
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>CEP</label>
@@ -93,7 +102,6 @@
         </div>
       </md-card-content>
     </md-card>
-    {{ teste }}
   </form>
 </template>
 
@@ -114,7 +122,7 @@ export default {
     selectCargo: null,
 
     nome: "",
-    dataNascimento: "",
+    dataNascimento: null,
     idade: "",
     rg: "",
     cpf: "",
