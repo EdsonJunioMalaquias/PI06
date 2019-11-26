@@ -5,7 +5,7 @@ export default {
     return http.get(`/api/fila/${idMedico}`);
   },
   getAll: () => {
-    return http.get(`/api/fila/`);
+    return http.get(`/api/atendimento/`);
   },
   post: obj => {
     return http.post(`/api/atendimento/`, obj);

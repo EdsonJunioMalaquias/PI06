@@ -1,9 +1,8 @@
 <template>
   <div class="content">
-    
-      <div class="md-layout">
-        <div class="md-layout-item md-small-size-50 md-size-85">
-          <md-card>
+    <div class="md-layout">
+      <div class="md-layout-item md-small-size-50 md-size-85">
+        <md-card>
           <md-card-header data-background-color="green">
             <h4 class="title">Pesquisar Pacientes</h4>
             <p class="category">Buscar Pacientes pelo CPF</p>
@@ -26,10 +25,10 @@
               >Buscar</md-button>
             </div>
           </md-card-content>
-          </md-card>
-        </div>
+        </md-card>
       </div>
-    
+    </div>
+
     <br />
     <br />
     <div class="md-layout">
@@ -340,19 +339,18 @@ textarea {
   height: 10rem;
   width: 100%;
 }
-.caixa{
+.caixa {
   padding-top: 3%;
 }
-.buton{
+.buton {
   margin-top: 20px;
 }
-.button2{
+.button2 {
   margin-left: 20px;
 }
-#container2{
+#container2 {
   margin-top: 2%;
 }
-
 </style>
 <style lang="scss" scoped>
 .md-card {

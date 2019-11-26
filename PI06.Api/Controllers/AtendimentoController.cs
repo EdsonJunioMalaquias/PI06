@@ -22,11 +22,12 @@ namespace PI06.Api.Controllers
             return Json(result);
         }
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult GetAllIncludingAllProperties()
         {
-            var consultaAll = await _service.GetAllAsync();
-            return Json(consultaAll);
+            var obj = _service.GetIncludeAllProperity();
+            return Json(obj);
         }
+
         [HttpPost]
         public IActionResult Post([FromBody] Atendimento entity)
         {

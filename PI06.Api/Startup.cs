@@ -45,7 +45,7 @@ namespace PI06.Api
                     builder.AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowAnyOrigin()
-                    .AllowCredentials();
+                    .AllowCredentials().SetIsOriginAllowedToAllowWildcardSubdomains().Build();
 
                 });
             });
@@ -148,9 +148,9 @@ namespace PI06.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseSwagger();
-
             app.UseCors(MyAllowSpecificOrigins);
+
+            app.UseSwagger();
 
             app.UseSwaggerUI(c =>
             {

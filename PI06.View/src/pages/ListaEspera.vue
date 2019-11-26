@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="md-layout">
-      <div class="md-layout-item md-medium-size-50 md-xsmall-size-50 md-size-50">
+      <div class="md-layout-item md-small-size-100 md-size-75">
         <md-card>
           <md-card-header data-background-color="green">
             <div class="md-layout">
@@ -12,8 +12,8 @@
           </md-card-header>
           <md-card-content>
             <div>
-              <div v-for="fila of filteredList" :key="fila.id">
-                <md-table v-model="fila.atendimentos" :table-header-color="tableHeaderColor">
+              <div>
+                <md-table v-model="filteredList" :table-header-color="tableHeaderColor">
                   <md-table-row slot="md-table-row" slot-scope="{ item }">
                     <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
                     <md-table-cell md-label="Nome">{{ item.paciente.pessoa.nome }}</md-table-cell>
@@ -26,7 +26,7 @@
                     >{{ recebeDateTimeERetornaSomenteOTime(item.dataChegada) }}</md-table-cell>
                     <md-table-cell md-label="Grau de Emergencia">{{ item.grauDeEmergencia }}</md-table-cell>
                     <md-button
-                      @click.prevent="mudarStatusAtendimento(item.statusDeAtendimento)"
+                      @click.prevent="mudarStatusAtendimento(item)"
                       class="md-raised md-success"
                     >Mudar</md-button>
                   </md-table-row>
@@ -36,7 +36,7 @@
           </md-card-content>
         </md-card>
       </div>
-      <div class="md-layout-item md-small-size-50 md-size-35">
+      <div class="md-layout-item md-small-size-100 md-size-25">
         <md-card>
           <md-card-header data-background-color="green">
             <h4 class="title">Adicionar Pacientes</h4>
@@ -54,7 +54,7 @@
               <div class="md-layout-item">
                 <md-field>
                   <label>Medico</label>
-                  <md-select name="medico" id="medico">
+                  <md-select v-model="idSelectedMedico" name="medico" id="medico">
                     <md-option
                       v-for="item in this.medicos"
                       :key="item.id"
@@ -93,6 +93,7 @@ import fila from "../../services/fila.js";
 import paciente from "../../services/paciente.js";
 import funcionario from "../../services/funcionario.js";
 import moment from "moment";
+import _ from 'lodash';
 
 export default {
   name: "ordered-table",
@@ -105,32 +106,43 @@ export default {
   computed: {
     filteredList() {
       let result = this.users;
-      if (!this.filterValue) {
-        return result;
-      }
-      const filter = event =>
-        event.atendimentos.some(atendimento =>
+
+      const filter = atendimento =>
           atendimento.statusDeAtendimento
             .toString()
             .toLowerCase()
             .includes(this.filterValue.toString().toLowerCase())
-        );
-      return result.filter(filter);
+        ;
+      return _.orderBy(result.filter(filter), 'grauDeEmergencia');  
     }
+    /*filteredList() {
+      let result = this.users;
+      if (!this.filterValue) {
+        return result;
+      }
+      return this.result.filter(atendimento => {
+        return atendimento.statusDeAtendimento
+            .toString()
+            .toLowerCase()
+            .includes(this.filterValue.toString().toLowerCase());
+      });
+    }*/
   },
   data() {
     return {
       users: [],
-      filterValue: "",
+      filterValue: "false",
       dateTime: "",
       cpf: "",
       grauEmergencia: "",
-      medicos: []
+      medicos: [],
+      idSelectedMedico: "",
+      pacienteId: ""
     };
   },
   mounted() {
     this.buscarAtendimentosFila();
-    this.recebeDateTimeERetornaSomenteODate();
+    this.buscarFuncionarioPeloCargo();
   },
   methods: {
     buscarAtendimentosFila() {
@@ -145,21 +157,50 @@ export default {
       return moment(dateTime).format("HH:mm:ss");
     },
     cadastrarAtendimento() {
+      if (
+        this.idSelectedMedico == "" ||
+        this.cpf == "" ||
+        this.grauEmergencia == ""
+      ) {
+        console.error(
+          "Preencha o Campo CPF, e selecione o medico e o grau de Emergencia"
+        );
+        return;
+      }
+      this.getIdPaciente();
+    },
+    mudarStatusAtendimento(atendimento) {
+        var obj = {
+          filaId:atendimento.filaId,
+          id:atendimento.id,
+          pacienteId: atendimento.pacienteId,
+          medicoId: atendimento.medicoId,
+          grauDeEmergencia: atendimento.grauDeEmergencia,
+          dataChegada: atendimento.dataChegada,
+          statusDeAtendimento: !atendimento.statusDeAtendimento
+      };
+      fila.put(obj).then(res => {
+        this.buscarAtendimentosFila();
+      });
+    },
+    getIdPaciente() {
+      paciente.getByCpf(this.cpf).then(res => {
+        this.pacienteId = res.data.id;
+        this.postFilaAtendimento();
+      });
+    },
+    postFilaAtendimento() {
+      let data = new Date();
+      let data2 = new Date(data.valueOf() - data.getTimezoneOffset() * 60000);
       var obj = {
-        pacienteId: this.getIdPaciente(),
-        medicoId: this.medicoiD,
+        pacienteId: this.pacienteId,
+        medicoId: this.idSelectedMedico,
         grauDeEmergencia: this.grauEmergencia,
-        dataChegada: this.dateNow,
+        dataChegada: data2,
         statusDeAtendimento: false
       };
       fila.post(obj).then(res => {
-        console.log(res);
-      });
-    },
-    mudarStatusAtendimento(statusAtual) {},
-    getIdPaciente() {
-      paciente.getByCpf(this.cpf).then(res => {
-        console.log(res);
+        this.buscarAtendimentosFila();
       });
     },
     buscarFuncionarioPeloCargo() {
