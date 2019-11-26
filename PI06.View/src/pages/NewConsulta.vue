@@ -121,7 +121,7 @@
         <md-card md-with-hover>
           <md-ripple>
             <md-card-header data-background-color="green">
-              <div class="md-title">Histórico</div>
+              <h4 class="title">Histórico</h4>
             </md-card-header>
 
             <md-card-content>

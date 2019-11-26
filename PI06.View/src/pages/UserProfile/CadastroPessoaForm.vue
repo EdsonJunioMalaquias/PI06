@@ -1,7 +1,8 @@
 <template>
-  <form>
-    <md-card>
-      <md-card-header :data-background-color="dataBackgroundColor">
+  <div id="app">
+    <div class="container">
+      <md-card>
+      <md-card-header data-background-color="green">
         <h4 class="title">Cadastro de Pessoas</h4>
         <p class="category">Prencha os Campos a baixo</p>
       </md-card-header>
@@ -99,18 +100,13 @@
         </div>
       </md-card-content>
     </md-card>
-  </form>
+  </div>
+</div>  
 </template>
 
 <script>
 export default {
   name: "cadastro-pessoa-form",
-  props: {
-    dataBackgroundColor: {
-      type: String,
-      default: ""
-    }
-  },
   data: () => ({
     isFuncionario: false,
     isCargoSaude: false,
