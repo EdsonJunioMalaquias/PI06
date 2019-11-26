@@ -10,7 +10,7 @@
           </md-card-header>
           <md-card-content>
             <md-field>
-              <label for="pesquisa">Digite o CPF</label>
+              <label for="pesquisa">Digitee o CPF</label>
               <md-input
                 id="pesquisa"
                 type="text"
