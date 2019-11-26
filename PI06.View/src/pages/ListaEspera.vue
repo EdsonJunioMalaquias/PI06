@@ -1,14 +1,11 @@
 <template>
   <div class="content">
     <div class="md-layout">
-      <div class="md-layout-item md-medium-size-50 md-xsmall-size-50 md-size-50">
+      <div class="md-layout-item md-medium-size-50 md-xsmall-size-50 md-size-65">
         <md-card>
           <md-card-header data-background-color="green">
-            <div class="md-layout">
-              <h4 class="title">Lista de Espera</h4>
-              <md-switch class="switch" v-model="filterValue">Boolean</md-switch>
-            </div>
-            <p class="category">Paciente</p>
+              <h4 class="title">Lista de Espera de Pacientes</h4>
+              <md-switch class="switch" v-model="filterValue">Filtrar Pacientes Atendidos</md-switch>
           </md-card-header>
           <md-card-content>
             <div>
@@ -175,6 +172,6 @@ export default {
   display: table;
 }
 .switch {
-  float: right;
+  display: right;
 }
 </style>

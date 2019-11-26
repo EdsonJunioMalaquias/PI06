@@ -20,27 +20,25 @@
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-50 md-size-50">
-            <md-field>
-              <md-datepicker v-model="dataNascimento">
-                <label>Data Nascimento</label>
-              </md-datepicker>
-            </md-field>
+            <md-datepicker v-model="dataNascimento">
+              <label>Data Nascimento</label>
+            </md-datepicker>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
+          <div class="md-layout-item md-small-size-100 md-size-25">
             <md-field>
               <label>RG</label>
               <md-input v-model="rg" type="text"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
+          <div class="md-layout-item md-small-size-100 md-size-25">
             <md-field>
-              <label>Cpf</label>
+              <label>CPF</label>
               <md-input v-model="cpf" type="text"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-100">
+          <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
-              <label>Endereco de Email</label>
+              <label>Endereço de Email</label>
               <md-input v-model="enderecoEmail" type="email"></md-input>
             </md-field>
           </div>
@@ -50,16 +48,16 @@
               <md-input v-model="logradouro" type="text"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>Complemento</label>
-              <md-input v-model="complemento" type="text"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
+          <div class="md-layout-item md-small-size-100 md-size-10">
             <md-field>
               <label>Número</label>
               <md-input v-model="numeroResidencia" type="text"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-40">
+            <md-field>
+              <label>Complemento</label>
+              <md-input v-model="complemento" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
@@ -69,8 +67,14 @@
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-autocomplete v-model="selectedUF" :md-options="uf">
-              <label>Unidade Federativa</label>
-            </md-autocomplete>=
+              <label>Estado</label>
+            </md-autocomplete>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>CEP</label>
+              <md-input v-model="cep" type="number"></md-input>
+            </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-10">
             <md-field>
@@ -84,20 +88,13 @@
               <md-input v-model="numeroTelefone" type="number"></md-input>
             </md-field>
           </div>
-
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>CEP</label>
-              <md-input v-model="cep" type="number"></md-input>
-            </md-field>
-          </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-autocomplete v-model="selectCargo" :md-options="cargo">
               <label>Cargo</label>
             </md-autocomplete>
           </div>
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-raised md-success">Nova Cadastro</md-button>
+            <md-button class="md-raised md-success">Novo Cadastro</md-button>
           </div>
         </div>
       </md-card-content>

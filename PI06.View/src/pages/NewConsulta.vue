@@ -2,7 +2,7 @@
   <div class="content">
     
       <div class="md-layout">
-        <div class="md-layout-item md-small-size-50 md-size-85">
+        <div class="md-layout-item md-small-size-50 md-size-100">
           <md-card>
           <md-card-header data-background-color="green">
             <h4 class="title">Pesquisar Pacientes</h4>
@@ -33,7 +33,7 @@
     <br />
     <br />
     <div class="md-layout">
-      <div class="md-layout-item md-small-size-50 md-size-35">
+      <div class="md-layout-item md-small-size-50 md-size-40">
         <div>
           <form>
             <md-card>
@@ -117,7 +117,7 @@
           </form>
         </div>
       </div>
-      <div class="md-layout-item md-medium-size-100 md-size-50">
+      <div class="md-layout-item md-medium-size-100 md-size-60">
         <md-card md-with-hover>
           <md-ripple>
             <md-card-header data-background-color="green">
