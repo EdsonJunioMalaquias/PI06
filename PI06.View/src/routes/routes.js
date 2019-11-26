@@ -6,9 +6,9 @@ import Usuario from "@/pages/Usuario.vue";
 import Notifications from "@/pages/Notifications.vue";
 import Consulta from "@/pages/NewConsulta.vue";
 
-import CadastroPessoaForm from "@/pages/UserProfile/CadastroPessoaForm.vue";
-import Relatorio from "@/pages/Relatorio.vue";
+import CadastroPessoa from "@/pages/UserProfile/CadastroPessoaForm.vue"
 
+import Busca from "@/pages/Busca.vue"
 const routes = [
   {
     path: "/",
@@ -37,17 +37,15 @@ const routes = [
       },
       {
         path: "cadastropessoa",
-        name: "Cadastro de Pessoas",
-        component: CadastroPessoaForm 
+        name: "Cadastropessoa",
+        component: CadastroPessoa
       },
-      
       {
-        path: "relatorio",
-        name: "Relatorio",
-        component: Relatorio
-      }
-      
-      
+        path: "busca",
+        name: "Busca",
+        component: Busca
+      },
+
     ]
   }
 ];
