@@ -18,7 +18,7 @@
       </sidebar-link>
 
       
-       <sidebar-link to="/cadastropessoa">
+      <sidebar-link to="/cadastropessoa">
         <md-icon>person</md-icon>
         <p>Cadastro Pessoa</p>
       </sidebar-link>

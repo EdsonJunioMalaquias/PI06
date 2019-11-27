@@ -47,7 +47,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "COntrole Medico"
+      default: "Controle Medico"
     },
     backgroundImage: {
       type: String,
