@@ -9,6 +9,8 @@ import Consulta from "@/pages/NewConsulta.vue";
 import CadastroPessoa from "@/pages/UserProfile/CadastroPessoaForm.vue"
 
 import Busca from "@/pages/Busca.vue"
+
+import Relatorio from "@/pages/Relatorio.vue"
 const routes = [
   {
     path: "/",
@@ -45,6 +47,11 @@ const routes = [
         name: "Busca",
         component: Busca
       },
+      {
+        path: 'relatorio',
+        name: 'Relatorio',
+        component: Relatorio
+      }
 
     ]
   }
