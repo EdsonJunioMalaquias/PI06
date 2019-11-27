@@ -202,7 +202,7 @@ export default {
       showSnackbar: false,
       error: "Erro Inesperado!",
       duracao: 4000,
-      medicoiD: 1004,
+      medicoiD: 6,
       medicos: [],
       cpfUsuario: "",
       idTipoProcedimento: 1,
@@ -291,9 +291,16 @@ export default {
         dataInicio: this.dateNow,
         dataTermino: new Date()
       };
-      consulta.post(obj).then(res => {
-        this.cadastrarProcedimento(res.data.id);
-      });
+      console.log(obj);
+      consulta
+        .post(obj)
+        .then(res => {
+          this.cadastrarProcedimento(res.data.id);
+        })
+        .catch(err => {
+          this.error = err.message;
+          this.showSnackbar = true;
+        });
     },
     cadastrarProcedimento(idConsulta) {
       var obj = {
@@ -301,19 +308,30 @@ export default {
         idConsulta: idConsulta,
         idTipoProcedimento: this.idTipoProcedimento
       };
-      procedimento.post(obj).then(res => {
-        this.cadastrarExame(res.data.id);
-      });
+      procedimento
+        .post(obj)
+        .then(res => {
+          this.cadastrarExame(res.data.id);
+        })
+        .catch(err => {
+          this.error = err.message;
+          this.showSnackbar = true;
+        });
     },
     cadastrarExame(idProcedimentoExame) {
-      this.exames.forEach(element => {
-        var obj = {
-          resultado: element.resultado,
-          idTipoExame: element.id,
-          iD: idProcedimentoExame
-        };
-        exame.post(obj);
-      });
+      this.exames
+        .forEach(element => {
+          var obj = {
+            resultado: element.resultado,
+            idTipoExame: element.id,
+            iD: idProcedimentoExame
+          };
+          exame.post(obj);
+        })
+        .catch(err => {
+          this.error = err.message;
+          this.showSnackbar = true;
+        });
       this.buscarPacientePeloCPF();
     },
     toPage(route) {
