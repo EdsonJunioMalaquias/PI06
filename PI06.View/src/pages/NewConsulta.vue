@@ -107,7 +107,7 @@
                 </md-button>
                 <br />
                 <br />
-                <h4>Exames Incluidos</h4>
+                <h4>Exames Incluídos</h4>
                 <ul>
                   <li v-for="item in exames" :key="item.id">
                     {{ item.id }} - {{ item.resultado }} -
@@ -152,12 +152,10 @@
 
             <md-card-content>
               <div class="search-wrapper">
-                <input
-                  type="text"
-                  v-model="search"
-                  placeholder="Search title.."
-                />
-                <label>Search title:</label>
+                <md-field>
+                  <label for="busca">Filtrar pelo médico</label>
+                  <md-input id="busca" type="text" v-model="search" />
+                </md-field>
               </div>
 
               <div>

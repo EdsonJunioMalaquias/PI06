@@ -3,8 +3,8 @@
     <div class="container">
       <md-card>
         <md-card-header data-background-color="green">
-          <h4 class="title">Relatorio</h4>
-          <p class="category">Relatorio dos Medicos</p>
+          <h4 class="title">Relatório</h4>
+          <p class="category">Relatório dos Médicos</p>
         </md-card-header>
 
         <md-card-content>

@@ -26,17 +26,17 @@ const routes = [
       },
       {
         path: "usuario",
-        name: "Usuarios",
+        name: "Funcionários",
         component: Usuario
       },
       {
         path: "cadastropessoa",
-        name: "Cadastropessoa",
+        name: "Cadastro de Pessoas",
         component: CadastroPessoa
       },
       {
         path: "relatorio",
-        name: "Relatorio",
+        name: "Relatório",
         component: Relatorio
       }
     ]

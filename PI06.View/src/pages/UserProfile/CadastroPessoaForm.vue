@@ -20,7 +20,7 @@
             </div>
             <div class="md-layout-item md-small-size-50 md-size-20">
               <md-datepicker v-model="dataNascimento">
-                <label>Data Nascimento</label>
+                <label>Data de Nascimento</label>
               </md-datepicker>
             </div>
             <div class="md-layout-item md-small-size-100 md-size-40">
@@ -103,28 +103,45 @@
             <div class="md-layout">
               <div class="md-layout-item md-small-size-100 md-size-100">
                 <div v-if="isFuncionario">
-                  <md-switch class="switch" v-model="isFuncionario">Cadastrar Funcionario</md-switch>
+                  <md-switch class="switch" v-model="isFuncionario">
+                    Cadastrar Funcionário
+                  </md-switch>
                 </div>
                 <div v-else>
-                  <md-switch class="switch" v-model="isFuncionario">Cadastrar Paciente</md-switch>
+                  <md-switch class="switch" v-model="isFuncionario">
+                    Cadastrar Paciente
+                  </md-switch>
                 </div>
               </div>
-              <div v-if="isFuncionario" class="md-layout-item md-small-size-100 md-size-30">
+              <div
+                v-if="isFuncionario"
+                class="md-layout-item md-small-size-100 md-size-30"
+              >
                 <md-autocomplete v-model="selectCargo" :md-options="cargo">
                   <label>Cargo</label>
                 </md-autocomplete>
               </div>
               <div
                 class="md-layout"
-                v-if="selectCargo != null && selectCargo != ''&& selectCargo !='Recepcionista'"
+                v-if="
+                  selectCargo != null &&
+                    selectCargo != '' &&
+                    selectCargo != 'Recepcionista'
+                "
               >
-                <div v-if="isFuncionario" class="md-layout-item md-small-size-100 md-size-30">
+                <div
+                  v-if="isFuncionario"
+                  class="md-layout-item md-small-size-100 md-size-30"
+                >
                   <md-field>
                     <label>Descrição do Conselho</label>
-                    <md-input v-model="descricaoConselho" type="text"></md-input>
+                    <md-input v-model="descricaoConselho" type="text" />
                   </md-field>
                 </div>
-                <div v-if="isFuncionario" class="md-layout-item md-small-size-100 md-size-30">
+                <div
+                  v-if="isFuncionario"
+                  class="md-layout-item md-small-size-100 md-size-30"
+                >
                   <md-field>
                     <label>Número do Conselho</label>
                     <md-input v-model="numeroConselho" type="number"></md-input>
@@ -133,7 +150,9 @@
               </div>
             </div>
             <div class="md-layout-item md-size-100 text-right">
-              <md-button @click="cadastrar()" class="md-raised md-success">Novo Cadastro</md-button>
+              <md-button @click="cadastrar()" class="md-raised md-success">
+                Novo Cadastro
+              </md-button>
             </div>
           </div>
         </md-card-content>
@@ -145,17 +164,18 @@
         md-persistent
       >
         <span>{{ error }}</span>
-        <md-button class="md-primary" @click="showSnackbar = false">Fechar</md-button>
+        <md-button class="md-primary" @click="showSnackbar = false">
+          Fechar
+        </md-button>
       </md-snackbar>
     </div>
   </div>
 </template>
 
 <script>
-import funcionario from "../../../services/funcionario";
 import paciente from "../../../services/paciente";
-
 import moment from "moment";
+
 export default {
   name: "cadastro-pessoa-form",
   data: () => ({
@@ -245,7 +265,9 @@ export default {
       }
       var pessoa = {
         nome: this.nome,
-        dataNascimento: this.recebeDateTimeERetornaSomenteODate(this.dataNascimento),
+        dataNascimento: this.recebeDateTimeERetornaSomenteODate(
+          this.dataNascimento
+        ),
         rg: this.rg,
         sus: this.sus,
         codigoCpf: this.cpf,
@@ -260,7 +282,7 @@ export default {
         ddd: this.ddd,
         cepCod: this.cep
       };
-      
+
       if (this.isFuncionario) {
         this.cadastrarFuncionario(pessoa);
       } else {
@@ -268,23 +290,24 @@ export default {
       }
     },
     CadastrarPaciente(obj) {
-      var pessoaPaciente = {pessoa:{}}
+      var pessoaPaciente = { pessoa: {} };
       Object.assign(pessoaPaciente.pessoa, obj);
-      paciente
-        .post(pessoaPaciente)
-        .then(res => {
-          this.error = "Cadastro efetuado com sucesso!";
-          this.showSnackbar = true;
-        })
-        .catch(err => {
-          this.error = err.message;
-          this.showSnackbar = true;
-        });
+      paciente.post(pessoaPaciente).catch(err => {
+        this.error = err.message;
+        this.showSnackbar = true;
+        return;
+      });
+      this.error = "Cadastro efetuado com sucesso!";
+      this.showSnackbar = true;
     },
-    		
+
     cadastrarFuncionario(obj) {
-      var pessoaFuncionario = {pessoa:{}}
-      Object.assign(teste3.pessoa, obj);
+      this.error = "Cadastro de Funcionário não implementado";
+      this.showSnackbar = true;
+      console.log(obj);
+      return;
+      /*var pessoaFuncionario = { pessoa: {} };
+      Object.assign(pessoaFuncionario.pessoa, obj);
       if (this.selectCargo == null || this.selectCargo == "") {
         this.error = "Selecione um cargo valido!";
         this.showSnackbar = true;
@@ -332,21 +355,13 @@ export default {
         this.$set(obj, "cargoId", 7);
       }
 
-
-      return;
-      funcionario
-        .post(obj)
-        .then(res => {
-          this.error = "Cadastro efetuado com sucesso!";
-          this.showSnackbar = true;
-        })
-        .catch(err => {
-          this.error = err.message;
-          this.showSnackbar = true;
-        });
+      funcionario.post(obj).catch(err => {
+        this.error = err.message;
+        this.showSnackbar = true;
+      });
+      this.error = "Cadastro efetuado com sucesso!";
+      this.showSnackbar = true;*/
     }
   }
 };
 </script>
-
-<style></style>

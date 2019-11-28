@@ -23,7 +23,7 @@
                     <md-table-cell md-label="Nome">
                       {{ item.paciente.pessoa.nome }}
                     </md-table-cell>
-                    <md-table-cell md-label="Medico">
+                    <md-table-cell md-label="Médico">
                       {{ item.medico.pessoa.nome }}
                     </md-table-cell>
                     <md-table-cell md-label="Data de Chegada">
@@ -32,7 +32,7 @@
                     <md-table-cell md-label="Hora de Chegada">
                       {{ recebeDateTimeERetornaSomenteOTime(item.dataChegada) }}
                     </md-table-cell>
-                    <md-table-cell md-label="Grau de Emergencia">
+                    <md-table-cell md-label="Grau de Emergência">
                       <div v-if="item.grauDeEmergencia == 1">
                         Emergência
                       </div>
@@ -87,11 +87,11 @@
               </div>
               <div class="md-layout-item">
                 <md-field>
-                  <label>Medico</label>
+                  <label>Médico</label>
                   <md-select
                     v-model="idSelectedMedico"
-                    name="medico"
-                    id="medico"
+                    name="Médico"
+                    id="Médico"
                   >
                     <md-option
                       v-for="item in this.medicos"
@@ -208,7 +208,7 @@ export default {
         this.grauEmergencia == ""
       ) {
         console.error(
-          "Preencha o Campo CPF, e selecione o medico e o grau de Emergencia"
+          "Preencha o Campo CPF, e selecione o medico e o grau de Emergência"
         );
         return;
       }

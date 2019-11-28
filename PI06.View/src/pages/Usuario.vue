@@ -6,8 +6,8 @@
       >
         <md-card>
           <md-card-header data-background-color="green">
-            <h4 class="title">Medicos</h4>
-            <p class="category">Medicos Ativos</p>
+            <h4 class="title">Médicos</h4>
+            <p class="category">Médicos Ativos</p>
           </md-card-header>
           <md-card-content>
             <medico-table table-header-color="green"></medico-table>

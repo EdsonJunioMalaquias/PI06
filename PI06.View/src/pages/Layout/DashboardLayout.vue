@@ -12,7 +12,7 @@
       </sidebar-link>
       <sidebar-link to="/usuario">
         <md-icon>content_paste</md-icon>
-        <p>Usuarios</p>
+        <p>Funcionários</p>
       </sidebar-link>
 
       <sidebar-link to="/relatorio">
