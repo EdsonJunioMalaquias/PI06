@@ -17,48 +17,21 @@
 
         <div class="md-collapse">
           <div class="md-autocomplete">
-            <md-autocomplete
-              class="search"
-              v-model="selectedEmployee"
-              :md-options="employees"
-            >
+            <md-autocomplete class="search" v-model="selectedEmployee" :md-options="employees">
               <label>Pesquisar</label>
             </md-autocomplete>
           </div>
           <md-list>
-            <md-list-item href="#/">
-              <i class="material-icons">Home</i>
-              <p class="hidden-lg hidden-md">Home</p>
-            </md-list-item>
-
-           
-
+    
             <li class="md-list-item">
               <a
                 href="#/notifications"
                 class="md-list-item-router md-list-item-container md-button-clean dropdown"
-              >
-                <div class="md-list-item-content">
-                  <drop-down>
-                    <md-button
-                      slot="title"
-                      class="md-button md-just-icon md-simple"
-                      data-toggle="dropdown"
-                    >
-                      <md-icon>notifications</md-icon>
-                      <span class="notification">5</span>
-                      <p class="hidden-lg hidden-md">Notificaçao</p>
-                    </md-button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      
-                    </ul>
-                  </drop-down>
-                </div>
-              </a>
+              ></a>
             </li>
 
-            <md-list-item href="#/user">
-              <i class="material-icons">person</i>
+            <md-list-item>
+              <md-icon class="material-icons">person</md-icon>
               <p class="hidden-lg hidden-md">Perfil</p>
             </md-list-item>
           </md-list>
@@ -73,9 +46,7 @@ export default {
   data() {
     return {
       selectedEmployee: null,
-      employees: [
-    
-      ]
+      employees: []
     };
   },
   methods: {

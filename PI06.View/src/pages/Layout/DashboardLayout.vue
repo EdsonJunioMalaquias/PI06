@@ -10,30 +10,23 @@
       </sidebar-link>
       <sidebar-link to="/consulta">
         <md-icon>person</md-icon>
-        <p>Consulta </p>
+        <p>Consulta</p>
       </sidebar-link>
       <sidebar-link to="/usuario">
         <md-icon>content_paste</md-icon>
-        <p> Usuarios</p>
+        <p>Usuarios</p>
       </sidebar-link>
 
-      
-      <sidebar-link to="/cadastropessoa">
-        <md-icon>person</md-icon>
-        <p>Cadastro Pessoa</p>
-      </sidebar-link>
       <sidebar-link to="/relatorio">
         <md-icon>person</md-icon>
-        <p>Relatório </p>
+        <p>Relatório</p>
       </sidebar-link>
-
-
     </side-bar>
 
     <div class="main-panel">
       <top-navbar></top-navbar>
 
-      <dashboard-content> </dashboard-content>
+      <dashboard-content></dashboard-content>
 
       <content-footer v-if="!$route.meta.hideFooter"></content-footer>
     </div>

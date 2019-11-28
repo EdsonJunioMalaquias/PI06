@@ -9,8 +9,8 @@
     <li>
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <i class="material-icons">Inicio</i>
-        <p>Inicio</p></a
-      >
+        <p>Inicio</p>
+      </a>
     </li>
     <li>
       <drop-down>
@@ -19,16 +19,14 @@
           <span class="notification">5</span>
           <p>Notificaçao</p>
         </a>
-        <ul class="dropdown-menu dropdown-menu-right">
-          
-        </ul>
+        <ul class="dropdown-menu dropdown-menu-right"></ul>
       </drop-down>
     </li>
     <li>
-      <a href="#" data-toggle="dropdown" class="dropdown-toggle"
-        ><i class="material-icons">person</i>
-        <p>Profile</p></a
-      >
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+        <i class="material-icons">person</i>
+        <p>Profile</p>
+      </a>
     </li>
   </ul>
 </template>
@@ -38,9 +36,7 @@ export default {
     return {
       search: null,
       selectedEmployee: null,
-      employees: [
-    
-      ]
+      employees: []
     };
   }
 };
