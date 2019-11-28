@@ -1,5 +1,6 @@
 ﻿using PI06.Data.IRepository;
 using PI06.Data.Models.Entity;
+using System.Collections.Generic;
 
 namespace PI06.Api.IServiceRepository.ServiceRepositories
 {
@@ -10,6 +11,15 @@ namespace PI06.Api.IServiceRepository.ServiceRepositories
         {
 
             _repository = repository;
+        }
+        public IEnumerable<Atendimento> GetByFuncionarioIncludeAllProperity(int idMedico)
+        {
+            return _repository.GetByFuncionarioIncludeAllProperity(idMedico);
+        }
+
+        public IEnumerable<Atendimento> GetIncludeAllProperity()
+        {
+            return _repository.GetIncludeAllProperity();
         }
 
     }

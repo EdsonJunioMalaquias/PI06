@@ -73,6 +73,8 @@ namespace PI06.IRepository.Repository
 
         public virtual async Task<int> UpdateAsync(TEntity obj)
         {
+
+            obj.DtAlteracao = DateTime.Now;
             _contexto.Entry(obj).State = EntityState.Modified;
             return await CommitAsync();
         }
