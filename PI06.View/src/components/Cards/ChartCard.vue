@@ -1,10 +1,13 @@
 <template>
   <md-card>
-    <md-card-header
-      class="card-chart"
-      
-    >
-      <iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiZmI0YTZlZjItMTU3MC00NGE0LThmZDctOWFjZjM0YzBjNmQ1IiwidCI6IjNiYjVlMmZkLWRmMTYtNDVhOC1iMGE3LTcwOTY3ZjNjNmQ4MiJ9" frameborder="0" allowFullScreen="true"></iframe>
+    <md-card-header class="card-chart">
+      <iframe
+        width="800"
+        height="600"
+        src="https://app.powerbi.com/view?r=eyJrIjoiZmI0YTZlZjItMTU3MC00NGE0LThmZDctOWFjZjM0YzBjNmQ1IiwidCI6IjNiYjVlMmZkLWRmMTYtNDVhOC1iMGE3LTcwOTY3ZjNjNmQ4MiJ9"
+        frameborder="0"
+        allowfullscreen="true"
+      ></iframe>
     </md-card-header>
 
     <md-card-content>

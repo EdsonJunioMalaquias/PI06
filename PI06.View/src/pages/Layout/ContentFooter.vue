@@ -11,7 +11,6 @@
       <div class="copyright text-center">
         &copy; {{ new Date().getFullYear() }}
         <a href target>PI06</a>
-        <i class="fa fa-heart heart"></i>
       </div>
     </div>
   </footer>

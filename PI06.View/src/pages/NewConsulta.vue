@@ -9,7 +9,7 @@
           </md-card-header>
           <md-card-content>
             <md-field>
-              <label for="pesquisa">Digitee o CPF</label>
+              <label for="pesquisa">Digite o CPF</label>
               <md-input
                 id="pesquisa"
                 type="text"
@@ -22,9 +22,7 @@
               <md-button
                 @click.prevent="buscarPacientePeloCPF()"
                 class="md-raised md-success"
-              >
-                Buscar
-              </md-button>
+              >Buscar</md-button>
             </div>
           </md-card-content>
         </md-card>
@@ -45,21 +43,11 @@
               <md-card-content>
                 <md-field>
                   <label for="Nome">Nome</label>
-                  <md-input
-                    type="text"
-                    id="Nome"
-                    readonly
-                    :value="resultadosPessoais.nome"
-                  />
+                  <md-input type="text" id="Nome" readonly :value="resultadosPessoais.nome" />
                 </md-field>
                 <md-field>
                   <label for="sus">SUS:</label>
-                  <md-input
-                    type="number"
-                    id="sus"
-                    readonly
-                    :value="resultadosPessoais.sus"
-                  />
+                  <md-input type="number" id="sus" readonly :value="resultadosPessoais.sus" />
                 </md-field>
                 <md-field>
                   <label>Idade</label>
@@ -82,50 +70,37 @@
                       v-for="item in this.ListaExames"
                       :key="item.id"
                       :value="item.id"
-                    >
-                      {{ item.descricao }}
-                    </md-option>
+                    >{{ item.descricao }}</md-option>
                   </md-select>
                 </md-field>
 
                 <md-field>
                   <label>Resultado</label>
-                  <md-input
-                    type="text"
-                    placeholder="Resultado"
-                    v-model="resultado"
-                    required
-                  />
+                  <md-input type="text" placeholder="Resultado" v-model="resultado" required />
                   <span class="md-error">Campo Obrigatorio!</span>
                 </md-field>
 
                 <md-button
                   v-on:click.prevent="AdicionarExame()"
                   class="md-raised md-success"
-                >
-                  Adcionar Exame
-                </md-button>
+                >Adcionar Exame</md-button>
                 <br />
                 <br />
                 <h4>Exames Incluídos</h4>
                 <ul>
                   <li v-for="item in exames" :key="item.id">
                     {{ item.id }} - {{ item.resultado }} -
-                    <span @click.prevent="RemoverExame(item.id)">
-                      Remover -
-                    </span>
-                    <span @click.prevent="EditarExame(item.id, item.resultado)">
-                      Editar
-                    </span>
+                    <span
+                      @click.prevent="RemoverExame(item.id)"
+                    >Remover -</span>
+                    <span @click.prevent="EditarExame(item.id, item.resultado)">Editar</span>
                   </li>
                 </ul>
 
                 <md-button
                   @click.prevent="CadastrarConsulta()"
                   class="md-raised md-success"
-                >
-                  Cadastrar Consulta
-                </md-button>
+                >Cadastrar Consulta</md-button>
 
                 <md-snackbar
                   md-position="center"
@@ -134,9 +109,7 @@
                   md-persistent
                 >
                   <span>{{ error }}</span>
-                  <md-button class="md-primary" @click="showSnackbar = false">
-                    Fechar
-                  </md-button>
+                  <md-button class="md-primary" @click="showSnackbar = false">Fechar</md-button>
                 </md-snackbar>
               </md-card-content>
             </md-card>
@@ -159,22 +132,13 @@
               </div>
 
               <div>
-                <div
-                  class="card-style"
-                  v-for="item of filteredList"
-                  :key="item.id"
-                >
-                  <div
-                    v-for="procedimento of item.procedimentos"
-                    :key="procedimento.id"
-                  >
-                    <div class="md-title">
-                      {{ procedimento.tipoProcedimento.descricao }}
-                    </div>
-                    <h4>{{ procedimento.tipoProcedimento.descricao }}</h4>
+                <div class="card-style" v-for="item of filteredList" :key="item.id">
+                  <div v-for="procedimento of item.procedimentos" :key="procedimento.id">
+                    <div class="md-title">{{ procedimento.tipoProcedimento.descricao }}</div>
+                    
                     <div>
                       <p>Médico:{{ item.funcionarioMedico.pessoa.nome }}</p>
-                      <br />
+                      
                     </div>
                     <p>
                       Observações:{{ procedimento.observacao }}
@@ -184,18 +148,14 @@
                       <md-table-row>
                         <md-table-head>Descrição</md-table-head>
                         <md-table-head>Resultado</md-table-head>
-                        <md-table-head>Resultado Referência</md-table-head>
+                        <md-table-head>Resultado Referência Min</md-table-head>
+                        <md-table-head>Resultado Referência Man</md-table-head>
                       </md-table-row>
                       <md-table-row>
-                        <md-table-cell>
-                          {{ procedimento.exame.tipoExame.descricao }}
-                        </md-table-cell>
-                        <md-table-cell>
-                          {{ procedimento.exame.resultado }}
-                        </md-table-cell>
-                        <md-table-cell>
-                          {{ procedimento.exame.tipoExame.resultadoReferencia }}
-                        </md-table-cell>
+                        <md-table-cell>{{ procedimento.exame.tipoExame.descricao }}</md-table-cell>
+                        <md-table-cell>{{ procedimento.exame.resultado }}</md-table-cell>
+                        <md-table-cell>{{ procedimento.exame.tipoExame.resultadoReferenciaMin }}</md-table-cell>
+                        <md-table-cell>{{ procedimento.exame.tipoExame.resultadoReferenciaMax }}</md-table-cell>
                       </md-table-row>
                     </md-table>
                   </div>
@@ -246,7 +206,7 @@ export default {
       showSnackbar: false,
       error: "Erro Inesperado!",
       duracao: 4000,
-      medicoiD: 6,
+      medicoiD: 14,
       medicos: [],
       cpfUsuario: "",
       idTipoProcedimento: 1,
@@ -347,30 +307,26 @@ export default {
         idConsulta: idConsulta,
         idTipoProcedimento: this.idTipoProcedimento
       };
-      procedimento
-        .post(obj)
-        .then(res => {
-          this.cadastrarExame(res.data.id);
-        })
-        .catch(err => {
-          this.error = err.message;
-          this.showSnackbar = true;
-        });
-    },
-    cadastrarExame(idProcedimentoExame) {
-      this.exames
-        .forEach(element => {
-          var obj = {
-            resultado: element.resultado,
-            idTipoExame: element.id,
-            iD: idProcedimentoExame
-          };
-          exame.post(obj);
-        })
-        .catch(err => {
-          this.error = err.message;
-          this.showSnackbar = true;
-        });
+      this.exames.forEach(element => {
+        procedimento
+          .post(obj)
+          .then(res => {
+            var obj = {
+              resultado: element.resultado,
+              idTipoExame: element.id,
+              iD: res.data.id
+            };
+            exame.post(obj).catch(err => {
+              this.error = err.message;
+              this.showSnackbar = true;
+            });
+          })
+          .catch(err => {
+            this.error = err.message;
+            this.showSnackbar = true;
+          });
+      });
+
       this.buscarPacientePeloCPF();
     },
     toPage(route) {

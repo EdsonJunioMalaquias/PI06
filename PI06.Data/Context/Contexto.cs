@@ -134,7 +134,8 @@ namespace PI06.Data.Context
                 te.HasKey(c => c.Id).HasName("IdTipoExame");
                 te.Property(c => c.Id).HasColumnName("IdTipoExame").ValueGeneratedOnAdd();
                 te.Property(c => c.Descricao).IsRequired();
-                te.Property(c => c.ResultadoReferencia).IsRequired();
+                te.Property(c => c.ResultadoReferenciaMin).IsRequired();
+                te.Property(c => c.ResultadoReferenciaMax).IsRequired();
             });
 
             modelBuilder.Entity<TipoProcedimento>(tp =>
