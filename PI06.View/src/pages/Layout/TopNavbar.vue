@@ -22,14 +22,6 @@
             </md-autocomplete>
           </div>
           <md-list>
-    
-            <li class="md-list-item">
-              <a
-                href="#/notifications"
-                class="md-list-item-router md-list-item-container md-button-clean dropdown"
-              ></a>
-            </li>
-
             <md-list-item>
               <md-icon class="material-icons">person</md-icon>
               <p class="hidden-lg hidden-md">Perfil</p>

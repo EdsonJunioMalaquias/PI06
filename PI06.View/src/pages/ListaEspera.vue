@@ -4,8 +4,8 @@
       <div class="md-layout-item md-small-size-100 md-size-75">
         <md-card>
           <md-card-header data-background-color="green">
-              <h4 class="title">Lista de Espera de Pacientes</h4>
-              <md-switch class="switch" v-model="filterValue">Filtrar Pacientes Atendidos</md-switch>
+            <h4 class="title">Lista de Espera de Pacientes</h4>
+            <md-switch class="switch" v-model="filterValue">Filtrar Pacientes Atendidos</md-switch>
           </md-card-header>
           <md-card-content>
             <div>
@@ -74,10 +74,17 @@
                 </md-field>
               </div>
             </div>
-            <md-button
-              @click.prevent="cadastrarAtendimento()"
-              class="md-raised md-success buton"
-            >Adicionar Paciente a Fila</md-button>
+            <div class="md-layout">
+              <div class="md-layout-item md-small-size-100 md-size-100">
+                <md-button
+                  @click.prevent="cadastrarAtendimento()"
+                  class="md-raised md-success buton"
+                >Adicionar na Fila</md-button>
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-100">
+                <md-button to="/cadastroPessoa" class="md-raised md-success buton">Novo Paciente</md-button>
+              </div>
+            </div>
           </md-card-content>
         </md-card>
       </div>
@@ -90,7 +97,7 @@ import fila from "../../services/fila.js";
 import paciente from "../../services/paciente.js";
 import funcionario from "../../services/funcionario.js";
 import moment from "moment";
-import _ from 'lodash';
+import _ from "lodash";
 
 export default {
   name: "ordered-table",
@@ -105,25 +112,12 @@ export default {
       let result = this.users;
 
       const filter = atendimento =>
-          atendimento.statusDeAtendimento
-            .toString()
-            .toLowerCase()
-            .includes(this.filterValue.toString().toLowerCase())
-        ;
-      return _.orderBy(result.filter(filter), 'grauDeEmergencia');  
+        atendimento.statusDeAtendimento
+          .toString()
+          .toLowerCase()
+          .includes(this.filterValue.toString().toLowerCase());
+      return _.orderBy(result.filter(filter), "grauDeEmergencia");
     }
-    /*filteredList() {
-      let result = this.users;
-      if (!this.filterValue) {
-        return result;
-      }
-      return this.result.filter(atendimento => {
-        return atendimento.statusDeAtendimento
-            .toString()
-            .toLowerCase()
-            .includes(this.filterValue.toString().toLowerCase());
-      });
-    }*/
   },
   data() {
     return {
@@ -167,14 +161,14 @@ export default {
       this.getIdPaciente();
     },
     mudarStatusAtendimento(atendimento) {
-        var obj = {
-          filaId:atendimento.filaId,
-          id:atendimento.id,
-          pacienteId: atendimento.pacienteId,
-          medicoId: atendimento.medicoId,
-          grauDeEmergencia: atendimento.grauDeEmergencia,
-          dataChegada: atendimento.dataChegada,
-          statusDeAtendimento: !atendimento.statusDeAtendimento
+      var obj = {
+        filaId: atendimento.filaId,
+        id: atendimento.id,
+        pacienteId: atendimento.pacienteId,
+        medicoId: atendimento.medicoId,
+        grauDeEmergencia: atendimento.grauDeEmergencia,
+        dataChegada: atendimento.dataChegada,
+        statusDeAtendimento: !atendimento.statusDeAtendimento
       };
       fila.put(obj).then(res => {
         this.buscarAtendimentosFila();

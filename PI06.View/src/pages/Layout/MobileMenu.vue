@@ -13,16 +13,6 @@
       </a>
     </li>
     <li>
-      <drop-down>
-        <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
-          <i class="material-icons">notifications</i>
-          <span class="notification">5</span>
-          <p>Notificaçao</p>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-right"></ul>
-      </drop-down>
-    </li>
-    <li>
       <a href="#" data-toggle="dropdown" class="dropdown-toggle">
         <i class="material-icons">person</i>
         <p>Profile</p>
