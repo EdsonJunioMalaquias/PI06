@@ -6,32 +6,24 @@
     :style="sidebarStyle"
   >
     <div class="logo">
-      <a href="#" class="simple-text logo-mini">
+      <a href target="_self" class="simple-text logo-mini">
         <div class="logo-img">
-          <img :src="imgLogo" alt="" />
+          <img :src="imgLogo" alt />
         </div>
       </a>
 
-      <a
-        href=""
-        target="_blank"
-        class="simple-text logo-normal"
-      >
-        {{ title }}
-      </a>
+      <a href target="_self" class="simple-text logo-normal">{{ title }}</a>
     </div>
     <div class="sidebar-wrapper">
       <slot name="content"></slot>
       <md-list class="nav">
-        
         <slot>
           <sidebar-link
             v-for="(link, index) in sidebarLinks"
             :key="link.name + index"
             :to="link.path"
             :link="link"
-          >
-          </sidebar-link>
+          ></sidebar-link>
         </slot>
       </md-list>
     </div>
@@ -47,7 +39,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "COntrole Medico"
+      default: "Med Life"
     },
     backgroundImage: {
       type: String,

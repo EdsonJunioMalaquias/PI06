@@ -3,14 +3,11 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import ListaEspera from "@/pages/ListaEspera.vue";
 import Usuario from "@/pages/Usuario.vue";
 
-import Notifications from "@/pages/Notifications.vue";
 import Consulta from "@/pages/NewConsulta.vue";
 
-import CadastroPessoa from "@/pages/UserProfile/CadastroPessoaForm.vue"
+import CadastroPessoa from "@/pages/UserProfile/CadastroPessoaForm.vue";
 
-import Busca from "@/pages/Busca.vue"
-
-import Relatorio from "@/pages/Relatorio.vue"
+import Relatorio from "@/pages/Relatorio.vue";
 const routes = [
   {
     path: "/",
@@ -29,30 +26,19 @@ const routes = [
       },
       {
         path: "usuario",
-        name: "Usuarios",
+        name: "Funcionários",
         component: Usuario
       },
       {
-        path: "notifications",
-        name: "Notificaçoes",
-        component: Notifications
-      },
-      {
         path: "cadastropessoa",
-        name: "Cadastropessoa",
+        name: "Cadastro de Pessoas",
         component: CadastroPessoa
       },
       {
-        path: "busca",
-        name: "Busca",
-        component: Busca
-      },
-      {
-        path: 'relatorio',
-        name: 'Relatorio',
+        path: "relatorio",
+        name: "Relatório",
         component: Relatorio
       }
-
     ]
   }
 ];

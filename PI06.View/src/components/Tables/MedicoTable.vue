@@ -9,6 +9,7 @@
          <md-table-cell md-label="RG">{{ item.pessoa.rg }}</md-table-cell>
         <md-table-cell md-label="CRM">{{ item.conselho.numeroConselho }}</md-table-cell>
         
+        
       </md-table-row>
     </md-table>
   </div>

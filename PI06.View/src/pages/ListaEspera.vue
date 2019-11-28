@@ -4,28 +4,60 @@
       <div class="md-layout-item md-small-size-100 md-size-75">
         <md-card>
           <md-card-header data-background-color="green">
-              <h4 class="title">Lista de Espera de Pacientes</h4>
-              <md-switch class="switch" v-model="filterValue">Filtrar Pacientes Atendidos</md-switch>
+            <h4 class="title">Lista de Espera de Pacientes</h4>
+            <md-switch class="switch" v-model="filterValue">
+              Filtrar Pacientes Atendidos
+            </md-switch>
           </md-card-header>
           <md-card-content>
             <div>
               <div>
-                <md-table v-model="filteredList" :table-header-color="tableHeaderColor">
+                <md-table
+                  v-model="filteredList"
+                  :table-header-color="tableHeaderColor"
+                >
                   <md-table-row slot="md-table-row" slot-scope="{ item }">
-                    <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
-                    <md-table-cell md-label="Nome">{{ item.paciente.pessoa.nome }}</md-table-cell>
-                    <md-table-cell md-label="Medico">{{ item.medico.pessoa.nome }}</md-table-cell>
-                    <md-table-cell
-                      md-label="Data de Chegada"
-                    >{{ recebeDateTimeERetornaSomenteODate(item.dataChegada) }}</md-table-cell>
-                    <md-table-cell
-                      md-label="Hora de Chegada"
-                    >{{ recebeDateTimeERetornaSomenteOTime(item.dataChegada) }}</md-table-cell>
-                    <md-table-cell md-label="Grau de Emergencia">{{ item.grauDeEmergencia }}</md-table-cell>
+                    <md-table-cell md-label="ID">
+                      {{ item.id }}
+                    </md-table-cell>
+                    <md-table-cell md-label="Nome">
+                      {{ item.paciente.pessoa.nome }}
+                    </md-table-cell>
+                    <md-table-cell md-label="Médico">
+                      {{ item.medico.pessoa.nome }}
+                    </md-table-cell>
+                    <md-table-cell md-label="Data de Chegada">
+                      {{ recebeDateTimeERetornaSomenteODate(item.dataChegada) }}
+                    </md-table-cell>
+                    <md-table-cell md-label="Hora de Chegada">
+                      {{ recebeDateTimeERetornaSomenteOTime(item.dataChegada) }}
+                    </md-table-cell>
+                    <md-table-cell md-label="Grau de Emergência">
+                      <div v-if="item.grauDeEmergencia == 1">
+                        Emergência
+                      </div>
+                      <div v-else-if="item.grauDeEmergencia == 2">
+                        Muito Urgente
+                      </div>
+                      <div v-else-if="item.grauDeEmergencia == 3">
+                        Urgente
+                      </div>
+                      <div v-else-if="item.grauDeEmergencia == 4">
+                        Pouco Urgente
+                      </div>
+                      <div v-else-if="item.grauDeEmergencia == 5">
+                        Não Urgente
+                      </div>
+                      <div v-else>
+                        Não Cadastrado
+                      </div>
+                    </md-table-cell>
                     <md-button
                       @click.prevent="mudarStatusAtendimento(item)"
                       class="md-raised md-success"
-                    >Mudar</md-button>
+                    >
+                      Mudar
+                    </md-button>
                   </md-table-row>
                 </md-table>
               </div>
@@ -45,18 +77,29 @@
               <div class="md-layout-item">
                 <md-field>
                   <label for="CPF">CPF</label>
-                  <md-input type="text" v-model="cpf" id="CPF" v-mask="'###.###.###-##'"></md-input>
+                  <md-input
+                    type="text"
+                    v-model="cpf"
+                    id="CPF"
+                    v-mask="'###.###.###-##'"
+                  />
                 </md-field>
               </div>
               <div class="md-layout-item">
                 <md-field>
-                  <label>Medico</label>
-                  <md-select v-model="idSelectedMedico" name="medico" id="medico">
+                  <label>Médico</label>
+                  <md-select
+                    v-model="idSelectedMedico"
+                    name="Médico"
+                    id="Médico"
+                  >
                     <md-option
                       v-for="item in this.medicos"
                       :key="item.id"
                       :value="item.id"
-                    >{{ item.pessoa.nome }}</md-option>
+                    >
+                      {{ item.pessoa.nome }}
+                    </md-option>
                   </md-select>
                 </md-field>
               </div>
@@ -64,7 +107,11 @@
               <div class="md-layout-item">
                 <md-field>
                   <label>Grau de Emergência</label>
-                  <md-select name="GrauEmergencia" v-model="grauEmergencia" id="GrauEmergencia">
+                  <md-select
+                    name="GrauEmergencia"
+                    v-model="grauEmergencia"
+                    id="GrauEmergencia"
+                  >
                     <md-option value="1">Emergência</md-option>
                     <md-option value="2">Muito Urgente</md-option>
                     <md-option value="3">Urgente</md-option>
@@ -74,10 +121,24 @@
                 </md-field>
               </div>
             </div>
-            <md-button
-              @click.prevent="cadastrarAtendimento()"
-              class="md-raised md-success buton"
-            >Adicionar Paciente a Fila</md-button>
+            <div class="md-layout">
+              <div class="md-layout-item md-small-size-100 md-size-100">
+                <md-button
+                  @click.prevent="cadastrarAtendimento()"
+                  class="md-raised md-success buton"
+                >
+                  Adicionar na Fila
+                </md-button>
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-100">
+                <md-button
+                  to="/cadastroPessoa"
+                  class="md-raised md-success buton"
+                >
+                  Novo Paciente
+                </md-button>
+              </div>
+            </div>
           </md-card-content>
         </md-card>
       </div>
@@ -90,7 +151,7 @@ import fila from "../../services/fila.js";
 import paciente from "../../services/paciente.js";
 import funcionario from "../../services/funcionario.js";
 import moment from "moment";
-import _ from 'lodash';
+import _ from "lodash";
 
 export default {
   name: "ordered-table",
@@ -105,25 +166,12 @@ export default {
       let result = this.users;
 
       const filter = atendimento =>
-          atendimento.statusDeAtendimento
-            .toString()
-            .toLowerCase()
-            .includes(this.filterValue.toString().toLowerCase())
-        ;
-      return _.orderBy(result.filter(filter), 'grauDeEmergencia');  
+        atendimento.statusDeAtendimento
+          .toString()
+          .toLowerCase()
+          .includes(this.filterValue.toString().toLowerCase());
+      return _.orderBy(result.filter(filter), "grauDeEmergencia");
     }
-    /*filteredList() {
-      let result = this.users;
-      if (!this.filterValue) {
-        return result;
-      }
-      return this.result.filter(atendimento => {
-        return atendimento.statusDeAtendimento
-            .toString()
-            .toLowerCase()
-            .includes(this.filterValue.toString().toLowerCase());
-      });
-    }*/
   },
   data() {
     return {
@@ -160,25 +208,24 @@ export default {
         this.grauEmergencia == ""
       ) {
         console.error(
-          "Preencha o Campo CPF, e selecione o medico e o grau de Emergencia"
+          "Preencha o Campo CPF, e selecione o medico e o grau de Emergência"
         );
         return;
       }
       this.getIdPaciente();
     },
     mudarStatusAtendimento(atendimento) {
-        var obj = {
-          filaId:atendimento.filaId,
-          id:atendimento.id,
-          pacienteId: atendimento.pacienteId,
-          medicoId: atendimento.medicoId,
-          grauDeEmergencia: atendimento.grauDeEmergencia,
-          dataChegada: atendimento.dataChegada,
-          statusDeAtendimento: !atendimento.statusDeAtendimento
+      var obj = {
+        filaId: atendimento.filaId,
+        id: atendimento.id,
+        pacienteId: atendimento.pacienteId,
+        medicoId: atendimento.medicoId,
+        grauDeEmergencia: atendimento.grauDeEmergencia,
+        dataChegada: atendimento.dataChegada,
+        statusDeAtendimento: !atendimento.statusDeAtendimento
       };
-      fila.put(obj).then(res => {
-        this.buscarAtendimentosFila();
-      });
+      fila.put(obj).then();
+      this.buscarAtendimentosFila();
     },
     getIdPaciente() {
       paciente.getByCpf(this.cpf).then(res => {
@@ -196,9 +243,8 @@ export default {
         dataChegada: data2,
         statusDeAtendimento: false
       };
-      fila.post(obj).then(res => {
-        this.buscarAtendimentosFila();
-      });
+      fila.post(obj).then();
+      this.buscarAtendimentosFila();
     },
     buscarFuncionarioPeloCargo() {
       funcionario.getbyCargo("Médico").then(res => {

@@ -4,30 +4,14 @@
       <nav>
         <ul>
           <li>
-            <a href="">TESTE</a>
-          </li>
-          <li>
-            <a href="">
-              Sobre nos
-            </a>
-          </li>
-          <li>
-            <a href="">
-              TESTE
-            </a>
-          </li>
-          <li>
-            <a href="">
-              TESTE
-            </a>
+            <a href>Sobre nos</a>
           </li>
         </ul>
       </nav>
       <div class="copyright text-center">
         &copy; {{ new Date().getFullYear() }}
-        <a href="" target=""
-          >Malaquias </a
-        >, made with <i class="fa fa-heart heart"></i> 
+        <a href target>PI06</a>
+        <i class="fa fa-heart heart"></i>
       </div>
     </div>
   </footer>
