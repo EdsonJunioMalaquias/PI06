@@ -22,7 +22,9 @@
               <md-button
                 @click.prevent="buscarPacientePeloCPF()"
                 class="md-raised md-success"
-              >Buscar</md-button>
+              >
+                Buscar
+              </md-button>
             </div>
           </md-card-content>
         </md-card>
@@ -43,11 +45,21 @@
               <md-card-content>
                 <md-field>
                   <label for="Nome">Nome</label>
-                  <md-input type="text" id="Nome" readonly :value="resultadosPessoais.nome" />
+                  <md-input
+                    type="text"
+                    id="Nome"
+                    readonly
+                    :value="resultadosPessoais.nome"
+                  />
                 </md-field>
                 <md-field>
                   <label for="sus">SUS:</label>
-                  <md-input type="number" id="sus" readonly :value="resultadosPessoais.sus" />
+                  <md-input
+                    type="number"
+                    id="sus"
+                    readonly
+                    :value="resultadosPessoais.sus"
+                  />
                 </md-field>
                 <md-field>
                   <label>Idade</label>
@@ -70,37 +82,50 @@
                       v-for="item in this.ListaExames"
                       :key="item.id"
                       :value="item.id"
-                    >{{ item.descricao }}</md-option>
+                    >
+                      {{ item.descricao }}
+                    </md-option>
                   </md-select>
                 </md-field>
 
                 <md-field>
                   <label>Resultado</label>
-                  <md-input type="text" placeholder="Resultado" v-model="resultado" required />
+                  <md-input
+                    type="text"
+                    placeholder="Resultado"
+                    v-model="resultado"
+                    required
+                  />
                   <span class="md-error">Campo Obrigatorio!</span>
                 </md-field>
 
                 <md-button
                   v-on:click.prevent="AdicionarExame()"
                   class="md-raised md-success"
-                >Adcionar Exame</md-button>
+                >
+                  Adcionar Exame
+                </md-button>
                 <br />
                 <br />
                 <h4>Exames Incluidos</h4>
                 <ul>
                   <li v-for="item in exames" :key="item.id">
                     {{ item.id }} - {{ item.resultado }} -
-                    <span
-                      @click.prevent="RemoverExame(item.id)"
-                    >Remover -</span>
-                    <span @click.prevent="EditarExame(item.id, item.resultado)">Editar</span>
+                    <span @click.prevent="RemoverExame(item.id)">
+                      Remover -
+                    </span>
+                    <span @click.prevent="EditarExame(item.id, item.resultado)">
+                      Editar
+                    </span>
                   </li>
                 </ul>
 
                 <md-button
                   @click.prevent="CadastrarConsulta()"
                   class="md-raised md-success"
-                >Cadastrar Consulta</md-button>
+                >
+                  Cadastrar Consulta
+                </md-button>
 
                 <md-snackbar
                   md-position="center"
@@ -109,7 +134,9 @@
                   md-persistent
                 >
                   <span>{{ error }}</span>
-                  <md-button class="md-primary" @click="showSnackbar = false">Fechar</md-button>
+                  <md-button class="md-primary" @click="showSnackbar = false">
+                    Fechar
+                  </md-button>
                 </md-snackbar>
               </md-card-content>
             </md-card>
@@ -125,14 +152,27 @@
 
             <md-card-content>
               <div class="search-wrapper">
-                <input type="text" v-model="search" placeholder="Search title.." />
+                <input
+                  type="text"
+                  v-model="search"
+                  placeholder="Search title.."
+                />
                 <label>Search title:</label>
               </div>
 
               <div>
-                <div class="card-style" v-for="item of filteredList" :key="item.id">
-                  <div v-for="procedimento of item.procedimentos" :key="procedimento.id">
-                    <div class="md-title">{{ procedimento.tipoProcedimento.descricao }}</div>
+                <div
+                  class="card-style"
+                  v-for="item of filteredList"
+                  :key="item.id"
+                >
+                  <div
+                    v-for="procedimento of item.procedimentos"
+                    :key="procedimento.id"
+                  >
+                    <div class="md-title">
+                      {{ procedimento.tipoProcedimento.descricao }}
+                    </div>
                     <h4>{{ procedimento.tipoProcedimento.descricao }}</h4>
                     <div>
                       <p>Médico:{{ item.funcionarioMedico.pessoa.nome }}</p>
@@ -149,9 +189,15 @@
                         <md-table-head>Resultado Referência</md-table-head>
                       </md-table-row>
                       <md-table-row>
-                        <md-table-cell>{{ procedimento.exame.tipoExame.descricao }}</md-table-cell>
-                        <md-table-cell>{{ procedimento.exame.resultado }}</md-table-cell>
-                        <md-table-cell>{{ procedimento.exame.tipoExame.resultadoReferencia }}</md-table-cell>
+                        <md-table-cell>
+                          {{ procedimento.exame.tipoExame.descricao }}
+                        </md-table-cell>
+                        <md-table-cell>
+                          {{ procedimento.exame.resultado }}
+                        </md-table-cell>
+                        <md-table-cell>
+                          {{ procedimento.exame.tipoExame.resultadoReferencia }}
+                        </md-table-cell>
                       </md-table-row>
                     </md-table>
                   </div>
@@ -213,11 +259,6 @@ export default {
       resultado: "",
       dateNow: "",
       idade: 0,
-      /*peso: 0,
-				altura:0,
-				protManchester: 0,
-				precao:0,
-				batcardia:0,*/
       textarea: "",
       exames: [],
       observacao: ""

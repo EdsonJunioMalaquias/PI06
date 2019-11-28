@@ -17,7 +17,11 @@
 
         <div class="md-collapse">
           <div class="md-autocomplete">
-            <md-autocomplete class="search" v-model="selectedEmployee" :md-options="employees">
+            <md-autocomplete
+              class="search"
+              v-model="selectedEmployee"
+              :md-options="employees"
+            >
               <label>Pesquisar</label>
             </md-autocomplete>
           </div>
