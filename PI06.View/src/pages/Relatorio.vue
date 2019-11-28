@@ -4,23 +4,18 @@
       <md-card>
 
         <md-card-header data-background-color="green">
-          <h4 class="title">Relatorio</h4>
-          <p class="category">Relatorio dos Medicos</p>
+          <h4 class="title">Relatório</h4>
+          <p class="category">Relatorio dos Médicos</p>
         </md-card-header>
 
         <md-card-content >
 
-          <md-field id="editor" ref="editor"
-            >
+          <md-card-media>
            <iframe 
-           v-if="loaded"
-            :src="iframe.src"
-            :style="iframe.style"
-            :height="iframe.style.height"
-            :width="iframe.style.width"
-            frameborder="0" >
+            src= "https://app.powerbi.com/view?r=eyJrIjoiZmI0YTZlZjItMTU3MC00NGE0LThmZDctOWFjZjM0YzBjNmQ1IiwidCI6IjNiYjVlMmZkLWRmMTYtNDVhOC1iMGE3LTcwOTY3ZjNjNmQ4MiJ9"
+            >
             </iframe>
-          </md-field>
+          </md-card-media>
 
           
           
@@ -33,40 +28,55 @@
     
   </div>
 </template>
+<style>
+.md-list-item-text{
+  position:unset !important;
+}
+.md-card-media{
+  width: 100% !important;
+  height: 100% !important;
+}
+iframe{
+  height: 425px !important;
+  width: 1000px !important;
+}
+.explorationContainer .exploreCanvas .canvasFlexBox .displayAreaContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.explorationContainer .exploreCanvas .canvasFlexBox .displayAreaContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.explorationContainer .exploreCanvas .canvasFlexBox .displayAreaContainer .displayArea {
+    width: 100%;
+    height: 1000%;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.explorationContainer .exploreCanvas .backgroundContainer.outspaceContainer {
+    height: 1000px;
+    width: 100%;
+}
 
+</style>       
 <script>
 export default {
   data() {
     return {
       loaded: false,
       iframe: {
-        src:"https://app.powerbi.com/view?r=eyJrIjoiZmI0YTZlZjItMTU3MC00NGE0LThmZDctOWFjZjM0YzBjNmQ1IiwidCI6IjNiYjVlMmZkLWRmMTYtNDVhOC1iMGE3LTcwOTY3ZjNjNmQ4MiJ9" ,
-        style: null,
-        wrapperStyle: null,
+       
       }
     }
   },
   mounted() {
-    let editor = this.$refs.editor;
-    this.iframe.style = {
-      position: 'absolute',
-      width: window.innerWidth,
-      height: window.innerHeight,
-      top: -editor.offsetTop + "px",
-      left: -editor.offsetLeft + "px",
-    }    
-    this.iframe.wrapperStyle = {
-      overflow: 'hidden',
-      height: editor.clientHeight + "px",
-      width: editor.clientWidth + "px",
-    } 
-    this.loaded = true;
+   
   }
 }
 </script>
 
-<style>
-.md-list-item-text{
-  position:unset !important;
-}
-</style>
+                   
